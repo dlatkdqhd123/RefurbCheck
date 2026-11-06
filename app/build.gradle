@@ -1,0 +1,16 @@
+apply plugin: 'com.android.application'
+android {
+    namespace 'io.github.dlatkdqhd123.refurbcheck.prototype'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'io.github.dlatkdqhd123.refurbcheck.prototype'
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName '0.1.0-prototype'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
