@@ -1,0 +1,1872 @@
+[
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hdb.android",
+    "line": 259,
+    "raw": "9e675b3f637cb92cc46af7ec20ea21c7:278836:Andr.Adware.Zdtad-33"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hdb.android",
+    "line": 262,
+    "raw": "5ec727434f1013e5ca653048d0682769:38191:Andr.Adware.Webim-1"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hdb.android",
+    "line": 264,
+    "raw": "72d81ae76be9f06063f83be7e07fe689:5451008:Andr.Tool.Anti-32"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hdb.android",
+    "line": 268,
+    "raw": "4ab47132d9a05f85dd19978a8cc47807:1085666:Andr.Adware.Hiddenads-591"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hdb.android",
+    "line": 269,
+    "raw": "e4accab91f621b0a4bc865a4ad94c82c:1715445:Andr.Tool.Smsreg-264"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hdb.android",
+    "line": 279,
+    "raw": "d5a25d558217073f322a40b350192876:1705522:Andr.Tool.Smsreg-285"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2329,
+    "raw": "765c3b3400ef4081bd4666120371df24:346357:Andr.Adware.Hiddenapp-434:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2330,
+    "raw": "87c8ecd7f8bfac7fb573d8e0cfd01e83:343777:Andr.Adware.Hiddenapp-435:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2331,
+    "raw": "838571d3fa76bc26077a5413166557fd:1011650:Andr.Adware.Hiddenads-906:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2332,
+    "raw": "9ac53b83d95c48477eab69b36f96fdcc:343836:Andr.Adware.Hiddenapp-436:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2336,
+    "raw": "f3baf888cd47bf8f70880fb67e4d350f:653952:Andr.Adware.Dowgin-2043:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2341,
+    "raw": "155a5d2b6be9a64ba3812d0f6fe871c6:4126780:Andr.Adware.Ginmaster-89:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2342,
+    "raw": "51e4a5ab0f957bff8be1807ea6c7bed5:366712:Andr.Adware.Kmin-18:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2348,
+    "raw": "dbc4f6c2fee44e0231d71a16dabf980a:1259114:Andr.Adware.Plankton-119:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2350,
+    "raw": "a5abc2fe4f5e2de4a1f3101051167951:1855682:Andr.Adware.Smspay-4945:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2358,
+    "raw": "eeb811791e9104d821221b449deb701f:1011646:Andr.Adware.Hiddenads-997:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2368,
+    "raw": "3ee7e910b539838e709a913beaff1826:3605744:Andr.Adware.Ginmaster-164:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2372,
+    "raw": "2ff26b3c9002a7072c92e5abacb17aa0:2065894:Andr.Adware.Plankton-208:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2373,
+    "raw": "da7a0bd1ea152433064d4877023e343b:633476:Andr.Adware.Dowgin-2252:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2375,
+    "raw": "f44f85ea786344a640899825079e9eca:602820:Andr.Adware.Dowgin-2287:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2383,
+    "raw": "018e93868eb54285fdd95c6c6feb12d1:1518034:Andr.Tool.Shedun-4180:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2385,
+    "raw": "1f31660414d7e7419fa5e98b6703b0be:1219470:Andr.Adware.Plankton-243:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2386,
+    "raw": "d7aae9b482533496b81505ba15c673b6:693673:Andr.Adware.Noiconads-6:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2390,
+    "raw": "ced6471d4d6d5ddbab05c09bf57caf05:339320:Andr.Adware.Hiddenapp-497:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2392,
+    "raw": "7a41bfac75b6aaee8bd675990a9dd661:2672173:Andr.Adware.Fakeapp-717:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2395,
+    "raw": "dfb3cb20b8fb75d32b55f8e14c42daf8:24211839:Andr.Adware.Leadbolt-4:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2396,
+    "raw": "b232b30dd521661b9ab420a98c563972:629668:Andr.Adware.Dowgin-2376:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2398,
+    "raw": "7c85071ef325e2f8ae74f23b9202b593:2332283:Andr.Tool.Shedun-4447:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2399,
+    "raw": "3d3c58972e010b974199ad23842d0186:2283779:Andr.Tool.Shedun-4528:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2400,
+    "raw": "b4842f129228c539ec3ef8af63a2b0b3:1028755:Andr.Tool.Mobilepay-729:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2404,
+    "raw": "ef0fa8874aed637ea63fffa7e4aa8c91:653920:Andr.Adware.Dowgin-2477:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2405,
+    "raw": "7dafd0301917ac25dbbca7171704d054:1718441:Andr.Tool.Smsreg-5306:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2418,
+    "raw": "9d9e161c6e5fbc5001ce40e2794632f9:660527:Andr.Adware.Shedun-4717:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2422,
+    "raw": "9fddedf709974670a6e25bbab92e99ef:1654697:Andr.Tool.Skymobi-2035:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2423,
+    "raw": "3b60e2b66de007aeb82e8e5dbba4eb5c:2334918:Andr.Tool.Shedun-4912:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2424,
+    "raw": "4b44d3ec9fa91d16236320f1cdc25932:337155:Andr.Adware.Hiddenapp-575:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2425,
+    "raw": "f1975d70f66919d324acc3e55592abc3:2283816:Andr.Tool.Shedun-4921:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2428,
+    "raw": "7024ac61f6a49cb953796a9ed4f1272a:672461:Andr.Adware.Dowgin-2731:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2429,
+    "raw": "de37e0f494be7d16436acfcacb538d67:639566:Andr.Adware.Dowgin-2745:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2433,
+    "raw": "0dadeefecded0921aa29762731f61c19:576471:Andr.Adware.Zdtad-277:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2437,
+    "raw": "9ee9824dc5628b9764d59c98d1247961:2283785:Andr.Tool.Skymobi-2210:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2438,
+    "raw": "1bc2a7d2f62c8124a262cbb827614bb2:622546:Andr.Adware.Dowgin-2799:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2440,
+    "raw": "383bfd3f6ac735d190b618330a72e07e:1011650:Andr.Adware.Hiddenads-1366:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2441,
+    "raw": "3125613b8b33307529c98f4708b60e90:1011654:Andr.Adware.Hiddenads-1368:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2442,
+    "raw": "686add9af991a5b499315f4c31847854:576747:Andr.Adware.Zdtad-420:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2443,
+    "raw": "63bd02d9085872958ee6dcf47d19353f:1011646:Andr.Adware.Hiddenads-1370:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2447,
+    "raw": "e1eb1234ab337345993081b94612265c:1869384:Andr.Adware.Zdtad-480:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2448,
+    "raw": "8e4a769f1446726992560e031ece28a4:673887:Andr.Adware.Dowgin-2820:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2454,
+    "raw": "28e7d7c515a0d6ae0a549da2c004035d:1011650:Andr.Adware.Hiddenads-1387:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2458,
+    "raw": "53ed2039789a7c65ce824406253a8320:335255:Andr.Adware.Hiddenapp-617:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2465,
+    "raw": "8f2734f5af4d1fd8405234689ff054f7:643771:Andr.Adware.Dowgin-2890:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2467,
+    "raw": "d853ef800ef38f228bae9d39ab959686:4922845:Andr.Tool.Smsreg-5937:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2470,
+    "raw": "9bfcf3d3a2f2b7d6e94b0db5802d0b69:1869364:Andr.Adware.Zdtad-648:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2471,
+    "raw": "e4b120d84bcd81681aa1a782c0407bcc:653840:Andr.Adware.Dowgin-2901:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2473,
+    "raw": "36fcedb6d8d2f1141f88b80903b0547d:1301889:Andr.Tool.Mobilepay-961:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2475,
+    "raw": "574511f0fe0d75ad439beafc85204f35:1868672:Andr.Adware.Zdtad-657:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2481,
+    "raw": "ca9f5faabb3744b26a21886946be765b:1674491:Andr.Tool.Smspay-7848:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2482,
+    "raw": "680cafe3b5844f28b4b801d89f3d5fee:576787:Andr.Adware.Zdtad-805:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2483,
+    "raw": "19625dd221dda1220c8ca61f020942f6:1550346:Andr.Adware.Hiddenads-1419:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2488,
+    "raw": "a1097502d38c9b3378721aea411f5c91:627409:Andr.Adware.Dowgin-3090:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2491,
+    "raw": "a01f26f823ab5188fe1a1f1e1c692edb:1011650:Andr.Adware.Hiddenads-1425:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2495,
+    "raw": "e96121a300cdc4446368ac5bfd9dc7f1:1011650:Andr.Adware.Hiddenads-1429:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2496,
+    "raw": "b2388d9762d50810dd1790866339897d:1868856:Andr.Adware.Zdtad-908:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2498,
+    "raw": "6118bf3d639e3e393a39be056b369bc6:1011666:Andr.Adware.Hiddenads-1431:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2500,
+    "raw": "3b8c89e5231740776550e05877c3099d:4804229:Andr.Tool.Smsreg-6261:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2507,
+    "raw": "2a9515e60ddbd66d944468ca0a10ce6b:2311362:Andr.Tool.Skymobi-2740:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2513,
+    "raw": "ac68c059185d5ee35ce3f8edbcc0ff5a:23109557:Andr.Adware.Mulad-189:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2516,
+    "raw": "a5a459a0fe4d9c4c47480d73f4478601:629136:Andr.Adware.Dowgin-3213:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2518,
+    "raw": "abbd95fa9d7d0190ac85b68b5c31dab0:2574563:Andr.Adware.Dowgin-3225:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2520,
+    "raw": "7aab8583ee61bd51f23470b39b6a8e3f:10953341:Andr.Adware.Mobidash-59:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2530,
+    "raw": "99adecb7909413ff2a01cc00bb4bb61a:1882487:Andr.Adware.Hiddenads-1452:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2533,
+    "raw": "f038aecb1a6d9644b91c74ef59bc0d89:2299836:Andr.Tool.Skymobi-2878:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2534,
+    "raw": "a55c716a0a1b40adc3531cd0d4b08b17:1290104:Andr.Tool.Mobilepay-1063:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2536,
+    "raw": "198fbcbc060f24a32e7b44b540a52740:1869496:Andr.Adware.Zdtad-943:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2541,
+    "raw": "e973147e7aef632ec3cbd79bd1afed93:13210496:Andr.Tool.Smsreg-6500:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2546,
+    "raw": "e94edf7f8e523a7c823365f2e324a278:1675345:Andr.Tool.Smspay-8281:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2549,
+    "raw": "c1077ff6c621086fcd076b7d947b3c30:576799:Andr.Adware.Zdtad-987:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2552,
+    "raw": "7863914cac01429bb1648151982e3f09:576739:Andr.Adware.Zdtad-1008:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2557,
+    "raw": "53b7ff6f3a31917d013d2927f6ef0b60:1869444:Andr.Adware.Zdtad-1039:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2558,
+    "raw": "3b25d0bfa6bd7709757a3b30c95537d7:622023:Andr.Adware.Dowgin-3285:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2559,
+    "raw": "0047575fee7409197feeb8bb932b10bb:640794:Andr.Adware.Dowgin-3292:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2560,
+    "raw": "bea1feb4b895b46987018fad0e2f4599:260133:Andr.Packed.Bankbot-46:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2565,
+    "raw": "476155cc18647e633b4881804f00df63:2283814:Andr.Tool.Skymobi-3037:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2566,
+    "raw": "e83c2d677bd5250bc746a8ca6bc0910c:1028755:Andr.Tool.Mobilepay-1091:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2567,
+    "raw": "459681f0e3bafbc1da12a0991764fd6c:1717629:Andr.Tool.Shedun-6411:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2571,
+    "raw": "5163c6c5c94ab008ff9fae4d35242222:654933:Andr.Adware.Dowgin-3328:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2572,
+    "raw": "bcee2475256ad27b627cf72063327da5:1869408:Andr.Adware.Zdtad-1111:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2574,
+    "raw": "b61d21f392d3412a8828db58fb7e7897:576783:Andr.Adware.Zdtad-1121:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2576,
+    "raw": "2055a3843ca82606edcd2057c1fbdb9e:1118114:Andr.Adware.Hiddenads-1465:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2580,
+    "raw": "7b86f7615eaaef323df4adff131478af:1868888:Andr.Adware.Zdtad-1162:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2581,
+    "raw": "7e97c01262dbfecb5834832f44301e1c:639570:Andr.Adware.Dowgin-3371:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2582,
+    "raw": "33488496e9d341a208aea54dd313199b:576683:Andr.Adware.Zdtad-1184:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2584,
+    "raw": "ba716152086a567cfd2be6547d5c8680:1869520:Andr.Adware.Zdtad-1194:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2585,
+    "raw": "004081c702ff26b9c33d5f612eb2a7c3:1869024:Andr.Adware.Zdtad-1200:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2586,
+    "raw": "14616ef22e822aeac3b42b3fc09d8b40:629278:Andr.Adware.Dowgin-3393:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2590,
+    "raw": "e74b3bec76169aa796b47bd55a8a0b66:1869148:Andr.Adware.Zdtad-1317:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2598,
+    "raw": "6c0629b6549318fe249d33b33a43f2b0:654953:Andr.Adware.Dowgin-3435:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2599,
+    "raw": "8e6886a4ac321e76388c525ffedb76a8:1868916:Andr.Adware.Zdtad-1363:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2600,
+    "raw": "2d8161e2b4a1acdd301fda46e3e4443c:576735:Andr.Adware.Zdtad-1365:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2601,
+    "raw": "74cc710eae36c1c079a6a0ebc05f5aa9:1301903:Andr.Tool.Mobilepay-1136:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2602,
+    "raw": "ad54df7408968087fa07f97a8e4888c1:576763:Andr.Adware.Zdtad-1419:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2605,
+    "raw": "730d6c800640ab38bc9591b5bce2edd3:1869464:Andr.Adware.Zdtad-1458:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2606,
+    "raw": "0c65ac3b3d5031db42ccb5565e4f75c4:1869440:Andr.Adware.Zdtad-1489:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2607,
+    "raw": "5699d7d7aae8d994c42568e000d58b3b:576743:Andr.Adware.Zdtad-1493:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2608,
+    "raw": "614557dec87ead7f6004e6d15bb3980b:576735:Andr.Adware.Zdtad-1537:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2610,
+    "raw": "3e8e1b1d13100c0dd2125e24b4f2111e:576759:Andr.Adware.Zdtad-1567:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2611,
+    "raw": "dc67000d19c99d10de8036b14684f13b:1869460:Andr.Adware.Zdtad-1605:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2612,
+    "raw": "82bf6fc493210deb82fee8e15d31839b:654885:Andr.Adware.Zdtad-1640:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2617,
+    "raw": "58d2e30cb32ef2de1e73c2f696760800:172292:Andr.Adware.Mseg-5300449-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2619,
+    "raw": "a2725e450bbfa9845aabc1cad7b34082:576747:Andr.Adware.Zdtad-5303211-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2633,
+    "raw": "348f6d9870f217f9c99324b8ac9fb382:576763:Andr.Adware.Zdtad-5312408-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2634,
+    "raw": "405c058d8afa47c9fb9a00cc16c9b4f0:576823:Andr.Adware.Zdtad-5313150-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2636,
+    "raw": "45ab62abf5629a600df4a4bf0f991193:576767:Andr.Adware.Zdtad-5318262-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2637,
+    "raw": "60e58867dac6dde7cbb7af22598caa64:576767:Andr.Adware.Zdtad-5318714-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2642,
+    "raw": "9ed1917d4af24d1686bf5761fc9e4136:3273214:Andr.Adware.Hiddenapp-5320034-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2646,
+    "raw": "d9d55090dbc5cd7399bda473f5a544c3:576783:Andr.Adware.Zdtad-5320227-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2647,
+    "raw": "514718dd4a46c4689941ef2c44214f28:4804228:Andr.Tool.Smsreg-5320520-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2649,
+    "raw": "414a586188707aa89a5a3102e114775e:622644:Andr.Adware.Dowgin-5323290-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2650,
+    "raw": "8d9c71e82537fbce2a0bc13904bec64f:576771:Andr.Adware.Zdtad-5323314-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2657,
+    "raw": "b3a5c4fb9210b6a8e6e8af0893868ab3:3697968:Andr.Adware.Hiddenads-5328731-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2662,
+    "raw": "21be2c9be2d7da1ebf05405f2c9cdb93:8187509:Andr.Adware.Fakeapp-5329088-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2663,
+    "raw": "f8d7f56ba75d41fd4b899e573bca869d:602599:Andr.Adware.Zdtad-5329227-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2677,
+    "raw": "e5cd073ebce2f3552ef5a0b2c78b9351:1301883:Andr.Tool.Smspay-5355256-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2678,
+    "raw": "b6688f4eda79f52fd2548744c7c3249b:1763774:Andr.Tool.Smsreg-5355344-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2682,
+    "raw": "cec139146bba829fd6d855faf9694c98:602750:Andr.Adware.Zdtad-5377609-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2688,
+    "raw": "423e0efb3364d68e84e668c1828fe4f0:4514772:Andr.Tool.Smsreg-5392353-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2689,
+    "raw": "a1616e0f26376f710e19e20c94794f6b:98286:Andr.Adware.Ewind-5392745-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2694,
+    "raw": "4716251329b6f8ddd80004f26a281264:602623:Andr.Adware.Zdtad-5402975-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2695,
+    "raw": "5d8a61e2eb735ae29109390cc0196653:155862:Andr.Adware.Ewind-5403002-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2696,
+    "raw": "80cca654b16b0080642e5aa5257b1f43:405763:Andr.Adware.Zdtad-5407602-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2698,
+    "raw": "31607a034551d877e7128f26d1fed7ac:1825950:Andr.Tool.Skymobi-5408070-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2703,
+    "raw": "301cc79a53134a4fb4b091d68b07e628:80902:Andr.Adware.Ewind-5409016-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2704,
+    "raw": "47f0fff4be010825319179e192c4f4fe:1764375:Andr.Tool.Shedun-5409075-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2705,
+    "raw": "b2225f7d96e6f11c6b02f734757619d7:4804231:Andr.Tool.Smsreg-5412739-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2706,
+    "raw": "1151bc4f7ff19468305ac9e0bd421d33:4922846:Andr.Tool.Smsreg-5413041-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2707,
+    "raw": "6f2d80db531e1c185650e37b0aba2cb1:602643:Andr.Adware.Zdtad-5413243-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2709,
+    "raw": "1ffa94da6ca2062ae7e33ba20a0797f8:138966:Andr.Adware.Ewind-5415080-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2710,
+    "raw": "a1e385943a62f7aafb114abd4b105c95:1946596:Andr.Adware.Zdtad-5415328-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2717,
+    "raw": "219626636b46e8616e7c03e18d530a7b:2257809:Andr.Tool.Skymobi-5420334-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2721,
+    "raw": "30f2d47456efdec66bc972f290296678:3209326:Andr.Adware.Dowgin-5424453-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2724,
+    "raw": "27dbf8e7102dc1a03c831fa088c2e769:1824495:Andr.Tool.Skymobi-5424801-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 2956,
+    "raw": "aab4238d657e0f08418e7f52bcf15832:4804234:Andr.Tool.Smsreg-5778703-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 3488,
+    "raw": "cd4f259ad556d52be77dd5746d7bfb66:1371590:Andr.Tool.Hiddad-5804693-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 3612,
+    "raw": "001753d834c99853a776c26d7f1c070a:2629828:Andr.Adware.Yekrand-5808129-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 3742,
+    "raw": "503b34cde0eb7d2ee80ec75560def6d7:6318979:Andr.Adware.Leadbolt-5816484-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 3782,
+    "raw": "98ae57ffab39421c279185c39bcabb37:7971358:Andr.Tool.Smspay-5818992-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 4278,
+    "raw": "9258db608045bb63f1033513b8cc6ba8:1593435:Andr.Adware.Rootnik-5881361-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 4356,
+    "raw": "d7b6a83a0a763c1456dc8ecd4b427d6a:3254405:Andr.Adware.Kyview-5884784-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 4363,
+    "raw": "955859046da58b6869af53bdae0405ae:12617056:Andr.Tool.Shuame-5886475-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 4374,
+    "raw": "c91e80c51319c6ff30e620f9c36b026f:2447524:Andr.Tool.Smsreg-5887768-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11424,
+    "raw": "773185b6010b6e62eac5ee01d82fd460:1531779:Andr.Tool.Skymobi-863:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11429,
+    "raw": "0f99400e42aa0147de5db4b11f9a9f08:2706991:Andr.Adware.Fakeapp-565:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11431,
+    "raw": "92fc519a4deb88b59c676691ecace03b:2331223:Andr.Tool.Shedun-2867:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11432,
+    "raw": "7acdd738c2f8d449ad726ceb4c976ee7:629701:Andr.Adware.Dowgin-1849:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11433,
+    "raw": "beb90ce72e09732c45ffdbe5f201947b:1011650:Andr.Adware.Hiddenads-848:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11450,
+    "raw": "671fa8a1961d663f83ae008c0f2af508:3468111:Andr.Adware.Skymobi-881:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11455,
+    "raw": "049fd57f41c809bcfd66c2a63a1b2115:3350414:Andr.Adware.Skymobi-884:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11498,
+    "raw": "9294740015b3c4d9f798ac958c221ff8:1000073:Andr.Tool.Shedun-2987:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11524,
+    "raw": "241ef4a522e62e9818be2ef3f4e164f5:3510881:Andr.Adware.Skymobi-913:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11542,
+    "raw": "e3adb37f0d4a121d224112f51c8ca6cc:1011646:Andr.Adware.Hiddenads-881:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11563,
+    "raw": "302a0ee3f6c8e971fcbefd95d323170c:1011650:Andr.Adware.Hiddenads-887:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11612,
+    "raw": "c4b6bcfbe1bbfa5fbf91fa9531204a3b:3634040:Andr.Adware.Skymobi-955:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11635,
+    "raw": "eb5543ed4590fcf8bb835297b01eee47:654949:Andr.Adware.Dowgin-1990:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11643,
+    "raw": "bba7ed2a16484d7693855f5a2567e365:1351575:Andr.Tool.Shedun-3351:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11644,
+    "raw": "19a1d11d04f88a271a3f7c38861b9083:654945:Andr.Adware.Dowgin-1994:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11654,
+    "raw": "ddc1e924189dfe490c27f9e867609da6:3339851:Andr.Adware.Skymobi-965:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11700,
+    "raw": "0b6d854edfddd827f8a649ba74ef6640:3571583:Andr.Adware.Skymobi-981:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11703,
+    "raw": "fb722ca256d1731683c6f38d8f532454:150282:Andr.Tool.Smsbomber-6:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11705,
+    "raw": "b7818d1d2138f5470f5d1ab2120fcfa7:4804233:Andr.Tool.Smsreg-4811:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11707,
+    "raw": "de9b239d0dd40266b673b3be6838a7c5:3575310:Andr.Adware.Skymobi-985:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11710,
+    "raw": "99b4f8e431ce646d5e86f91cd71a0e0b:3014914:Andr.Adware.Plankton-122:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11716,
+    "raw": "b984078075a8d114e2647d56189175bc:1011642:Andr.Adware.Hiddenads-948:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11718,
+    "raw": "6e2f1cba7f37b912fe35663b1f6c8582:654945:Andr.Adware.Dowgin-2063:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11723,
+    "raw": "9ad94b02f50f012aade468baacc722f4:334015:Andr.Adware.Hiddenapp-451:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11726,
+    "raw": "0c9a444b06ad741517c2445388336f9e:654929:Andr.Adware.Dowgin-2072:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11762,
+    "raw": "10b73c515164cd0e6b9a29f75451eca5:343761:Andr.Adware.Hiddenapp-456:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11774,
+    "raw": "25bb63ec2df919c5528eb60bf4c44aac:1011630:Andr.Adware.Hiddenads-989:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11776,
+    "raw": "ce57b386669c505a21d1f1efc3909d29:1011650:Andr.Adware.Hiddenads-990:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11786,
+    "raw": "d2f5368cb72f677da598d360461ce365:3582023:Andr.Adware.Skymobi-1060:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11797,
+    "raw": "7bfaf364645f3273315dfe8d689b3dec:678507:Andr.Adware.Shedun-3631:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11798,
+    "raw": "853063e1b772dc8fd5fe163cccce7562:1487871:Andr.Tool.Skymobi-1092:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11800,
+    "raw": "8645357580b95e331ac06911037a927a:3480249:Andr.Adware.Skymobi-1106:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11805,
+    "raw": "ece89b901e7b68d4db4e924e1d93efd9:3460065:Andr.Adware.Skymobi-1146:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11806,
+    "raw": "86dd14d67d5f24af7805f73ad8439b05:3480228:Andr.Adware.Skymobi-1152:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11807,
+    "raw": "0c0a8bb094802cd4316131cebf4275dc:3574354:Andr.Adware.Skymobi-1154:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11811,
+    "raw": "2ebfa7b02559c788dd4ad60948a9cb86:339000:Andr.Adware.Hiddenapp-466:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11814,
+    "raw": "89040fbd74ba7bc97bddf048290da652:653572:Andr.Adware.Dowgin-2211:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11818,
+    "raw": "b1066999941033d7c9c258a2ed61c575:3486921:Andr.Adware.Skymobi-1266:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11820,
+    "raw": "ea81e8a3da25d5ae69e3aa4be1e2e8f1:3468557:Andr.Adware.Skymobi-1279:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11821,
+    "raw": "4aeecfd6f179f9bfbf17baf851f35e16:3491505:Andr.Adware.Skymobi-1281:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11822,
+    "raw": "66591a0653ad03a90d8b69851f9985a1:3492257:Andr.Adware.Skymobi-1309:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11824,
+    "raw": "5d08ba3164fea646b8653b80ce9e397b:3588959:Andr.Adware.Skymobi-1315:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11825,
+    "raw": "dc49b768881dcee06f825c799ba455f4:3473344:Andr.Adware.Skymobi-1316:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11832,
+    "raw": "e84209f269e590f07ceb3f9c4c085c70:642185:Andr.Adware.Dowgin-2274:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11840,
+    "raw": "3bfc518c85b64769e609b28f3867de36:4804234:Andr.Tool.Smsreg-5081:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11841,
+    "raw": "6d4dacaf9c6bc2c514399713c674002c:526009:Andr.Adware.Zdtad-72:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11845,
+    "raw": "650d29dcf2edba7c0cc309423a5c4d66:1011650:Andr.Adware.Hiddenads-1075:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11847,
+    "raw": "e15f3449c56de3c2f14c3691180b43f0:1011650:Andr.Adware.Hiddenads-1077:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11848,
+    "raw": "7ba34396e44be73dccc4cb8aa3a860c1:347483:Andr.Adware.Hiddenapp-493:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11855,
+    "raw": "bf97505e5efa03568e22603732e8c6c6:3573544:Andr.Adware.Skymobi-1515:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11857,
+    "raw": "fcc25fcac8079079baaeee3cd63935c2:645765:Andr.Adware.Dowgin-2345:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11858,
+    "raw": "7ebcca41073667e1820ed7077b146a16:3588319:Andr.Adware.Skymobi-1552:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11859,
+    "raw": "67b827d196b9d1d206a943645c009e95:1011650:Andr.Adware.Hiddenads-1138:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11860,
+    "raw": "0223df2c28bbb28a3bf21ac27b6287d3:3629233:Andr.Adware.Skymobi-1572:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11861,
+    "raw": "a38b1addaae7e4f163ef02454ccb4865:3598927:Andr.Adware.Skymobi-1608:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11863,
+    "raw": "8cde0b815115a3b9f7268ee1783a1bb5:627203:Andr.Adware.Dowgin-2392:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11865,
+    "raw": "c711150a98e04e7cdc41a46e10c057ef:646953:Andr.Adware.Dowgin-2395:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11868,
+    "raw": "d1f6dd643b212da2e30c96adbc34049c:3510393:Andr.Adware.Skymobi-1652:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11869,
+    "raw": "213a20deb084e7cc0a82a4dd241045c7:653522:Andr.Adware.Dowgin-2420:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11871,
+    "raw": "6acdc7607cbbae27d8291bc24bbd9c87:3501914:Andr.Adware.Skymobi-1679:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11874,
+    "raw": "92291103769f01379b6f424d7120a18d:2311335:Andr.Tool.Shedun-4494:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11876,
+    "raw": "4d8fa49102cc5d6043be2c599283863c:1728731:Andr.Tool.Smspay-7052:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11878,
+    "raw": "a0ecbb7af1ccb01916ecf0d40214f28a:3514791:Andr.Adware.Skymobi-1715:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11879,
+    "raw": "7a714c001cb488977962624c9479287c:4804234:Andr.Tool.Smsreg-5312:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11882,
+    "raw": "2ada68828891fb83a2bad1860af680ab:3574807:Andr.Adware.Skymobi-1784:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11893,
+    "raw": "07c394487e54c615abe4da6e13c5d3e9:333969:Andr.Adware.Hiddenapp-531:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11897,
+    "raw": "c4f1330f469440e56d7a4cf3634b3511:5515315:Andr.Adware.Appad-4:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11905,
+    "raw": "0d79102a23074e9f44ff4d3b6ab061fc:4804233:Andr.Tool.Smsreg-5408:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11908,
+    "raw": "6a44836434f804b5bc5b9d2dd385a0a2:664714:Andr.Adware.Dowgin-2670:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11913,
+    "raw": "8926ad398265033140b197267781baa6:351116:Andr.Adware.Hiddenapp-559:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11916,
+    "raw": "942f9bbf8c6cb09641c3a5f2808457d4:3511902:Andr.Adware.Skymobi-1996:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11924,
+    "raw": "004b15a432cbc9203735067e3cf1fb31:632238:Andr.Adware.Dowgin-2760:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11926,
+    "raw": "9f79aa7c34638c11b2768aae390c3c19:3468552:Andr.Adware.Skymobi-2158:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11933,
+    "raw": "1e1a7dc81c55555d755c5f35e0bf3bb5:3577790:Andr.Adware.Skymobi-2322:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11934,
+    "raw": "501f0e31f7bc237a863e72b59c8f117f:3583953:Andr.Adware.Skymobi-2356:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11935,
+    "raw": "415a1eb53ce65aae7901479d03414b00:3581242:Andr.Adware.Skymobi-2375:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11938,
+    "raw": "79d0cd657240aea45d5abb16dc5e01d5:1011650:Andr.Adware.Hiddenads-1409:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11940,
+    "raw": "43ca1e4ddaa551188fd526ea9f562d44:644539:Andr.Adware.Dowgin-3061:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11942,
+    "raw": "882a8d7c2e81514b681a7f120a2dca1c:5516470:Andr.Adware.Dowgin-3066:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11944,
+    "raw": "836fcc484fcbd5c02390b800ad0894ee:576771:Andr.Adware.Zdtad-817:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11946,
+    "raw": "5869f501007b4cb6cb16142282f4f47a:3595556:Andr.Adware.Skymobi-2614:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11947,
+    "raw": "1571a35250993da82142f0d33403dca7:576775:Andr.Adware.Zdtad-825:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11949,
+    "raw": "b9d0b167b7816b663c7fad51b74794b8:738234:Andr.Adware.Dowgin-3075:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11951,
+    "raw": "89bf57d7e973b63f4bfe80bb08163338:3575781:Andr.Adware.Skymobi-2631:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11952,
+    "raw": "a5a85bfb013474ed0d507ed5f00a5e53:576791:Andr.Adware.Zdtad-833:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11955,
+    "raw": "8b28fe3bd83a84f64ac8ebf12a44ed39:3582268:Andr.Adware.Skymobi-2709:73"
+  },
+  {
+    "reason": "retired_by_ignore_list",
+    "file": "main.hsb.android",
+    "line": 11959,
+    "raw": "d41d8cd98f00b204e9800998ecf8427e:2257426:Andr.Malware.Android_0294-3"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11962,
+    "raw": "0b0577d40645dea207a24f9ab6e2a6fd:3571218:Andr.Adware.Skymobi-2884:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11965,
+    "raw": "76aaa8565f69d182a278af1a6f24ffcd:12644373:Andr.Tool.Smsreg-6518:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11966,
+    "raw": "019d64f7e9151c1e3d5a2bc211ca2afa:2283799:Andr.Tool.Skymobi-2931:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11968,
+    "raw": "b03357b3e487a4669eaf28d486e69cae:3564656:Andr.Adware.Skymobi-3025:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11970,
+    "raw": "cd37a4852f010035bbad3929d8dcb981:3574243:Andr.Adware.Skymobi-3053:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11971,
+    "raw": "0fb2f9226f1ee53a7e458930b375e72d:3577578:Andr.Adware.Skymobi-3088:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11972,
+    "raw": "09703727bc632ee5c00d6460aba1cae8:3592538:Andr.Adware.Skymobi-3090:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11973,
+    "raw": "3a4098ad2ac5b1c88a0f3332ea20cfb1:3584269:Andr.Adware.Skymobi-3093:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11974,
+    "raw": "079461e0ec2848d794c19ee21bc82b8a:3568546:Andr.Adware.Skymobi-3108:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11975,
+    "raw": "42a807a6df8cd34a08265d3cdc1eacc4:3592018:Andr.Adware.Dowgin-3375:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11977,
+    "raw": "ca4b5d13b31b963fbedb108859368b0d:576687:Andr.Adware.Zdtad-1183:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11987,
+    "raw": "36b31dd0aa60e8b7a7f529928907b696:3585486:Andr.Adware.Dowgin-3428:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11991,
+    "raw": "bf29f6bc656d39e801096dbde62bb98c:1869072:Andr.Adware.Zdtad-1515:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11993,
+    "raw": "3e595b046a003514ccb1456f73edf870:576779:Andr.Adware.Zdtad-1588:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11994,
+    "raw": "fd2c703037407cd165d03863e404264a:1869432:Andr.Adware.Zdtad-1611:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11996,
+    "raw": "da9d4314b84f8f4d668d0650053817f5:576771:Andr.Adware.Zdtad-1646:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 11997,
+    "raw": "99dafb87f3edd4af9b70705be8f1ddd1:1767479:Andr.Tool.Smspay-9223:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12003,
+    "raw": "9a43be03700616588454387817050a8d:576779:Andr.Adware.Zdtad-5303968-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12006,
+    "raw": "4815086f925ce319f168a92575a8b240:576787:Andr.Adware.Zdtad-5304093-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12008,
+    "raw": "7f80f962047983fa543287412c31356b:611098:Andr.Adware.Kuguo-5304133-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12011,
+    "raw": "cae54bf2bf06c89f013904439b19a8f6:1869348:Andr.Adware.Zdtad-5310336-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12012,
+    "raw": "6c104c013304a2e25be2fecd1b546e83:576743:Andr.Adware.Zdtad-5310391-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12014,
+    "raw": "077095a4840cd7053362441360a79a25:1869004:Andr.Adware.Zdtad-5312264-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12015,
+    "raw": "7e24d42dc7c8c93d5b53bc64adffd39a:199767:Andr.Packed.Bankbot-5312594-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12016,
+    "raw": "dcad0c958efda0f4631042b9c219a1c9:1096665:Andr.Adware.Ginmaster-5312823-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12018,
+    "raw": "98624846141ab46e07b70daab2c6fb30:3591160:Andr.Adware.Skymobi-5319727-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12019,
+    "raw": "1085a9a0b16c77a82e9bd7cecc61ca20:3573573:Andr.Adware.Skymobi-5323880-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12021,
+    "raw": "684bf946fae352e8d50918ecb78d38fe:3589215:Andr.Adware.Skymobi-5325643-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12022,
+    "raw": "c7de6b07fbfd0aad74845b6277fb6dbb:3581230:Andr.Adware.Skymobi-5325651-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12024,
+    "raw": "6e44ddc3f7e3a6d4d43d46e3a8a2b9a5:3580169:Andr.Adware.Skymobi-5328995-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12025,
+    "raw": "c0012c285c38bc63c8b42042723c71e8:3584804:Andr.Adware.Skymobi-5330381-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12026,
+    "raw": "7d8b13f06b4fc1a0a0081931d7546cc5:1886756:Andr.Adware.Zdtad-5333753-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12033,
+    "raw": "060cecb5d8ffb069574adc020e2b03ce:3579468:Andr.Adware.Dowgin-5345294-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12034,
+    "raw": "a866d73cc6b21ace03bca1699e7ec8d0:3590425:Andr.Adware.Skymobi-5361410-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12036,
+    "raw": "0ab47112065593a1160647247b57d3a4:1887568:Andr.Adware.Zdtad-5363081-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12039,
+    "raw": "b755ff0b4ebc10ce684d0fafeb963293:1706903:Andr.Tool.Smspay-5385132-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12040,
+    "raw": "42f014afca5bbeaac5e0aa80d21bc3df:173454:Andr.Adware.Ewind-5385386-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12041,
+    "raw": "cd30b335ccc5c4f6538d80c7449289a3:13449864:Andr.Adware.Smspay-5391991-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12043,
+    "raw": "451938b8e74bb6a245c91981ac6ca4ab:512777:Andr.Adware.Dowgin-5397713-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12045,
+    "raw": "a8afd7fae0533732e4748ff3d1da457c:1978499:Andr.Tool.Shedun-5397847-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12047,
+    "raw": "277910a838ab0695722c556936363f63:602667:Andr.Adware.Zdtad-5399731-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12054,
+    "raw": "6d8832efeb0b018efc0ed4aa48282bfc:66026:Andr.Adware.Ewind-5404835-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12060,
+    "raw": "7fa4fa7aa06e691b4a7a0fe19485fe87:151902:Andr.Adware.Ewind-5407458-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12061,
+    "raw": "6143afc488656acc44804f38c63666f4:3587336:Andr.Adware.Dowgin-5407471-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12062,
+    "raw": "53ed8396a829b574fd543ff3fb975214:3578388:Andr.Adware.Dowgin-5415110-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12065,
+    "raw": "4325553d78c72a0f21a3c9a6c16d8da2:3340093:Andr.Adware.Skymobi-5425088-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12621,
+    "raw": "5ca6dd457ceb743a2eb128ed9d76cbe7:3469209:Andr.Tool.Smspay-5816999-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12883,
+    "raw": "6e878bad34e29c1344baa8f17644b620:3704439:Andr.Adware.Shedun-5881592-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12904,
+    "raw": "203c018d611fe14ff50adbc360d3e7b3:3704436:Andr.Adware.Dowgin-5884920-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 12984,
+    "raw": "5d0ad2c209f84d5a021b71ada3b268c0:3530063:Andr.Tool.Skymobi-5943259-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13196,
+    "raw": "1f9cec345f4ff7d444dd87402a06f610:8731989:Andr.Adware.Generic-6100488-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13329,
+    "raw": "1972e1e4a0ffd8485c8fdc5e3f04291c:1108845:Andr.Adware.Fakeapp-6164995-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13331,
+    "raw": "b0c3f6c9a408b497c1fcc2aec6a28d3a:4631166:Andr.Adware.Fakeapp-6165227-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13339,
+    "raw": "a7f87f2219362dc6bd0cd5b8ec92c417:2182122:Andr.Adware.Yekrand-6167992-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13424,
+    "raw": "a52db965fc93d7dad8825300ad8c596a:9488:Andr.Tool.Metasploit-6201961-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13426,
+    "raw": "a06bea02dbd568e7a77d35bbb55563b3:8859:Andr.Tool.Metasploit-6203397-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13430,
+    "raw": "961ffd746eca5bc9ed059bb623ab2de1:1496444:Andr.Adware.Mseg-6211265-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13431,
+    "raw": "48a8125a18d9cdc7cbd529e06b37ec2f:8838:Andr.Tool.Metasploit-6211571-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13590,
+    "raw": "0ebf005602924530b167f8de392d569f:11162851:Andr.Adware.Youmi-6239620-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13601,
+    "raw": "5fda3e71c73c638be5b7b868f476d1d0:188603:Andr.Adware.Gappusin-6240696-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13602,
+    "raw": "8e8f9c5a4ebfe87f429c3d3a3212e21e:2130208:Andr.Adware.Yekrand-6240831-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13626,
+    "raw": "f12432dcf46ca3bd36f4bbbd69a28423:15237041:Andr.Tool.Smsreg-6244017-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13631,
+    "raw": "6a62ad95dcfc4290363ed4e9c94a39a2:3660110:Andr.Adware.Hiddenapp-6245592-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13635,
+    "raw": "a4718a0fecad0e9d6b11ed4084d42390:5101155:Andr.Adware.Hiddad-6246117-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13647,
+    "raw": "d237aa689c6ea7dfc162bb1a3d247fdc:5786185:Andr.Tool.Smskey-6249526-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13693,
+    "raw": "549d856987119a66bdefee6f1f8c7a4a:906530:Andr.Adware.Gappusin-6272433-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13722,
+    "raw": "daf55bd3efcdf8f6041f77db7b1e8d23:8843:Andr.Tool.Metasploit-6282934-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13724,
+    "raw": "0dcde4f20ea78db4cf562ce5cf296e90:1750486:Andr.Adware.Ewind-6283104-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13727,
+    "raw": "27338d6bc725fcbe74d2a03a1d4b6fcf:6108712:Andr.Adware.Nqshield-6283500-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13728,
+    "raw": "3a5ca58108918bc1f3aff3516d44aca8:291106:Andr.Tool.Droidsheep-6283554-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13770,
+    "raw": "2c081db5dd804a7e81e0feb51bedd7e6:8846:Andr.Tool.Metasploit-6289651-0:73"
+  },
+  {
+    "reason": "adware_tool_packed_or_unsupported_category",
+    "file": "main.hsb.android",
+    "line": 13785,
+    "raw": "734752dd493eae721fca71801a508535:3659907:Andr.Adware.Sprovider-6295721-0:73"
+  },
+  {
+    "reason": "duplicate_hash_size_alias",
+    "raw": "md5\t325d5cd80a882cf1a50d10ef124bcde5\t2372313\tAndr.Malware.Hiddenads-10\tclamav.android"
+  },
+  {
+    "reason": "duplicate_hash_size_alias",
+    "raw": "md5\t5a36daa7925bbe05c2994a2a40d9b94b\t184830\tAndr.Malware.Agent-5800561-0\tclamav.android"
+  },
+  {
+    "reason": "duplicate_hash_size_alias",
+    "raw": "md5\td98b748a373161c7fe262e08a3c5c243\t1695240\tAndr.Trojan.KungFu-48\tclamav.android"
+  },
+  {
+    "reason": "duplicate_hash_size_alias",
+    "raw": "md5\te9811675421c4348f4574445d00a8df3\t154500\tAndr.Trojan.Yzhc-8\tclamav.android"
+  }
+]

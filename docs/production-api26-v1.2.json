@@ -1,0 +1,186 @@
+{
+  "apk": "release/RefurbCheck-1.2.0.apk",
+  "apkSha256": "addf557694e94e499f4409b764ccc0780629f137e1e6494ce5eb357e6d51be8c",
+  "version": "1.2.0",
+  "api": 26,
+  "physicalGalaxyTested": false,
+  "actualMalwareSamplesTested": false,
+  "checks": [
+    {
+      "check": "Four tabs and release version visible",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Real Android save picker opened",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Exported actual v1.2 report",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Pinned real datasets loaded",
+      "passed": true,
+      "details": {
+        "loaded": true,
+        "count": 15645,
+        "error": ""
+      }
+    },
+    {
+      "check": "Post-reset mode enabled and system approval mandatory",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Real installed APK and direct entries inspected",
+      "passed": true,
+      "details": {
+        "complete": true,
+        "visiblePackages": 84,
+        "packagesComplete": 84,
+        "filesDiscovered": 84,
+        "wholeFilesCompared": 84,
+        "archivesComplete": 84,
+        "entriesSeen": 31188,
+        "entriesHashed": 31188,
+        "entriesSkipped": 0,
+        "nestedArchivesNotExpanded": 1,
+        "bytesInflated": 221349543,
+        "matchingPackages": 0,
+        "matchCount": 0,
+        "stopReason": "",
+        "elapsedMillis": 156745,
+        "silentRemoval": false,
+        "systemApprovalRequired": true,
+        "malwareAbsenceVerified": false,
+        "freshness": "Bundled snapshot; no automatic updates. Use an updated APK for new reference data.",
+        "scope": "Whole APK + directly contained files. Nested content, encrypted entries, unsupported ZIP structures, exclusions and resource limits are reported. No byte-pattern/behavior/ML/libclamav engine."
+      }
+    },
+    {
+      "check": "Malware absence is never certified",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Release APK self hash matches installed bytes",
+      "passed": true,
+      "details": "addf557694e94e499f4409b764ccc0780629f137e1e6494ce5eb357e6d51be8c"
+    },
+    {
+      "check": "Self scan used actual reference catalog",
+      "passed": true,
+      "details": {
+        "state": "COMPLETE",
+        "fileStable": true,
+        "wholeFileCompared": true,
+        "archiveComplete": true,
+        "complete": true,
+        "matchCount": 0,
+        "matchesTruncated": false,
+        "matches": [],
+        "databaseSha256": "7f833feefcb3b3e74c72f396571f6f457bff5eb4ca9511f502db9e56a2e31421",
+        "databaseLoaded": true,
+        "outerApkSha256": "addf557694e94e499f4409b764ccc0780629f137e1e6494ce5eb357e6d51be8c",
+        "fileHashes": {
+          "sha256": "addf557694e94e499f4409b764ccc0780629f137e1e6494ce5eb357e6d51be8c",
+          "sha1": "39fbcb32dcff33897977747065caef867748d1c1",
+          "md5": "66442185d822fb06da9f600b2d9c6937"
+        },
+        "archiveStatus": "COMPLETE",
+        "entriesSeen": 25,
+        "entriesHashed": 25,
+        "entriesSkipped": 0,
+        "bytesInflated": 2381970,
+        "nestedArchivesNotExpanded": 0,
+        "archiveIssues": [],
+        "stopReason": ""
+      }
+    },
+    {
+      "check": "Normal emulator scan produced no reference hits",
+      "passed": true,
+      "details": 0
+    },
+    {
+      "check": "No RefurbCheck fatal exception or ANR in captured logs",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "malwareCoverage": {
+    "complete": true,
+    "visiblePackages": 84,
+    "packagesComplete": 84,
+    "filesDiscovered": 84,
+    "wholeFilesCompared": 84,
+    "archivesComplete": 84,
+    "entriesSeen": 31188,
+    "entriesHashed": 31188,
+    "entriesSkipped": 0,
+    "nestedArchivesNotExpanded": 1,
+    "bytesInflated": 221349543,
+    "matchingPackages": 0,
+    "matchCount": 0,
+    "stopReason": "",
+    "elapsedMillis": 156745,
+    "silentRemoval": false,
+    "systemApprovalRequired": true,
+    "malwareAbsenceVerified": false,
+    "freshness": "Bundled snapshot; no automatic updates. Use an updated APK for new reference data.",
+    "scope": "Whole APK + directly contained files. Nested content, encrypted entries, unsupported ZIP structures, exclusions and resource limits are reported. No byte-pattern/behavior/ML/libclamav engine."
+  },
+  "apkCoverage": {
+    "startedAt": 1793957918574,
+    "completedAt": 1793958075317,
+    "elapsedMillis": 156738,
+    "timeBudgetMillis": 180000,
+    "perFileLimitBytes": 1073741824,
+    "totalReadLimitBytes": 8589934592,
+    "visiblePackages": 84,
+    "metadataFailures": 0,
+    "packagesWithAllHashes": 84,
+    "filesDiscovered": 84,
+    "filesHashed": 84,
+    "filesHashUnknown": 0,
+    "fileBytesDiscovered": 202145389,
+    "hashBytesRead": 202145389,
+    "signatureBytesRead": 209495089,
+    "archiveBytesRead": 205579548,
+    "bytesRead": 617220026,
+    "signatureVerifiedFiles": 84,
+    "signatureInvalidFiles": 0,
+    "signerMismatchFiles": 0,
+    "signatureUnknownFiles": 0,
+    "iocMatchingFiles": 0,
+    "iocMatchingPackages": 0,
+    "hashComplete": true,
+    "signatureComplete": true,
+    "iocComparisonComplete": true,
+    "complete": true,
+    "stopReason": "",
+    "engine": "apksig-android 4.4.0 (2022-10-15 source; API <=33 model)",
+    "scanOrder": "user-apps-first, then system apps; inventory output retains its original ordering",
+    "timeLimitMode": "Cooperative checks before/after work and during reads. A verifier CPU operation or an OS call can delay cancellation; a late result is not accepted as complete.",
+    "engineMaximumModelledApi": 33,
+    "deviceApi": 26,
+    "scope": "현재 프로필에서 OS가 노출한 base/split APK의 읽을 수 있는 파일. 시스템 앱도 포함. 앱 내부 데이터·동적 다운로드 코드·다른 프로필·커널·펌웨어·물리 하드웨어는 제외."
+  },
+  "catalogCounts": {
+    "clamav.android": 13764,
+    "echap.stalkerware": 1594,
+    "eset.android": 131,
+    "mvt.android": 156
+  },
+  "exportBytes": 333284,
+  "reportPath": "docs/fixtures/api26-v1.2-report.json",
+  "harnessNotes": [
+    "The first pull raced asynchronous SAF writing and retrieved zero bytes. The same chosen file was pulled again read-only after writing completed. Validation resumed from captured UI and the actual complete JSON; no scan/save/delete action was replayed."
+  ],
+  "exportSha256": "636a0ab60c631f7e31f1cae5418329ecad274fbd8ef6d7c55f2b547c6851c594",
+  "scopeNote": "Observed AOSP API26 software emulator only; complete refers to readable whole APKs and supported direct ZIP entries, not nested archives or malware absence."
+}

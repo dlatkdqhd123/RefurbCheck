@@ -1,0 +1,58 @@
+{
+  "officialImage": "clamav/clamav:stable",
+  "manifestDigest": "sha256:26509520043b68576c95e76576673d90b423fccb765dc8cba3a9fdc143891bf5",
+  "configDigest": "sha256:f69ba0ba8fe5753577802cf54377698ef6761e98e23f14fa009474475189a610",
+  "manifestDigestVerified": true,
+  "configDigestVerified": true,
+  "downloadedLayers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "digest": "sha256:7b229517ed222597277036d94892173207d01a731ab3a88eeb1de2e963a2c788",
+      "size": 3853109,
+      "digestVerified": true
+    },
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "digest": "sha256:8c9c7637372ec91bf007e0576450d8c897553a01e8d4a9ffc20f1d14b207e43c",
+      "size": 4865325,
+      "digestVerified": true
+    },
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "digest": "sha256:c161f4ea676cdf61271eaecd6d101302c9eb30dbd6de4476331ce314068d5aac",
+      "size": 34528231,
+      "digestVerified": true
+    }
+  ],
+  "version": "ClamAV sigtool 1.5.4",
+  "binariesIncludedInApp": false,
+  "files": {
+    "usr/bin/sigtool": {
+      "bytes": 13785984,
+      "sha256": "2555c87b2b604d8132090634f0952028d883d64ab7b3ffbcdf031c6bb5b41f5c"
+    },
+    "usr/lib/libclamav.so.12.1.0": {
+      "bytes": 15914976,
+      "sha256": "cecb7dd37e6c7b78930a01081069ed6a00ecb19846f7e9e4afb7f74e1d01c34c"
+    },
+    "lib/ld-musl-x86_64.so.1": {
+      "bytes": 670312,
+      "sha256": "095b047c631447e4fa50401fa7ffce01f678587040d65ba18c574981dc630de5"
+    },
+    "etc/clamav/certs/clamav.crt": {
+      "bytes": 1976,
+      "sha256": "60200e4b4b1b1b7257bb4550487aeb142034341f3300a8526e77a3134a940e9d"
+    }
+  },
+  "referenceCommand": [
+    "lib/ld-musl-x86_64.so.1",
+    "--library-path",
+    "usr/lib:lib",
+    "usr/bin/sigtool",
+    "--cvdcertsdir",
+    "etc/clamav/certs",
+    "--info",
+    "DATABASE.cvd"
+  ],
+  "officialImageDocs": "https://docs.clamav.net/manual/Installing/Docker.html"
+}

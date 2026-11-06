@@ -1,0 +1,9 @@
+File: /workspace/scratch/6382ba79e8f0/antivirus-research/mirror-cvd/main.cvd
+Build time: 16 Dec 2025 23:18 +0000
+Version: 63
+Signatures: 3287027
+Functionality level: 90
+Builder: tomjudge
+MD5: 9c353a6b32555186a45a61c6441f38c0
+Digital signature: gI9w3cezaElJbedEoiykyQeX1f6j9Xbs3a+cf9U/kH5QScGMe2mRz1K2JlYOrqfBuOUMbiKmvkVvAquOsMeDp/ejLVDx5WulC6klZVhLOfBHda29OjaLZwEGR9GPIHDr0mXriv7pivuMH60/loxpASIJHLOszyj95pxVK+EaTCh
+Verification OK.

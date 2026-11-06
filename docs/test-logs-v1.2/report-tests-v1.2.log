@@ -1,0 +1,92 @@
+PASS identical reports remain a limited comparison
+PASS changed signer is reported
+PASS changed version is reported
+PASS version and signer changes are two observations
+PASS added and missing packages are distinguished
+PASS multisigner order does not create a difference
+PASS hexadecimal letter case does not create a difference
+PASS malformed reference signer stays unknown
+PASS malformed current signer stays unknown
+PASS empty signer array stays unknown
+PASS empty signer string stays unknown
+PASS short signer digest stays unknown
+PASS nonhex signer digest stays unknown
+PASS missing signer field stays unknown
+PASS null signer element stays unknown
+PASS numeric signer element is malformed, not a SHA256 string
+PASS explicitly unreadable signing metadata stays unknown
+PASS incomplete reference inventory receives a caution
+PASS incomplete current inventory receives a caution
+PASS different model stops package comparison
+PASS missing model stops comparison
+PASS unknown model stops comparison
+PASS JSON null model stops comparison
+PASS literal null model stops comparison
+PASS blank current model stops comparison
+PASS invalid report schema is rejected
+PASS duplicate reference package names are rejected
+PASS duplicate current package names are rejected
+PASS nonobject package rows are rejected
+PASS application itself is excluded from reference changes
+PASS build metadata differences are visible
+PASS empty reports never receive a clean observation verdict
+PASS unknown checks plus coverage text remain unknown
+PASS external-attestation explanatory text is not an observation
+PASS a substantive INFO is a bounded observation
+PASS a PASS remains bounded by unknown scope
+PASS WARN takes precedence over observed and unknown
+PASS ALERT takes precedence over WARN
+PASS report serialization preserves counts and explicit limits
+PASS v1 and v2 metadata comparisons remain compatible
+PASS v1 cannot supply file evidence by inserting v2 fields
+PASS identical complete v2 hashes are a read-only bounded comparison
+PASS base APK bytes can differ while package signer and version stay the same
+PASS changed split content is compared independently of base
+PASS file array order never becomes a content change
+PASS file hash letter case is normalized
+PASS normal version update does not become unexplained content change
+PASS changed firmware fingerprint prevents unexplained content classification
+PASS missing fingerprints on both sides cannot count as equality
+PASS unknown fingerprint strings cannot establish context
+PASS missing versions on both sides cannot establish same-version context
+PASS string and fractional version codes are not accepted by coercion
+PASS 64-bit version code does not truncate
+PASS different split distribution receives configuration caution
+PASS common base content difference remains visible when split distribution changes
+PASS partial package scan cannot compare an apparently present base digest
+PASS missing or string completion flags cannot count as complete
+PASS changed package invalidates otherwise complete hash records
+PASS package collection error conflicts with completed evidence
+PASS unreadable pending truncated and cancelled hashes stay unknown
+PASS observed partial digest is never promoted to final SHA256
+PASS file stability requires a real true boolean
+PASS malformed file digests never establish byte differences
+PASS missing or noninteger file size is incomplete evidence
+PASS same hash with contradictory size is unknown
+PASS duplicate base and split identities cannot be compared
+PASS malformed file identity and mismatched split name stay unknown
+PASS missing base file cannot appear as a complete split-only package
+PASS missing empty nonarray and malformed file rows stay unknown
+PASS complete common packages remain bounded when enumeration is incomplete
+PASS self APK is excluded from content comparison too
+PASS missing inventory is rejected rather than treated as empty
+PASS wrong inventory type is rejected
+PASS current schema and null reports are validated
+PASS duplicate signers are not accepted as a readable signer set
+PASS numeric device identity is not accepted by coercion
+PASS strict parser accepts an actual v2 report with Unicode strings
+PASS strict parser accepts standard numeric and boolean JSON
+PASS valid whitespace around a report is accepted
+PASS deep brackets inside strings do not count as structural depth
+PASS depth boundary is bounded before org.json parsing
+PASS every truncation of a representative JSON object is rejected
+PASS empty null and oversized imports are rejected
+PASS malformed UTF8 is rejected rather than replaced
+PASS trailing objects scalars garbage and NUL are rejected
+PASS top-level arrays and scalar values are not reports
+PASS duplicate object names including escaped equivalents are rejected
+PASS lenient org.json extensions are rejected consistently
+PASS malformed escapes raw controls and Unicode surrogates are rejected
+PASS structural mismatches are rejected before recursive parsing
+PASS large single numbers and excessive value counts are bounded
+ReportTests: 91/91 scenarios passed; 478 assertions checked

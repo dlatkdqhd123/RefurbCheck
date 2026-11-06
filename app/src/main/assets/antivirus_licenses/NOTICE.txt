@@ -1,0 +1,5 @@
+RefurbCheck original scanner: MIT. Data are independent reference inputs.
+ClamAV Android hashes and source-only allowlist: GPL-2.0-only.
+ESET Android campaign IOCs: BSD-2-Clause. Echap indicators: CC BY 4.0. MVT indicators: MIT.
+Modified: Android source selection, format normalization and per-source splitting. No malware binaries or ClamAV engine included.
+Complete corresponding selected data, original licenses, attribution and conversion source: source ZIP, data/antivirus/.

@@ -1,0 +1,30 @@
+{
+  "catalogDigest": "7f833feefcb3b3e74c72f396571f6f457bff5eb4ca9511f502db9e56a2e31421",
+  "index": [
+    {
+      "asset": "malware_clamav.tsv",
+      "sha256": "10e55d4c55942629a2af7270bf64857ce27edb463b55c449da93b5ba00d76dcd"
+    },
+    {
+      "asset": "malware_eset.tsv",
+      "sha256": "9fe3a8c96cb4d519302672a9a26cf88cb4e7cc576f2450415ef0f15e5c284c04"
+    },
+    {
+      "asset": "malware_echap.tsv",
+      "sha256": "0a9a83aaba2d6357e9a9266be428dfb1a025e2a28268ac7903c7afd97a532529"
+    },
+    {
+      "asset": "malware_mvt.tsv",
+      "sha256": "860940d2940606203bdbd324605cd9599740f0ae3b56cb9205666a58671bc397"
+    },
+    {
+      "asset": "malware_clamav_allow.tsv",
+      "sha256": "a52aea2f846c7af8ee02dcd5f9cae9c7a59f9313e63728c1070510f0d46e6476"
+    }
+  ],
+  "inputPins": {
+    "clamav/clamav-android.tsv": "10e55d4c55942629a2af7270bf64857ce27edb463b55c449da93b5ba00d76dcd",
+    "clamav/clamav-allow.tsv": "a52aea2f846c7af8ee02dcd5f9cae9c7a59f9313e63728c1070510f0d46e6476",
+    "supplemental/normalized/supplemental.tsv": "54e7ce9a39e48e8765e417ac5c422e5fb32bd05c956cd384ede193aa0e2b7734"
+  }
+}

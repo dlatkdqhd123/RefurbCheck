@@ -1,0 +1,70 @@
+RefurbCheck 1.2.0 APK build verification
+Build tools: official Android SDK 35.0.0; compile API 35
+Runtime device/emulator execution is not established by this build script.
+
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): true
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: CN=RefurbCheck Personal Release, O=RefurbCheck, C=KR
+Signer #1 certificate SHA-256 digest: 31a3041c7933acb7cdafad342bb574f0726f6045ddf5ccf4d9fd3fc7f1f126ff
+Signer #1 certificate SHA-1 digest: a23ccf7cfe26d860bc76b3f6cd65936ee2c21e4b
+Signer #1 certificate MD5 digest: 46983c6118b397ae5f5c7d85d350e952
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 3072
+Signer #1 public key SHA-256 digest: a6de06d88cb36f112f13cdcab7662d8f592f0b47be3b223559f110a22c52dcc8
+Signer #1 public key SHA-1 digest: 85a6d8ca11337db7dde33ca491031dcd6d584b8c
+Signer #1 public key MD5 digest: b5f140b789c057c159d90b121b2df4bd
+
+Verifying alignment of /workspace/scratch/6382ba79e8f0/refurbcheck/dist/RefurbCheck-1.2.0.apk (4)...
+      49 AndroidManifest.xml (OK - compressed)
+    1056 res/drawable/ic_shield.xml (OK - compressed)
+    1476 resources.arsc (OK)
+    2395 assets/antivirus_licenses/ATTRIBUTION.txt (OK - compressed)
+    3333 assets/antivirus_licenses/CC-BY-4.0.txt (OK - compressed)
+    9315 assets/antivirus_licenses/ClamAV-GPL-2.0-only.txt (OK - compressed)
+   16219 assets/antivirus_licenses/ESET-BSD-2-Clause.txt (OK - compressed)
+   16974 assets/antivirus_licenses/MVT-MIT.txt (OK - compressed)
+   17662 assets/antivirus_licenses/NOTICE.txt (OK - compressed)
+   18037 assets/attestation_revocations.json (OK - compressed)
+   47413 assets/attestation_revocations_meta.json (OK - compressed)
+   47724 assets/google_attestation_roots.pem (OK - compressed)
+   49687 assets/ioc_MIT_LICENSE.txt (OK - compressed)
+   50365 assets/ioc_provenance.json (OK - compressed)
+   51443 assets/ioc_sha256.txt (OK - compressed)
+   57831 assets/malware_catalog.json (OK - compressed)
+   63115 assets/malware_clamav.tsv (OK - compressed)
+  466566 assets/malware_clamav_allow.tsv (OK - compressed)
+  496647 assets/malware_echap.tsv (OK - compressed)
+  562044 assets/malware_eset.tsv (OK - compressed)
+  567528 assets/malware_mvt.tsv (OK - compressed)
+  573873 classes.dex (OK - compressed)
+  840825 META-INF/REFURBCH.SF (OK - compressed)
+  842078 META-INF/REFURBCH.RSA (OK - compressed)
+  843612 META-INF/MANIFEST.MF (OK - compressed)
+Verification succesful
+
+package: name='io.github.refurbcheck' versionCode='3' versionName='1.2.0' platformBuildVersionName='15' platformBuildVersionCode='35' compileSdkVersion='35' compileSdkVersionCodename='15'
+minSdkVersion:'26'
+targetSdkVersion:'35'
+uses-permission: name='android.permission.QUERY_ALL_PACKAGES'
+uses-permission: name='android.permission.ACCESS_NETWORK_STATE'
+uses-permission: name='android.permission.REQUEST_DELETE_PACKAGES'
+application-label:'리퍼폰 점검'
+application-icon-160:'res/drawable/ic_shield.xml'
+application: label='리퍼폰 점검' icon='res/drawable/ic_shield.xml'
+launchable-activity: name='io.github.refurbcheck.MainActivity'  label='' icon=''
+feature-group: label=''
+  uses-feature: name='android.hardware.faketouch'
+  uses-implied-feature: name='android.hardware.faketouch' reason='default feature for all apps'
+main
+supports-screens: 'small' 'normal' 'large' 'xlarge'
+supports-any-density: 'true'
+locales: '--_--'
+densities: '160'
+
+APK SHA-256: addf557694e94e499f4409b764ccc0780629f137e1e6494ce5eb357e6d51be8c

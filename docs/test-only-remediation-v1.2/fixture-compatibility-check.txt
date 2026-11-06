@@ -1,0 +1,2 @@
+whole: whole=1 entry=0 complete=true issues=[]
+entry: whole=0 entry=1 complete=true issues=[]

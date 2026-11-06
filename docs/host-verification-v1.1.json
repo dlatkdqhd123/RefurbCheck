@@ -1,0 +1,34 @@
+{
+  "version": "1.1.0",
+  "date": "2026-11-06",
+  "hostAssertions": 981,
+  "hostFailures": 0,
+  "tests": {
+    "signal_rules": {
+      "assertions": 22,
+      "failures": 0
+    },
+    "attestation": {
+      "assertions": 323,
+      "failures": 0,
+      "additionalMalformedDerInputs": 2000
+    },
+    "apk_evidence": {
+      "scenarios": 30,
+      "assertions": 51,
+      "failures": 0,
+      "inputApkSha256": "f3286044ca028e66eef0510074ecbfcbe87a6a63dc8c80010b6ac223e124a8e7"
+    },
+    "report_json_comparison": {
+      "scenarios": 91,
+      "assertions": 478,
+      "failures": 0
+    },
+    "remediation_rules": {
+      "scenarios": 57,
+      "assertions": 107,
+      "failures": 0
+    }
+  },
+  "scope": "Development tests of implementation and malformed-input behavior. Not a measured malware detection rate, real Galaxy result, or certification."
+}

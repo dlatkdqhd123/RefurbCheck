@@ -1,0 +1,9 @@
+File: /workspace/scratch/6382ba79e8f0/antivirus-research/mirror-cvd/daily.cvd
+Build time: 06 Nov 2026 06:24 +0000
+Version: 28175
+Signatures: 355849
+Functionality level: 90
+Builder: svc.clamav-publisher
+MD5: 5c918798ca1fb331b20846007dd2a654
+Digital signature: fjf0EthjyfraUC2GZiOpFgZSEwAHOwhcfCGWYkrIlQcn03DeBpBxU8GEVHF4bvHFeSRfgjEfckRx8+v8BZ6Fh0HyUTg7XcveMPXMVLAkzx5UTvR6TVAd3bmZTfjVESFCSj0sb9Ffzz3pknKH/ixwHcXVBcNaDw9/VFybv80FPd
+Verification OK.

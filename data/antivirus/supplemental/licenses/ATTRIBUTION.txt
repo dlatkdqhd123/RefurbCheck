@@ -1,0 +1,28 @@
+RefurbCheck supplemental text indicators
+
+ESET malware-ioc
+Original source: https://github.com/eset/malware-ioc
+Pinned commit: 825b826c5cbffcc1e59c16581ffdf7d527e8b695
+License: BSD-2-Clause.
+Original copyright notice, license conditions, and disclaimer are retained in
+../raw/eset/LICENSE. These must accompany distributions of the derived data.
+Changes: selected 12 Android campaign SHA-256 lists, normalized hashes and record
+names, assigned unknown size *, and converted to five-column TSV.
+
+Echap Stalkerware Indicators of Compromise
+Original source: https://github.com/AssoEchap/stalkerware-indicators
+Pinned commit: 426156175adc84af7fbdd41486c046f9ecb40436
+Maintainers: Julien Voisin and Tek for the Echap non-profit organization, with
+project contributors; see the retained upstream README.
+License: Creative Commons Attribution 4.0 International (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/
+The full legal text is retained in CC-BY-4.0.txt.
+Changes: selected only sample rows with Android package and signing-certificate
+metadata, preserved upstream stalkerware/watchware classification, normalized
+SHA-256/name text, assigned unknown size *, converted to TSV, and added evidence
+and exclusion records. The original CSV and classification YAML are retained.
+Neither a match nor absence of matches establishes whether monitoring is taking
+place without consent. No automatic-removal authorization is derived from these
+indicators. The source is incomplete and its authors do not guarantee accuracy.
+
+No endorsement of RefurbCheck by these data publishers is implied.

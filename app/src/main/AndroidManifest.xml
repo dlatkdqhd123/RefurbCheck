@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent>
-    </queries>
-    <application android:allowBackup="false" android:label="RefurbCheck" android:usesCleartextTraffic="false" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:supportsRtl="true">
+    <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <application android:label="리퍼폰 점검" android:icon="@drawable/ic_shield"
+        android:theme="@style/AppTheme" android:allowBackup="false"
+        android:usesCleartextTraffic="false" android:supportsRtl="true">
         <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

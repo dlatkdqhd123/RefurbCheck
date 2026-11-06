@@ -1,0 +1,108 @@
+= NGate - Indicators of Compromise
+
+== NGate campaign targeting Spanish speaking users 
+
+=== Files
+
+----
+52A449004AE06AF208EC164CADC7A6470FD2908D
+6298FBCC2ADC97BF774596ABAD220AD19C6C8F29 
+89B12465982518E93596BBBB3986652D7CB76702
+E5E7E750647ADA2D81F16D444D00AE1D60855F46 
+0C26A8E78EBA2B13DACA4187909ADB46EA77EE43 
+1237370A02F8FEF9D65C23233E0EC9D143ADD3D7
+DB2760EAB3EB2A32D9ED1BD7B18B53DF2F478A66
+E4D18AF8292BC4B8C3B6D403EB9E5717ABA11273
+8A4D537FB653BE5BCBA7BAB131E097BE71262B03
+3BDFDD15681AEFDA9471EF01AB3D015E7B08C6F6
+FEA4108FC632893CB4135DB06FF65D851057A292
+2D4FFCB06EC92A0F0C56156DE0C8C0CD1D50F0E9 
+D473EEB85434BC33EF67ED694E6D90A35AD8507E 
+053D074657D24754066DB6D610CAD4575CCDC726
+----
+
+=== Network indicators
+
+==== C&C server domains and distribution websites
+
+----
+piaystore[.]org
+piaystore.it[.]com
+devilxclusive[.]lol
+reventandocajerosnfc[.]club
+spicynagets[.]shop
+applay-store[.]com
+nfcrackatm[.]com
+nfcanoncrack[.]com
+app.unicaja-playstore[.]com
+playstore-unicaja[.]com
+snjnflkdslkfdnsklfndslkfdnslkfdns[.]top
+nfcwarriors[.]com
+calxabank[.]info
+devilnfc[.]com
+seha-ksa[.]online
+brigadeirobeach[.]makeup
+mqeiowkpsfdsdkofdskpf[.]lol
+policianacional[.]gay
+nonfcnomoney[.]com
+65.109.108[.]183
+45.144.55[.]124
+138.124.117[.]214
+107.189.23[.]127
+107.189.27[.]3
+107.189.18[.]187
+187.33.146[.]246
+87.238.94[.]154
+45.135.194[.]58
+----
+
+== New NGate variant hides in a trojanized NFC payment app
+
+The blog post on "NGate Android malware relays NFC traffic to steal cash" is
+available on WeLiveSecurity at https://www.welivesecurity.com
+
+=== Files
+
+----
+48A0DE6A43FC6E49318AD6873EA63FE325200DBC
+A4F793539480677241EF312150E9C02E324C0AA2
+94AF94CA818697E1D99123F69965B11EAD9F010C
+----
+
+=== Network indicators
+
+==== C&C server domains and distribution websites
+
+----
+protecaocartao[.]online
+108.165.230[.]223
+----
+
+== NGate Android malware relays NFC traffic to steal cash
+
+The blog post on "NGate Android malware relays NFC traffic to steal cash" is
+available on WeLiveSecurity at
+https://www.welivesecurity.com/en/eset-research/ngate-android-malware-relays-nfc-traffic-to-steal-cash/
+
+=== Files
+
+----
+7225ED2CBA9CB6C038D8615A47423E45522A9AD1
+66DE1E0A2E9A421DD16BD54B371558C93E59874F
+DA84BC78FF2117DDBFDCBA4E5C4E3666EEA2013E
+E7AE59CD44204461EDBDDF292D36EEED38C83696
+103D78A180EB973B9FFC289E9C53425D29A77229
+11BE9715BE9B41B1C8527C9256F0010E26534FDB
+----
+
+=== Network indicators
+
+==== C&C server domains and distribution websites
+
+----
+raiffeisen-cz[.]eu
+client.nfcpay.workers[.]dev
+172.187.98[.]211
+app.mobil-csob-cz[.]eu
+nfc.cryptomaker[.]info
+----
