@@ -20,6 +20,11 @@ jobs:
           java-version: '21'
       - name: Build and lint
         run: bash ./gradlew --no-daemon assembleDebug lintDebug
+      - name: Conservative audit rule tests
+        run: |
+          mkdir -p build/rule-tests
+          javac -encoding UTF-8 --release 17 -d build/rule-tests app/src/main/java/io/github/dlatkdqhd123/refurbcheck/prototype/AuditRules.java tests/AuditRulesTest.java
+          java -cp build/rule-tests io.github.dlatkdqhd123.refurbcheck.prototype.AuditRulesTest
       - uses: actions/upload-artifact@v4
         with:
           name: RefurbCheck-prototype-debug
