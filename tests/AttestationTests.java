@@ -253,6 +253,66 @@ public final class AttestationTests {
         check(state(AttestationChecks.correlate(invalidMonth, "15", "2026-11-05", props), "securityPatchMonth") == AttestationChecks.ComparisonState.NOT_COMPARABLE, "invalid attested month not compared");
     }
 
+    private static byte[] deviceProperty(int suffix, String value) {
+        return tagged(suffix, tlv(4, utf8(value)));
+    }
+    private static void testDeviceProperties() throws Exception {
+        Map<String, String> observed = new HashMap<>();
+        observed.put("brand", "samsung"); observed.put("device", "testdevice");
+        observed.put("product", "testproduct"); observed.put("manufacturer", "samsung");
+        observed.put("model", "SM-TEST");
+        byte[] properties = join(deviceProperty(0x46, "samsung"), deviceProperty(0x47, "testdevice"),
+                deviceProperty(0x48, "testproduct"), deviceProperty(0x4c, "samsung"), deviceProperty(0x4d, "SM-TEST"));
+        AttestationRecord complete = AttestationRecord.parseExtension(record(1, 1, new byte[0],
+                join(root(true, 0, true, true), properties)));
+        check(complete.hardwareDeviceProperties.hasAny() && !complete.softwareDeviceProperties.hasAny(),
+                "five non-unique device fields retained from hardware only");
+        List<AttestationChecks.Comparison> comparisons = AttestationChecks.correlateDeviceProperties(complete, observed);
+        check(comparisons.size() == 5, "all five device property comparisons are explicit");
+        for (AttestationChecks.Comparison comparison : comparisons)
+            check(comparison.state == AttestationChecks.ComparisonState.MATCH, "matching non-unique device field " + comparison.field);
+        observed.put("model", "SM-DIFFERENT");
+        check(state(AttestationChecks.correlateDeviceProperties(complete, observed), "device.model")
+                == AttestationChecks.ComparisonState.MISMATCH, "different attested model not ignored");
+        observed.put("model", "sm-test");
+        check(state(AttestationChecks.correlateDeviceProperties(complete, observed), "device.model")
+                == AttestationChecks.ComparisonState.MISMATCH, "model spelling and case not normalized into false agreement");
+        observed.put("model", "unknown");
+        check(state(AttestationChecks.correlateDeviceProperties(complete, observed), "device.model")
+                == AttestationChecks.ComparisonState.NOT_COMPARABLE, "unknown Build model is not an identity observation");
+        observed.put("model", "SM-TEST");
+        for (AttestationChecks.Comparison comparison : AttestationChecks.correlateDeviceProperties(complete, null))
+            check(comparison.state == AttestationChecks.ComparisonState.NOT_COMPARABLE, "missing Build field is unknown " + comparison.field);
+        AttestationRecord missing = AttestationRecord.parseExtension(record(1, 1, new byte[0], new byte[0]));
+        for (AttestationChecks.Comparison comparison : AttestationChecks.correlateDeviceProperties(missing, observed))
+            check(comparison.state == AttestationChecks.ComparisonState.NOT_COMPARABLE, "missing hardware field cannot pass " + comparison.field);
+        AttestationRecord software = AttestationRecord.parseExtension(record(1, 1, properties, new byte[0]));
+        check(software.softwareDeviceProperties.hasAny(), "misplaced software fields remain visible");
+        for (AttestationChecks.Comparison comparison : AttestationChecks.correlateDeviceProperties(software, observed))
+            check(comparison.state == AttestationChecks.ComparisonState.NOT_COMPARABLE, "software property is not hardware identity " + comparison.field);
+        AttestationRecord empty = AttestationRecord.parseExtension(record(1, 1, new byte[0], deviceProperty(0x46, "")));
+        observed.put("brand", "");
+        check(state(AttestationChecks.correlateDeviceProperties(empty, observed), "device.brand")
+                == AttestationChecks.ComparisonState.NOT_COMPARABLE, "two empty properties never match");
+        observed.put("brand", "samsung");
+        rejects(IOException.class, () -> AttestationRecord.parseExtension(record(1, 1, properties, properties)),
+                "duplicate device property across enforcement lists rejected");
+        rejects(IOException.class, () -> AttestationRecord.parseExtension(record(1, 1, new byte[0], join(properties, deviceProperty(0x4d, "SM-OTHER")))),
+                "duplicate property tag rejected");
+        rejects(IOException.class, () -> AttestationRecord.parseExtension(record(1, 1, new byte[0], tagged(0x4d, integer(1)))),
+                "device property requires OCTET STRING");
+        rejects(IOException.class, () -> AttestationRecord.parseExtension(record(1, 1, new byte[0], tagged(0x4d, tlv(4, new byte[]{(byte) 0xc3, 0x28})))),
+                "device property invalid UTF-8 rejected");
+        rejects(IOException.class, () -> AttestationRecord.parseExtension(record(1, 1, new byte[0], deviceProperty(0x4d, "SM-\u0000TEST"))),
+                "device property embedded NUL rejected");
+        rejects(IOException.class, () -> AttestationRecord.parseExtension(record(1, 1, new byte[0], tagged(0x4d, tlv(4, new byte[513])))),
+                "device property size bounded before decoding");
+        AttestationRecord unknown = AttestationRecord.parseExtension(record(1, 1, new byte[0], deviceProperty(0x4d, "unknown")));
+        observed.put("model", "unknown");
+        check(state(AttestationChecks.correlateDeviceProperties(unknown, observed), "device.model")
+                == AttestationChecks.ComparisonState.NOT_COMPARABLE, "two unknown models do not establish identity");
+    }
+
     private static byte[] utf8(String value) { return value.getBytes(StandardCharsets.UTF_8); }
     private static void testRevocations(Path project) throws Exception {
         Path fixtures = project.resolve("tests/attestation-fixtures");
@@ -296,6 +356,59 @@ public final class AttestationTests {
         return (X509Certificate) CertificateFactory.getInstance("X.509")
                 .generateCertificate(new ByteArrayInputStream(Files.readAllBytes(file)));
     }
+    private static List<X509Certificate> certificates(Path file) throws Exception {
+        List<X509Certificate> result = new ArrayList<>();
+        for (Certificate certificate : CertificateFactory.getInstance("X.509").generateCertificates(
+                new ByteArrayInputStream(Files.readAllBytes(file)))) result.add((X509Certificate) certificate);
+        return result;
+    }
+    private static void testFactoryExpiryCompatibility(Path project) throws Exception {
+        Path fixtures = project.resolve("tests/attestation-fixtures");
+        List<X509Certificate> googleRoots = certificates(project.resolve("app/src/main/assets/google_attestation_roots.pem"));
+        List<X509Certificate> factory = certificates(fixtures.resolve("google-v04-factory-blueline.pem"));
+        List<X509Certificate> rkp = certificates(fixtures.resolve("google-v04-rkp-caiman.pem"));
+        Date now = Date.from(Instant.parse("2026-11-07T00:00:00Z"));
+        Date later = Date.from(Instant.parse("2030-01-01T00:00:00Z"));
+        AttestationChain.Validation current = AttestationChain.validateDetailed(factory, googleRoots, now);
+        check(current.presentedRootReplaced, "expired supplied Google root connects to renewed pinned root with same key");
+        check(!current.legacyFactoryExpiryApplied, "unexpired factory intermediates retain current-time policy");
+        check(current.pkixValidationTimeMillis == now.getTime(), "ordinary PKIX uses caller time");
+        AttestationChain.Validation legacy = AttestationChain.validateDetailed(factory, googleRoots, later);
+        check(legacy.legacyFactoryExpiryApplied && legacy.expiredFactoryCaCount == 2,
+                "official v0.4 factory fixture accepts only its two expired CAs");
+        check(legacy.pkixValidationTimeMillis < later.getTime(), "legacy historical validation date exported");
+        check(legacy.trustAnchor.equals(current.trustAnchor), "legacy compatibility never substitutes a different trust key");
+        AttestationChain.Validation omitted = AttestationChain.validateDetailed(factory.subList(0, factory.size() - 1), googleRoots, later);
+        check(omitted.legacyFactoryExpiryApplied && !omitted.presentedRootReplaced, "same authenticated factory policy when root is omitted");
+        rejects(GeneralSecurityException.class, () -> AttestationChain.validate(rkp, googleRoots, later),
+                "official v0.4 RKP fixture must still reject expired intermediates");
+        rejects(GeneralSecurityException.class, () -> AttestationChain.validate(rkp.subList(0, rkp.size() - 1), googleRoots, later),
+                "omitting RKP root cannot activate factory exception");
+        Date rkpValidDate = Date.from(Instant.parse("2025-09-26T00:00:00Z"));
+        check(!AttestationChain.validateDetailed(rkp, googleRoots, rkpValidDate).legacyFactoryExpiryApplied,
+                "valid official RKP fixture uses strict current-time policy");
+        Date tooEarly = Date.from(Instant.parse("2018-01-01T00:00:00Z"));
+        rejects(GeneralSecurityException.class, () -> AttestationChain.validate(factory,
+                Arrays.asList(factory.get(factory.size() - 1)), tooEarly), "future factory CAs are not relaxed");
+        List<X509Certificate> broken = new ArrayList<>(factory);
+        byte[] corrupt = factory.get(1).getEncoded(); corrupt[corrupt.length - 1] ^= 1;
+        broken.set(1, (X509Certificate) CertificateFactory.getInstance("X.509")
+                .generateCertificate(new ByteArrayInputStream(corrupt)));
+        rejects(GeneralSecurityException.class, () -> AttestationChain.validate(broken, googleRoots, later),
+                "factory expiry exception never accepts invalid signatures");
+        rejects(GeneralSecurityException.class, () -> AttestationChain.validate(Arrays.asList(factory.get(0), factory.get(2)), googleRoots, later),
+                "removing a factory intermediate cannot skip its signature relationship");
+        List<X509Certificate> impostor = certificates(fixtures.resolve("factory-lookalike-chain.pem"));
+        rejects(GeneralSecurityException.class, () -> AttestationChain.validate(impostor,
+                Arrays.asList(impostor.get(impostor.size() - 1)), later),
+                "matching serialNumber subjects on a different root key do not enable factory expiry exception");
+        String revokedSerial = factory.get(1).getSerialNumber().toString(16);
+        AttestationRevocations.Result revoked = AttestationRevocations.check(
+                utf8("{\"entries\":{\"" + revokedSerial + "\":{\"status\":\"REVOKED\"}}}"), null, factory, later.getTime());
+        check(revoked.knownRevokedOrSuspended(), "expiry-compatible factory CA is still checked against revocations");
+        check(!AttestationChecks.supportsLocalHardwareEvidence(true, true, true, true, revoked.knownRevokedOrSuspended()),
+                "known revoked factory chain cannot support local boot evidence");
+    }
     private static void testTrust(Path project) throws Exception {
         Path fixtures = project.resolve("tests/attestation-fixtures");
         X509Certificate root = certificate(fixtures.resolve("trusted-root.pem"));
@@ -338,7 +451,8 @@ public final class AttestationTests {
     }
     public static void main(String[] args) throws Exception {
         Path project = args.length == 0 ? Paths.get(".") : Paths.get(args[0]);
-        testDer(); testApplicationAndBinding(); testCorrelations(); testTrust(project); testRevocations(project);
+        testDer(); testApplicationAndBinding(); testCorrelations(); testDeviceProperties();
+        testTrust(project); testFactoryExpiryCompatibility(project); testRevocations(project);
         System.out.println("Attestation checks passed: " + assertions + " assertions, including truncation sweep and 2,000 malformed DER inputs.");
     }
 }

@@ -22,6 +22,12 @@ final class ScanSession {
     volatile boolean running;
     volatile String pendingExport;
     volatile boolean exportBusy;
+    volatile boolean catalogBusy;
+    volatile boolean automaticCatalogUpdates=true;
+    volatile String catalogMessage="";
+    private volatile long lastAutomaticCheckElapsed;
+    private static final long UPDATE_CHECK_INTERVAL_MILLIS=6L*60*60*1000;
+    private boolean skipNextCatalogCheck;
     final AtomicBoolean cancelled=new AtomicBoolean(false);
     volatile boolean remediationBusy;
     RemediationAction pendingRemediation;
@@ -38,7 +44,7 @@ final class ScanSession {
         start(context,false);
     }
     private synchronized void start(Context context,boolean afterRemediation) {
-        if(running||remediationBusy) return;
+        if(running||remediationBusy||catalogBusy) return;
         if(!afterRemediation) {
             automaticAttempts.clear();automaticPromptsPaused=false;
             blockedRemovalPackage="";blockedRemovalDetail="";
@@ -47,9 +53,29 @@ final class ScanSession {
         Context app=context.getApplicationContext();
         worker.execute(() -> {
             ScanReport value;
+            JSONObject updateAttempt=new JSONObject();
             try {
                 ScanEngine.Progress progress=s -> {stage=cancelled.get()?"검사 중단 처리 중":s;announce();};
-                value=new ScanEngine(app).scan(progress,cancelled);
+                long elapsed=android.os.SystemClock.elapsedRealtime();
+                boolean check=!skipNextCatalogCheck&&!afterRemediation&&automaticCatalogUpdates
+                        &&(lastAutomaticCheckElapsed==0||elapsed-lastAutomaticCheckElapsed>=UPDATE_CHECK_INTERVAL_MILLIS);
+                skipNextCatalogCheck=false;
+                if(check&&wifiAvailable(app)&&!cancelled.get()) {
+                    lastAutomaticCheckElapsed=Math.max(1,elapsed);
+                    progress.update("서명된 검사 자료 업데이트 확인 중");
+                    try {
+                        CatalogUpdateManager.Result result=CatalogUpdateManager.downloadAndInstall(app,cancelled);
+                        updateAttempt=result.diagnostics();catalogMessage=result.message;
+                    } catch(Exception error) {
+                        catalogMessage="업데이트를 확인하지 못했습니다. 사용 가능한 자료로 계속 검사합니다.";
+                        updateAttempt.put("state","UPDATE_CHECK_FAILED").put("error",error.getClass().getSimpleName())
+                                .put("latestAvailabilityConfirmed",false);
+                    }
+                } else updateAttempt.put("state",!automaticCatalogUpdates?"AUTOMATIC_UPDATES_DISABLED":
+                        check?"NO_WIFI_OR_CANCELLED":"AUTOMATIC_CHECK_THROTTLED_OR_AFTER_REMEDIATION")
+                        .put("latestAvailabilityConfirmed",false);
+                value=new ScanEngine(app,automaticRemovalPrompts).scan(progress,cancelled);
+                value.evidence.put("catalogUpdateAttempt",updateAttempt);
                 try { GalaxyInspector.inspect(app,value); }
                 catch(Exception ex) { value.add(new Finding("galaxy.unavailable","갤럭시 보안","삼성 관련 정보 확인 불가",Finding.Status.UNKNOWN,
                         ex.getClass().getSimpleName(),"설정과 삼성 공식 앱에서 지원 기능을 확인하세요.")); }
@@ -75,6 +101,39 @@ final class ScanSession {
             }catch(Exception ignored) { }
             value.completedAt=System.currentTimeMillis(); report=value;
             stage=cancelled.get()?"중단된 범위까지 결과 표시":"점검 완료"; running=false; announce();
+        });
+    }
+    private static boolean wifiAvailable(Context context) {
+        try {
+            android.net.ConnectivityManager manager=(android.net.ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            android.net.Network network=manager==null?null:manager.getActiveNetwork();
+            android.net.NetworkCapabilities caps=network==null?null:manager.getNetworkCapabilities(network);
+            return caps!=null&&caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI);
+        } catch(RuntimeException error) {return false;}
+    }
+    void catalogUpdatePreferenceChanged() { lastAutomaticCheckElapsed=0; }
+    synchronized void updateCatalog(Context context,android.net.Uri selectedFile) {
+        if(running||remediationBusy||catalogBusy||pendingRemediation!=null) return;
+        catalogBusy=true;catalogMessage=selectedFile==null?"검사 자료를 다운로드하고 서명을 확인하는 중입니다.":"선택한 검사 자료의 서명을 확인하는 중입니다.";
+        announce();Context app=context.getApplicationContext();
+        worker.execute(()->{
+            boolean updated=false;
+            try {
+                CatalogUpdateManager.Result result;
+                if(selectedFile==null) result=CatalogUpdateManager.downloadAndInstall(app,new AtomicBoolean(false));
+                else try(java.io.InputStream stream=app.getContentResolver().openInputStream(selectedFile)) {
+                    if(stream==null) throw new java.io.IOException("선택한 파일을 열 수 없습니다.");
+                    result=CatalogUpdateManager.importUpdate(app,stream,new AtomicBoolean(false));
+                }
+                catalogMessage=result.message;updated=true;lastAutomaticCheckElapsed=Math.max(1,android.os.SystemClock.elapsedRealtime());
+            } catch(Exception error) {
+                catalogMessage="자료를 적용하지 않았습니다. 기존 자료를 유지합니다. "+error.getClass().getSimpleName()+": "+error.getMessage();
+            }
+            final boolean success=updated;
+            main.post(()->{
+                catalogBusy=false;
+                if(success) {skipNextCatalogCheck=true;start(app,false);} else announce();
+            });
         });
     }
     void cancel() { cancelled.set(true);stage="검사 중단 처리 중";announce(); }
@@ -109,7 +168,7 @@ final class ScanSession {
         });
     }
     JSONObject nextAutomaticRemoval(String ownPackage) {
-        if(!automaticRemovalPrompts||automaticPromptsPaused||report==null||cancelled.get()) return null;
+        if(!automaticRemovalPrompts||automaticPromptsPaused||catalogBusy||report==null||cancelled.get()) return null;
         for(int i=0;i<report.inventory.length();i++) {
             JSONObject row=report.inventory.optJSONObject(i);
             if(row!=null&&!automaticAttempts.contains(row.optString("packageName"))&&RemediationController.canRemove(row,ownPackage)) return row;

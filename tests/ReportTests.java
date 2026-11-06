@@ -158,7 +158,7 @@ public final class ReportTests {
             finding(r,"three",Finding.Status.UNKNOWN); r.completedAt=r.startedAt+100;
             same(2,r.count(Finding.Status.INFO)); same(1,r.count(Finding.Status.UNKNOWN)); same(0,r.count(Finding.Status.ALERT));
             JSONObject json=r.toJson(); same("refurbcheck-report-v2",json.getString("schema"));
-            same("1.2.0",json.getString("appVersion")); same(1,json.getInt("unverifiedFindingCount"));
+            same("1.3.0",json.getString("appVersion")); same(1,json.getInt("unverifiedFindingCount"));
             check(!json.getBoolean("allRequiredDomainsVerified"),"Must not claim complete domain verification");
             same(3,json.getJSONArray("findings").length()); same(r.verdict(),json.getString("verdict"));
             check(json.getLong("completedAt")>=json.getLong("startedAt"),"Completion precedes start");

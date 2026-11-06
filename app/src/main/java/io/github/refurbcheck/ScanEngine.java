@@ -1,14 +1,11 @@
 package io.github.refurbcheck;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
-import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -57,6 +54,7 @@ public final class ScanEngine {
     private interface Probe { void run() throws Exception; }
     private final Context context;
     private final PackageManager pm;
+    private final boolean factoryMode;
     private static final String SYSTEM="부팅·시스템", ROOT="루팅·개조", APPS="앱·설정";
     private static final String NETWORK="인증서·네트워크", LIMITS="검증 범위";
     private static final String SELF_REPORT="운영체제가 알려 주는 값이며, 침해된 기기에서는 위조될 수 있습니다.";
@@ -73,8 +71,10 @@ public final class ScanEngine {
             "android.permission.READ_PHONE_STATE", "android.permission.READ_EXTERNAL_STORAGE",
             "android.permission.READ_MEDIA_IMAGES", "android.permission.READ_MEDIA_VIDEO"));
 
-    public ScanEngine(Context context) {
+    public ScanEngine(Context context) { this(context,true); }
+    public ScanEngine(Context context,boolean factoryMode) {
         this.context=context.getApplicationContext(); this.pm=this.context.getPackageManager();
+        this.factoryMode=factoryMode;
     }
 
     public ScanReport scan(Progress progress) {
@@ -92,9 +92,11 @@ public final class ScanEngine {
         if(cancelled.get()) { addLimits(r);return r; }
         update(progress,"접근성·기기 관리자·입력기 확인 중");
         guard(r,"settings.accessibility",APPS,"사용 중인 접근성 서비스",()->inspectAccessibility(r));
-        guard(r,"settings.admin",APPS,"활성 기기 관리자",()->inspectAdmins(r));
+        guard(r,"settings.admin",APPS,"활성 기기 관리자",()->ManagementInspection.inspect(context,r));
         guard(r,"settings.notifications",APPS,"알림 접근 앱",()->inspectNotifications(r));
         guard(r,"settings.keyboards",APPS,"사용 가능한 키보드",()->inspectKeyboards(r));
+        guard(r,"capabilities.read",APPS,"활성 권한 조합",()->ManifestRiskInspection.inspect(r,context.getPackageName()));
+        guard(r,"policy.read",APPS,"초기화 후 소프트웨어 정책",()->FactoryResetPolicy.inspect(r,context.getPackageName(),factoryMode));
         inspectSwitch(r,"settings.developer","개발자 옵션",Settings.Global.DEVELOPMENT_SETTINGS_ENABLED);
         inspectSwitch(r,"settings.adb","USB 디버깅",Settings.Global.ADB_ENABLED);
         if(Build.VERSION.SDK_INT>=30) inspectSwitch(r,"settings.wireless_adb","무선 디버깅","adb_wifi_enabled");
@@ -203,7 +205,7 @@ public final class ScanEngine {
     @SuppressWarnings("deprecation")
     private void inspectPackages(ScanReport r) throws Exception {
         boolean visibility=Build.VERSION.SDK_INT<30||context.checkSelfPermission("android.permission.QUERY_ALL_PACKAGES")==PackageManager.PERMISSION_GRANTED;
-        int flags=PackageManager.GET_PERMISSIONS|(Build.VERSION.SDK_INT>=28?PackageManager.GET_SIGNING_CERTIFICATES:PackageManager.GET_SIGNATURES);
+        int flags=PackageManager.GET_PERMISSIONS|PackageManager.GET_SERVICES|(Build.VERSION.SDK_INT>=28?PackageManager.GET_SIGNING_CERTIFICATES:PackageManager.GET_SIGNATURES);
         List<PackageInfo> packages=pm.getInstalledPackages(flags);
         if(packages==null||packages.isEmpty()) throw new IOException("설치 앱 목록이 비어 있어 범위를 확인할 수 없습니다");
         Collections.sort(packages,(a,b)->a.packageName.compareTo(b.packageName));
@@ -217,20 +219,11 @@ public final class ScanEngine {
             row.put("versionCode",Build.VERSION.SDK_INT>=28?p.getLongVersionCode():(long)p.versionCode);
             row.put("versionName",p.versionName==null?"":p.versionName); row.put("enabled",ai.enabled);
             row.put("firstInstallTime",p.firstInstallTime);row.put("lastUpdateTime",p.lastUpdateTime);
-            JSONArray signing=new JSONArray(); boolean signingReadable=true;
-            try {
-                Signature[] sigs=Build.VERSION.SDK_INT>=28?(p.signingInfo==null?null:p.signingInfo.getApkContentsSigners()):p.signatures;
-                if(sigs==null||sigs.length==0) signingReadable=false;
-                else for(Signature sig:sigs) signing.put(sha256(sig.toByteArray()));
-            } catch(Exception e) { signingReadable=false; }
-            row.put("signingSha256",signing); row.put("signingReadable",signingReadable);
+            PackageProvenance.collect(pm,p,row);
+            ManifestRiskInspection.collectDeclared(p,row);
+            boolean signingReadable=row.optBoolean("signingReadable",false);
             if(!signingReadable) signaturesMissing++;
-            String installer=""; boolean installerReadable=false;
-            try {
-                String source=Build.VERSION.SDK_INT>=30?pm.getInstallSourceInfo(p.packageName).getInstallingPackageName():pm.getInstallerPackageName(p.packageName);
-                if(source!=null) { installer=source; installerReadable=true; }
-            } catch(Exception ignored) { }
-            row.put("installer",installer); row.put("installerReadable",installerReadable);
+            boolean installerReadable=row.optBoolean("installerReadable",false);
             JSONArray granted=new JSONArray();
             if(p.requestedPermissions!=null&&p.requestedPermissionsFlags!=null)
                 for(int i=0;i<Math.min(p.requestedPermissions.length,p.requestedPermissionsFlags.length);i++)
@@ -276,17 +269,6 @@ public final class ScanEngine {
                 (names.isEmpty()?"현재 프로필의 조회 결과에서 이름을 확인한 활성 서비스가 없습니다.":join(names,12))
                         +(unresolved>0?"\n정보를 확인하지 못한 서비스 "+unresolved+"개.":""),
                 "접근성 앱은 화면 내용 읽기·조작 권한을 가질 수 있습니다. 보조공학·자동화 앱도 사용하므로 본인이 허용했는지 확인하세요.");
-    }
-
-    private void inspectAdmins(ScanReport r) throws Exception {
-        DevicePolicyManager manager=(DevicePolicyManager)context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-        if(manager==null) throw new IOException("기기 관리자 조회 불가");
-        List<ComponentName> enabled=manager.getActiveAdmins(); List<String> names=new ArrayList<>();
-        if(enabled!=null) for(ComponentName component:enabled) names.add(component.flattenToShortString());
-        r.evidence.put("activeDeviceAdmins",new JSONArray(names));
-        add(r,"settings.admin",APPS,"활성 기기 관리자",names.isEmpty()?INFO:WARN,
-                names.isEmpty()?"현재 프로필에 활성 기기 관리자가 보고되지 않았습니다.":join(names,12),
-                "회사 관리·분실 방지 기능에도 사용됩니다. 모르는 관리자가 있으면 설정과 소유권을 확인하세요. 다른 프로필 관리까지 확인한 결과는 아닙니다.");
     }
 
     private void inspectNotifications(ScanReport r) throws Exception {

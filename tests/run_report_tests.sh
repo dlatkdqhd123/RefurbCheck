@@ -41,6 +41,7 @@ mkdir -p -- "$refurbcheck_classes"
     -classpath "$refurbcheck_json_jar" -d "$refurbcheck_classes" \
     "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/Finding.java" \
     "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/ScanReport.java" \
+    "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/SignatureLineage.java" \
     "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/BaselineComparator.java" \
     "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/ReportJson.java" \
     "$refurbcheck_root/tests/ReportTests.java"

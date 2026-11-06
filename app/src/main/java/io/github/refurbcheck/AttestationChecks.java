@@ -110,6 +110,32 @@ public final class AttestationChecks {
         return results;
     }
 
+    /** Exact non-unique property comparisons; software-enforced values never substitute for hardware. */
+    public static List<Comparison> correlateDeviceProperties(AttestationRecord record,
+            Map<String, String> observedProperties) {
+        List<Comparison> results = new ArrayList<>();
+        for (String field : AttestationRecord.DeviceProperties.NAMES) {
+            String attested = record.hardwareDeviceProperties.get(field);
+            String observed = observedProperties == null ? null : observedProperties.get(field);
+            boolean comparable = usableDeviceProperty(attested) && usableDeviceProperty(observed);
+            ComparisonState state = !comparable ? ComparisonState.NOT_COMPARABLE
+                    : attested.equals(observed) ? ComparisonState.MATCH : ComparisonState.MISMATCH;
+            String explanation = "하드웨어 영역의 비고유 기기 속성과 Build 관측값을 대소문자 포함 그대로 비교";
+            if (record.softwareDeviceProperties.get(field) != null)
+                explanation = "소프트웨어 영역의 속성은 하드웨어 기기 신원 증거로 대체하지 않음";
+            results.add(new Comparison("device." + field, attested == null ? "" : attested,
+                    observed == null ? "" : observed, state, explanation));
+        }
+        return results;
+    }
+
+    private static boolean usableDeviceProperty(String value) {
+        if (value == null || value.length() > 512 || value.trim().isEmpty()
+                || "unknown".equalsIgnoreCase(value.trim()) || "null".equalsIgnoreCase(value.trim())) return false;
+        for (int i = 0; i < value.length(); i++) if (Character.isISOControl(value.charAt(i))) return false;
+        return true;
+    }
+
     private static void compareDay(List<Comparison> results, String field, Long attested, String observed) {
         LocalDate hardwareDate = attested == null ? null : compactDate(attested);
         LocalDate osDate = date(observed);

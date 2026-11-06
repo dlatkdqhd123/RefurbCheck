@@ -42,7 +42,7 @@ import java.util.Set;
 
 public final class MainActivity extends Activity implements ScanSession.Listener {
     private static final int INK=0xff172c3c, MUTED=0xff526473, BG=0xfff3f6f8, TEAL=0xff166b63;
-    private static final int EXPORT=100, REFERENCE=101;
+    private static final int EXPORT=100, REFERENCE=101, CATALOG=102;
     private final ScanSession session=ScanSession.INSTANCE;
     private LinearLayout root,content,appList;
     private TextView liveStage;
@@ -54,6 +54,7 @@ public final class MainActivity extends Activity implements ScanSession.Listener
         super.onCreate(saved);
         if(saved!=null) selectedTab=saved.getInt("tab");
         session.automaticRemovalPrompts=getPreferences(MODE_PRIVATE).getBoolean("postResetRemovalMode",true);
+        session.automaticCatalogUpdates=getPreferences(MODE_PRIVATE).getBoolean("automaticCatalogUpdates",true);
         session.listener=this;
         render();
         if(session.report==null&&!session.running) session.start(this);
@@ -88,7 +89,7 @@ public final class MainActivity extends Activity implements ScanSession.Listener
             v.setPadding(dp(18)+bars.left,dp(16)+bars.top,dp(18)+bars.right,dp(8)+bars.bottom); return insets;
         });
         setContentView(root);
-        TextView eyebrow=text("REFURBCHECK  ·  1.2.0",11,TEAL); eyebrow.setLetterSpacing(.13f); root.addView(eyebrow);
+        TextView eyebrow=text("REFURBCHECK  ·  1.3.0",11,TEAL); eyebrow.setLetterSpacing(.13f); root.addView(eyebrow);
         TextView title=text("리퍼폰 점검",27,INK); title.setTypeface(null,Typeface.BOLD); root.addView(title);
         TextView subtitle=text("갤럭시 · 증거 확인과 보안 조치",13,MUTED); margin(subtitle,0,4,0,12); root.addView(subtitle);
         ScrollView sc=new ScrollView(this); sc.setFillViewport(false);
@@ -105,16 +106,16 @@ public final class MainActivity extends Activity implements ScanSession.Listener
     }
 
     private void maybeStartAutomaticRemoval() {
-        if(!resumed||automaticPromptPosted||session.running||session.remediationBusy||session.pendingRemediation!=null
+        if(!resumed||automaticPromptPosted||session.running||session.remediationBusy||session.catalogBusy||session.pendingRemediation!=null
                 ||isFinishing()||isDestroyed()) return;
         JSONObject next=session.nextAutomaticRemoval(getPackageName());if(next==null) return;
         automaticPromptPosted=true;
         session.main.post(()->{
             automaticPromptPosted=false;
-            if(!resumed||session.running||session.remediationBusy||session.pendingRemediation!=null||isFinishing()||isDestroyed()) return;
+            if(!resumed||session.running||session.remediationBusy||session.catalogBusy||session.pendingRemediation!=null||isFinishing()||isDestroyed()) return;
             JSONObject current=session.nextAutomaticRemoval(getPackageName());if(current==null) return;
             String pkg=current.optString("packageName");session.attemptedRemoval(pkg);
-            boolean legacy=RemediationRules.eligible(current,getPackageName());
+            boolean legacy=false; // v1.3 uses the current authenticated catalog only
             RemediationAction action=new RemediationAction(RemediationAction.Kind.UNINSTALL,pkg,
                     (legacy?"ioc.":"malware.app.")+pkg,legacy?"ALERT":"WARN");
             session.logRemediation(action.id(),"AUTO_REMOVAL_PREFLIGHT","초기화 직후 모드: 공개 파일 자료와 일치한 일반 앱을 재검증합니다. Android에서 삭제를 승인해야 제거됩니다.");
@@ -124,7 +125,7 @@ public final class MainActivity extends Activity implements ScanSession.Listener
 
     private void postResetModeControl() {
         LinearLayout box=card();
-        Switch mode=new Switch(this);mode.setText("초기화 직후 · 검출 앱 삭제 확인 자동 진행");
+        Switch mode=new Switch(this);mode.setText("초기화 직후 정책 · 검출 앱 삭제 확인 자동 진행");
         mode.setTextSize(14);mode.setTextColor(INK);mode.setChecked(session.automaticRemovalPrompts);box.addView(mode);
         box.addView(text("직접 설치한 감시·관리 앱이 없는 기기를 위한 모드입니다. 정확한 파일 지표가 일치한 일반 앱만 삭제 직전에 다시 확인하고 Android 승인창을 엽니다. 취소하면 자동 진행을 멈춥니다.",12,MUTED));
         mode.setOnCheckedChangeListener((button,checked)->{
@@ -156,7 +157,7 @@ public final class MainActivity extends Activity implements ScanSession.Listener
         hero.addView(text("검사 "+r.findings.size()+"항목  |  "+new SimpleDateFormat("MM.dd HH:mm",Locale.KOREA).format(new Date(r.completedAt)),12,MUTED));
         JSONObject coverage=r.evidence.optJSONObject("apkCoverage");
         if(coverage!=null) {
-            hero.addView(text("APK 해시 "+coverage.optInt("filesHashed")+" / "+coverage.optInt("filesDiscovered")+"개 · 공개 지표 일치 "+coverage.optInt("iocMatchingPackages")+"개 앱",13,INK));
+            hero.addView(text("APK 해시 "+coverage.optInt("filesHashed")+" / "+coverage.optInt("filesDiscovered")+"개",13,INK));
             hero.addView(text(coverage.optBoolean("complete")?"공개 APK 검사 범위 완료 · 기기 전체 안전 판정 아님":"APK 검사에 미확인 범위가 있습니다. 상세 근거를 확인하세요.",12,MUTED));
         }
         JSONObject malware=r.evidence.optJSONObject("malwareCoverage");
@@ -164,7 +165,7 @@ public final class MainActivity extends Activity implements ScanSession.Listener
             hero.addView(text("악성·감시 자료 대조 · APK "+malware.optInt("wholeFilesCompared")+"개 / 내부 파일 "+malware.optLong("entriesHashed")+"개 · 일치 "+malware.optInt("matchingPackages")+"개 앱",13,INK));
             hero.addView(text(malware.optBoolean("complete")?"직접 파일 검사 범위 완료 · 알려지지 않은 악성코드는 놓칠 수 있습니다.":"악성 파일 검사에 미확인 범위가 있습니다. 아래 상세 결과를 확인하세요.",12,MUTED));
         }
-        content.addView(hero); postResetModeControl();limitation();
+        content.addView(hero); postResetModeControl();catalogControls();limitation();
         LinearLayout actions=row(); weighted(actions,button("다시 점검",()->session.start(this),true)); weighted(actions,button("결과 JSON 저장",this::exportReport,false)); content.addView(actions);
         content.addView(button("보안 조치와 갤럭시 진단 열기",()->{selectedTab=2;render();},true));
         LinearLayout filters=row();
@@ -179,6 +180,40 @@ public final class MainActivity extends Activity implements ScanSession.Listener
             finding(f); shown++;
         }
         if(shown==0) content.addView(text("이 분류에 해당하는 항목이 없습니다.",14,MUTED));
+    }
+
+    private void catalogControls() {
+        LinearLayout box=card();
+        TextView title=text("검사 자료 업데이트",17,INK);title.setTypeface(null,Typeface.BOLD);box.addView(title);
+        Switch automatic=new Switch(this);automatic.setText("Wi-Fi에서 검사 자료 자동 확인");
+        automatic.setTextSize(14);automatic.setTextColor(INK);automatic.setChecked(session.automaticCatalogUpdates);
+        automatic.setOnCheckedChangeListener((button,checked)->{
+            session.automaticCatalogUpdates=checked;session.catalogUpdatePreferenceChanged();
+            getPreferences(MODE_PRIVATE).edit().putBoolean("automaticCatalogUpdates",checked).apply();
+        });box.addView(automatic);
+        box.addView(text("검사할 때 최대 6시간 간격으로 GitHub에서 검사 자료를 확인합니다. 앱 목록·APK·검사 보고서는 전송하지 않습니다. 서명과 유효기간을 확인한 자료만 적용하며, 적용 후 다시 검사합니다.",12,MUTED));
+        if(session.report!=null) {
+            JSONObject database=session.report.evidence.optJSONObject("malwareDatabase");
+            if(database!=null) {
+                box.addView(text("사용 자료: "+database.optInt("entryCount")+"개 · 구성일 "+database.optString("snapshotDate","미확인"),12,MUTED));
+                JSONObject update=database.optJSONObject("update");
+                if(update!=null) box.addView(text((update.optBoolean("signedUpdate")?"서명된 업데이트 #"+update.optLong("sequence"):"APK에 포함된 기본 자료")
+                        +(database.optBoolean("automaticRemovalAllowed")?" · 유효기간 내":" · 자동 삭제 연결 보류"),12,MUTED));
+            }
+        }
+        if(!session.catalogMessage.isEmpty()) box.addView(text(session.catalogMessage,13,MUTED));
+        boolean enabled=!session.running&&!session.remediationBusy&&!session.catalogBusy&&session.pendingRemediation==null;
+        Button download=button("지금 업데이트 확인",()->session.updateCatalog(this,null),true);download.setEnabled(enabled);box.addView(download);
+        Button fromFile=button("서명된 자료 파일 가져오기",this::chooseCatalog,false);fromFile.setEnabled(enabled);box.addView(fromFile);
+        box.addView(text("수동 확인은 현재 인터넷 연결을 사용합니다. 새 자료를 배포하지 않은 기간과 알려지지 않은 악성코드는 검사에 한계가 있습니다.",12,MUTED));
+        content.addView(box);
+    }
+
+    private void chooseCatalog() {
+        if(session.running||session.remediationBusy||session.catalogBusy) {toast("현재 작업을 마친 뒤 시도하세요.");return;}
+        Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT);intent.addCategory(Intent.CATEGORY_OPENABLE);intent.setType("*/*");
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,new String[]{"application/zip","application/octet-stream","application/x-zip-compressed"});
+        try {startActivityForResult(intent,CATALOG);}catch(Exception error){toast("파일 선택 화면을 열 수 없습니다.");}
     }
 
     private void limitation() {
@@ -199,13 +234,6 @@ public final class MainActivity extends Activity implements ScanSession.Listener
         if(f.action!=null&&!f.action.isEmpty()) { TextView action=text("확인 방법\n"+f.action,13,TEAL); action.setTextIsSelectable(true); details.addView(action); }
         RemediationAction action=RemediationAction.forFinding(f);
         if(action!=null) details.addView(button(action.label(),()->beginRemediation(action),false));
-        if(f.id.startsWith("ioc.")) {
-            JSONObject pkg=RemediationController.findPackage(session.report,f.id.substring(4));
-            if(RemediationRules.eligible(pkg,getPackageName())) {
-                RemediationAction remove=new RemediationAction(RemediationAction.Kind.UNINSTALL,pkg.optString("packageName"),f.id,f.status.name());
-                details.addView(button(remove.label(),()->beginRemediation(remove),true));
-            }
-        }
         if(f.id.startsWith("malware.app.")) {
             JSONObject pkg=RemediationController.findPackage(session.report,f.id.substring("malware.app.".length()));
             if(RemediationController.canRemove(pkg,getPackageName())) {
@@ -252,10 +280,25 @@ public final class MainActivity extends Activity implements ScanSession.Listener
             box.addView(text(p.optString("packageName"),12,MUTED));
             box.addView(text((p.optBoolean("system")?"시스템 앱":"사용자 앱")+" · "+p.optString("versionName","버전 미상"),12,MUTED));
             box.addView(text("출처: "+(p.optString("installer").isEmpty()?"확인 불가 / 기본 설치":p.optString("installer")),12,MUTED));
+            JSONObject provenance=p.optJSONObject("installProvenance");
+            if(provenance!=null) {
+                String initiator=provenance.optString("initiatingPackageName","");
+                String owner=provenance.optString("updateOwnerPackageName","");
+                if(!initiator.isEmpty()&&!"null".equals(initiator)) box.addView(text("최초 설치 요청 앱: "+initiator,12,MUTED));
+                if(!owner.isEmpty()&&!"null".equals(owner)) box.addView(text("업데이트 소유 앱: "+owner,12,MUTED));
+            }
+            JSONArray history=p.optJSONArray("signingHistorySha256");
+            if(p.optBoolean("signingHistoryReadable")&&history!=null) box.addView(text("서명 이력 "+history.length()+"개 · OS 보고",12,MUTED));
+            JSONObject policy=p.optJSONObject("factoryResetPolicy");
+            if(policy!=null&&"UNEXPECTED_NON_SYSTEM".equals(policy.optString("outcome")))
+                box.addView(text("초기화 후 추가 설치 앱 · 설치 목적 확인 필요",12,0xff865000));
+            JSONObject capability=p.optJSONObject("capabilityRiskReview");
+            if(capability!=null&&"REVIEW".equals(capability.optString("outcome")))
+                box.addView(text("활성 권한 조합 확인 필요 · 앱을 눌러 근거 확인",12,0xff865000));
             box.addView(text(p.optBoolean("confirmedIoc")?"공개 악성 파일 해시 일치 · 조치 탭 확인":p.optBoolean("apkInspectionComplete")?"base/split APK 해시 수집됨":"APK 해시 미확인 범위 있음",12,p.optBoolean("confirmedIoc")?0xffa02627:MUTED));
             long malwareHits=p.optLong("malwareReferenceMatchCount",0);
             box.addView(text(malwareHits>0?"악성·감시 자료 "+malwareHits+"건 일치 · 출처·설치 목적 확인":
-                    p.optBoolean("malwareInspectionComplete")?"내장 악성 파일 자료 대조 완료 · 일치 없음":"악성 파일 자료 대조에 미확인 범위 있음",12,malwareHits>0?0xff865000:MUTED));
+                    p.optBoolean("malwareInspectionComplete")?"선택된 악성 파일 자료 대조 완료 · 일치 없음":"악성 파일 자료 대조에 미확인 범위 있음",12,malwareHits>0?0xff865000:MUTED));
             box.setOnClickListener(v->showPackage(p)); appList.addView(box);
         }
         LinearLayout pages=row();
@@ -289,7 +332,7 @@ public final class MainActivity extends Activity implements ScanSession.Listener
             for(int i=0;i<report.inventory.length();i++) {
                 JSONObject row=report.inventory.optJSONObject(i);
                 if(!RemediationController.canRemove(row,getPackageName())) continue;
-                boolean legacy=RemediationRules.eligible(row,getPackageName());
+                boolean legacy=false;
                 RemediationAction remove=new RemediationAction(RemediationAction.Kind.UNINSTALL,row.optString("packageName"),(legacy?"ioc.":"malware.app.")+row.optString("packageName"),legacy?"ALERT":"WARN");
                 actionCard("공개 파일 자료 일치 · "+row.optString("label"),remove,true);
             }
@@ -325,7 +368,7 @@ public final class MainActivity extends Activity implements ScanSession.Listener
         beginRemediation(action,false);
     }
     private void beginRemediation(RemediationAction action,boolean automatic) {
-        if(session.running||session.remediationBusy||session.pendingRemediation!=null) {toast("현재 점검·조치가 끝난 뒤 다시 눌러 주세요.");return;}
+        if(session.running||session.remediationBusy||session.catalogBusy||session.pendingRemediation!=null) {toast("현재 점검·조치가 끝난 뒤 다시 눌러 주세요.");return;}
         if(action.kind!=RemediationAction.Kind.UNINSTALL) {launchRemediation(action);return;}
         JSONObject row=RemediationController.findPackage(session.report,action.packageName);
         if(!RemediationController.canRemove(row,getPackageName())) {toast("현재 검사에서 삭제 가능한 정확 일치 근거를 찾지 못했습니다.");return;}
@@ -368,21 +411,21 @@ public final class MainActivity extends Activity implements ScanSession.Listener
         section("공장 초기화 직후 사용","초기화 후 앱·설정 백업을 복원하기 전에 이 앱으로 검사하세요. 초기화 직후 모드는 기본으로 켜져 있습니다. 알려진 악성·감시 자료와 정확히 일치한 일반 앱은 재검증 후 Android 삭제 승인창으로 이어집니다. 여러 앱은 순서대로 처리하고 마지막에 재검사합니다. 삭제 취소·차단·검증 실패 시 자동 진행을 멈춥니다. 시스템 앱·이 앱은 자동 제거 대상에서 제외합니다.");
         section("이 앱이 하는 일","OS가 공개하는 정보, 루팅·후킹 흔적, 설치된 base/split APK의 실제 SHA-256·암호학적 서명, 접근성·관리자·인증서·네트워크 설정을 확인합니다. 지원 기기에서는 임시 키 증명을 만들고 공개 루트·앱 식별자·challenge·OS 표시값·내장 폐기 목록과 대조합니다.");
         section("결과를 읽는 방법","‘중요 징후’는 우선 확인해야 할 관측입니다. ‘확인 필요’는 정상 사용에서도 생길 수 있습니다. ‘미발견’은 확인한 범위에서 흔적을 찾지 못했다는 뜻입니다. ‘확인 불가’는 미지원·권한 제한·미실시 등으로 결론을 내리지 않았다는 뜻입니다. 커스텀 ROM과 루팅 자체가 악성 또는 불법이라는 판정은 하지 않습니다.");
-        section("자동 악성·감시 파일 검사","ClamAV Android 해시 서명, ESET Android 공개 지표, Echap 감시 도구 자료와 MVT 지표를 사용합니다. 설치 APK 전체와 직접 압축된 내부 파일을 MD5·SHA-1·SHA-256으로 대조합니다. ClamAV 전체 엔진·바이트 패턴·행위 분석·미지 변종 탐지는 포함하지 않습니다. 감시 도구의 동의된 사용도 검출될 수 있어 새 참조 일치는 확인 필요로 표시합니다.");
-        section("검사 범위와 자료 갱신","중첩 압축은 내부까지 재귀 검사하지 않으며, 암호화·미지원 ZIP·과도한 압축비·크기·시간·취소는 미확인으로 남깁니다. 자료는 앱에 포함한 스냅샷이고 자동 인터넷 업데이트나 파일 업로드는 하지 않습니다. 새 자료는 앱 업데이트로 받으세요. 삼성 앱 보호와 Play Protect에서도 최신 검사를 실행할 수 있습니다.");
-        section("자료와 출처","내장 참조 서명 "+MalwareCatalog.ENTRY_COUNT+"개 · 구성일 "+MalwareCatalog.SNAPSHOT_DATE+". 서명 수는 서로 다른 악성 앱 수나 탐지율을 뜻하지 않습니다. 개별 원자료 날짜·선정 규칙·라이선스는 결과 JSON의 malwareDatabase.catalog 및 공개 소스의 docs/antivirus.md에 기록합니다.");
+        section("자동 악성·감시 파일 검사","ClamAV Android 해시 서명, ESET Android 공개 지표, Echap 감시 도구 자료와 MVT 지표를 사용합니다. 설치 APK 전체와 직접 압축된 내부 파일을 MD5·SHA-1·SHA-256으로 대조합니다. ClamAV 전체 엔진·바이트 패턴·실행 행위 분석·학습 모델은 포함하지 않습니다. 별도로 활성 권한 조합을 확인하지만, 미지 변종 탐지 성능을 검증한 백신은 아닙니다. 감시 도구의 동의된 사용도 검출될 수 있어 새 참조 일치는 확인 필요로 표시합니다.");
+        section("검사 범위와 자료 갱신","중첩 압축은 내부까지 재귀 검사하지 않으며, 암호화·미지원 ZIP·과도한 압축비·크기·시간·취소는 미확인으로 남깁니다. 기본 자료와 별도로 앱 실행 시 Wi-Fi에서 서명된 자료 업데이트를 확인합니다. 결과 탭에서 자동 확인을 끄거나 지금 확인·서명 파일 가져오기를 사용할 수 있습니다. 파일 업로드는 하지 않습니다. 업데이트 게시자가 새 자료를 배포해야 탐지 자료도 바뀝니다. 삼성 앱 보호와 Play Protect에서도 최신 검사를 실행할 수 있습니다.");
+        section("자료와 출처","기본 내장 참조 서명 "+MalwareCatalog.ENTRY_COUNT+"개 · 구성일 "+MalwareCatalog.SNAPSHOT_DATE+". 서명 수는 서로 다른 악성 앱 수나 탐지율을 뜻하지 않습니다. 개별 원자료 날짜·선정 규칙·라이선스는 결과 JSON의 malwareDatabase.catalog 및 공개 소스의 docs/antivirus.md에 기록합니다.");
         content.addView(button("Play 스토어 열기",this::openPlayStore,false));
         section("공장 초기화와 순정 펌웨어","공장 초기화는 사용자 데이터·앱을 지우는 작업입니다. 변조된 시스템을 제조사 원본과 같게 만들었다는 증명은 아닙니다. 제조사 정식 펌웨어·모델별 기준과 대조하는 검증이 추가로 필요합니다. 이 앱은 초기화, 루팅, 부트로더 잠금 변경을 수행하지 않습니다.");
         section("하드웨어 확인","센서·메모리·모델 정보는 OS가 보고한 내용입니다. 내부 부품의 정품 여부, 몰래 추가된 장치, 베이스밴드·주변 장치 펌웨어는 일반 앱으로 완전히 검증할 수 없습니다. 제조사 공식 진단과 서비스센터의 실물 점검이 필요합니다.");
         section("하드웨어 키 증명의 한계","공식 Google 루트·앱 서명·버전·challenge를 대조하더라도 침해된 기기 안의 결과는 속을 수 있습니다. 내장 폐기 목록은 수집 시점의 스냅샷이며 실시간 확인이 아닙니다. 외부 검증 서버, 제조사 원본 부팅 키, 삼성 Knox 원격 검증은 연결하지 않았습니다. 내장 자료의 시각·유효 범위·확인 불가 항목을 보고서에 남깁니다.");
         section("참고 보고서 비교","같은 모델의 신뢰할 수 있는 기준 기기에서 저장한 JSON을 선택하면 빌드·앱 버전·서명과, 양쪽 모두 완전하게 읽은 base/split APK 해시의 차이를 확인합니다. 선택한 파일의 진위나 제조사 기준 여부는 인증하지 않습니다. 정상 업데이트·지역·split 배포 구성 차이도 생길 수 있습니다. 가져온 보고서로 앱 삭제를 실행하지 않습니다.");
         content.addView(button("참고 JSON과 현재 결과 비교",this::chooseReference,false));
-        section("개인정보·권한","인터넷 권한·광고·분석 SDK가 없습니다. 현재 프로필의 앱 목록·네트워크 상태를 읽고, 정확 지표 일치 앱의 삭제 확인창을 요청하는 권한을 사용합니다. 외부 삼성 앱·웹 안내는 사용자가 누를 때 엽니다. 보고서 저장을 누르면 임시 사본을 앱 전용 캐시에 두고 저장 후 지웁니다. 앱 목록·인증서가 들어 있는 보고서를 공개하지 마세요. IMEI·일련번호·연락처·사진·계정 비밀번호는 수집하지 않습니다.");
-        section("기존 도구와 공개 검증 절차","RootBeer·Key Attestation·Auditor·App Manager·MVT의 공개 자료와 삼성 Knox·Phonecheck·Blancco·iVerify·Zimperium의 공개 절차를 참고했습니다. 상용 서비스의 비공개 엔진이나 인증 능력을 구현했다고 주장하지 않습니다. APK 서명은 Apache-2.0의 apksig-android 4.4.0을 사용하며 API 33보다 새 Android의 최종 서명 판정은 확인 불가로 남깁니다. 기존 MVT IOC는 MIT 라이선스이며, 추가 백신·감시 자료에는 각 출처의 GPL-2.0-only·BSD-2-Clause·CC BY 4.0·MIT 조건을 적용합니다. 자료별 출처와 고지를 앱 자산과 소스에 보존했습니다.");
+        section("개인정보·권한","검사 자료 다운로드를 위한 인터넷 권한을 사용합니다. 광고·분석 SDK는 없으며 앱 목록·APK·보고서를 전송하지 않습니다. 다운로드 서버는 접속 IP 등 일반 연결 정보를 볼 수 있습니다. 현재 프로필의 앱 목록·네트워크 상태를 읽고, 정확 지표 일치 앱의 삭제 확인창을 요청하는 권한을 사용합니다. 외부 삼성 앱·웹 안내는 사용자가 누를 때 엽니다. 보고서 저장을 누르면 임시 사본을 앱 전용 캐시에 두고 저장 후 지웁니다. 앱 목록·인증서가 들어 있는 보고서를 공개하지 마세요. IMEI·일련번호·연락처·사진·계정 비밀번호는 수집하지 않습니다.");
+        section("기존 도구와 공개 검증 절차","RootBeer·Key Attestation·Auditor·App Manager·MVT의 공개 자료와 삼성 Knox·Phonecheck·Blancco·iVerify·Zimperium의 공개 절차를 참고했습니다. 상용 서비스의 비공개 엔진이나 인증 능력을 구현했다고 주장하지 않습니다. APK 서명은 Apache-2.0의 AOSP Android16 QPR2 apksig 소스로 API26–36을 모델링합니다. 미래 플랫폼과 SDK 범위가 모호한 경우는 확인 불가로 남깁니다. 기존 MVT IOC는 MIT 라이선스이며, 추가 백신·감시 자료에는 각 출처의 GPL-2.0-only·BSD-2-Clause·CC BY 4.0·MIT 조건을 적용합니다. 자료별 출처와 고지를 앱 자산과 소스에 보존했습니다.");
         content.addView(button("Android 공식 키 증명 안내",()->openUrl("https://developer.android.com/privacy-and-security/security-key-attestation"),false));
-        content.addView(button("Auditor 공식 안내",()->openUrl("https://attestation.app/about"),false));
+        content.addView(button("외부 키 증명 검증기 자료",()->openUrl("https://github.com/android/keyattestation"),false));
         content.addView(button("갤럭시 공식 앱 보호 안내",()->openUrl("https://www.samsungsvc.co.kr/solution/618789"),false));
-        content.addView(text("RefurbCheck 1.2.0 · 자체 코드는 MIT · 참조 자료는 각각 GPL-2.0-only/BSD-2-Clause/CC BY 4.0/MIT\nAndroid 8.0 이상 · 공식 제조사 또는 보안 인증기관의 제품이 아닙니다.",12,MUTED));
+        content.addView(text("RefurbCheck 1.3.0 · 자체 코드는 MIT · 참조 자료는 각각 GPL-2.0-only/BSD-2-Clause/CC BY 4.0/MIT\nAndroid 8.0 이상 · 공식 제조사 또는 보안 인증기관의 제품이 아닙니다.",12,MUTED));
     }
 
     private void exportReport() {
@@ -434,6 +477,8 @@ public final class MainActivity extends Activity implements ScanSession.Listener
                     runOnUiThread(()->toast("결과 JSON을 저장했습니다."));
                 } catch(Exception e) { runOnUiThread(()->toast("저장하지 못했습니다. 다른 폴더를 선택하세요.")); }
             });
+        } else if(request==CATALOG) {
+            session.updateCatalog(this,uri);
         } else if(request==REFERENCE) {
             final ScanReport current=session.report;
             if(current==null) { toast("현재 점검 결과가 없습니다. 점검 완료 후 다시 비교하세요."); return; }

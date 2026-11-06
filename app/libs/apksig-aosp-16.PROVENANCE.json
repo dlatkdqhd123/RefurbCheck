@@ -1,0 +1,25 @@
+{
+  "upstream": "https://android.googlesource.com/platform/tools/apksig",
+  "ref": "android16-qpr2-release",
+  "commit": "ba8f1f1c74b62b8742c9946b09d4a9c6ac7446ae",
+  "upstreamCommitDate": "2025-07-16",
+  "retrievedDate": "2026-11-07",
+  "license": "Apache-2.0",
+  "sourceArchiveSha256": "39506ec1e04f3dacc8e90eadafde6cdb196c7070c935eda669112a2cd1ddd8ab",
+  "jarSha256": "83d7d7fec92ca21214d180e232a4594d2a1b6ee3b186a7b8ebf338d95e317040",
+  "javaSources": 126,
+  "modifications": "No source edits. Only AWS/GCP cloud signing providers excluded; platform Java APIs require min API26. Verified through application BoundedSource. Does not include libclamav.",
+  "build": "JDK17 javac --release 8; tools/build_apksig_port.py",
+  "maximumModeledApi": 36,
+  "futureApiPolicy": "UNKNOWN_PLATFORM above36",
+  "fixtures": {
+    "v1v2v3-with-rsa-2048-lineage-3-signers.apk": "9c6947bf9398a15e85a52bf83b07cfae6686ff49e03034d09cbea45a19bdaa15",
+    "v31-rsa-2048_2-tgt-33-1-tgt-28.apk": "a40f823ac90d7ff366157923c689fc0eb14956354af647644b3148fc1ca3fe70",
+    "v31-rsa-2048_2-tgt-34-1-tgt-28.apk": "5d6554386a76c453499b6bb6e3a4b183eb5098f89058fedbec101c39588edc6b",
+    "v31-tgt-34-v3-attr-value-33.apk": "0a57a59571d835c0fdbd768e9a1ea5e327a48f467a4c15d77e13afe642c634fe",
+    "v31-block-stripped-v3-attr-value-33.apk": "111090e77fd28e61cf6caa3f8a165fbf5cc7cbf0408621eda9e061d8a18e3331",
+    "v2-only-with-ecdsa-sha256-p256.apk": "f2b3533c9a7b2f50253730052b0b1cad431f010bda7ad6e20febf777594e31a1",
+    "v2-only-with-ecdsa-sha256-p256-digest-mismatch.apk": "b410ae8b13ca44971937f23a8cff836db03861e1663fe5bb5a3bd19f6f29d354",
+    "v1v2v3-with-zip64-records.apk": "48f5a1f24afdc0f2f058b0d8c6b830697d2e8654a1786a4d233d7bc6a1adaa37"
+  }
+}

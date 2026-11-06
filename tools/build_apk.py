@@ -39,7 +39,7 @@ def main():
     parser.add_argument("--keystore", required=True)
     parser.add_argument("--password-file", required=True)
     parser.add_argument("--alias", default="refurbcheck")
-    parser.add_argument("--output", default="dist/RefurbCheck-1.2.0.apk")
+    parser.add_argument("--output", default="dist/RefurbCheck-1.3.0.apk")
     args = parser.parse_args()
     project = Path(__file__).resolve().parents[1]
     if not args.sdk_root:
@@ -63,8 +63,8 @@ def main():
     if not java:
         parser.error("A Java 17 JDK is required")
     main_source = project / "app" / "src" / "main"
-    dependencies = [project / "app" / "libs" / "apksig-android-4.4.0.jar"]
-    if hashlib.sha256(dependencies[0].read_bytes()).hexdigest() != "530fcc4384889108bf85b4c816cfe354604dd38654b30d81fc046a817e1c10e0":
+    dependencies = [project / "app" / "libs" / "apksig-aosp-16.jar"]
+    if hashlib.sha256(dependencies[0].read_bytes()).hexdigest() != "83d7d7fec92ca21214d180e232a4594d2a1b6ee3b186a7b8ebf338d95e317040":
         raise RuntimeError("Pinned apksig-android dependency digest mismatch")
     if not (main_source / "AndroidManifest.xml").is_file():
         parser.error("AndroidManifest.xml is not ready")
@@ -99,7 +99,7 @@ def main():
                     "--manifest", merged_manifest,
                     "--java", generated, "-I", android_jar,
                     "--min-sdk-version", "26", "--target-sdk-version", "35",
-                    "--version-code", "3", "--version-name", "1.2.0"]
+                    "--version-code", "4", "--version-name", "1.3.0"]
     if (main_source / "assets").exists():
         link_command += ["-A", main_source / "assets"]
     run(link_command + [resource_zip])
@@ -135,7 +135,7 @@ def main():
     alignment = run([build_tools / "zipalign", "-c", "-v", "4", output], capture=True)
     manifest = run([build_tools / "aapt2", "dump", "badging", output], capture=True)
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
-    summary = ("RefurbCheck 1.2.0 APK build verification\n"
+    summary = ("RefurbCheck 1.3.0 APK build verification\n"
                "Build tools: official Android SDK 35.0.0; compile API 35\n"
                "Runtime device/emulator execution is not established by this build script.\n\n"
                + verification + "\n" + alignment + "\n" + manifest

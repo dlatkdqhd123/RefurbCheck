@@ -56,6 +56,12 @@ final class RemediationAction {
     }
     static RemediationAction forFinding(Finding f) {
         Kind k=null;String id=f.id;
+        if(id.equals("policy.factory_reset")) return new RemediationAction(Kind.APPS,"",id,f.status.name());
+        if(id.equals("apps.capability_combinations")) return new RemediationAction(Kind.APPS,"",id,f.status.name());
+        if(id.equals("policy.management_expected_absent")||id.equals("settings.management_roles"))
+            return new RemediationAction(Kind.SECURITY,"",id,f.status.name());
+        if(id.equals("policy.special_access")) return new RemediationAction(Kind.ACCESSIBILITY,"",id,f.status.name());
+        if(id.startsWith("capabilities.app.")) return new RemediationAction(Kind.APPS,id.substring("capabilities.app.".length()),id,f.status.name());
         if(id.startsWith("malware.app.")) {
             String pkg=id.substring("malware.app.".length());
             if(pkg.length()<=255&&pkg.matches("[A-Za-z][A-Za-z0-9_]*(\\.[A-Za-z][A-Za-z0-9_]*)+"))

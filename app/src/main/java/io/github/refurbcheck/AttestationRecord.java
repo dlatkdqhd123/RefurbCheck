@@ -24,6 +24,8 @@ public final class AttestationRecord {
     /** [709] is platform-supplied, software-enforced data; never call it hardware-proven identity. */
     public final ApplicationId applicationId;
     public final boolean hardwareApplicationIdPresent;
+    /** Non-unique properties only. IMEI, serial number, MEID and uniqueId are not parsed. */
+    public final DeviceProperties hardwareDeviceProperties, softwareDeviceProperties;
 
     private AttestationRecord(List<DerReader.Value> fields) throws IOException {
         if (fields.size() != 8) throw new IOException("Unexpected KeyDescription field count");
@@ -48,6 +50,11 @@ public final class AttestationRecord {
         applicationId = software.containsKey(709) ? new ApplicationId(software.get(709).octets()) : null;
         // Preserve a misplaced field as an unsupported observation, but still reject malformed DER.
         if (hardwareApplicationIdPresent) new ApplicationId(hardware.get(709).octets());
+        hardwareDeviceProperties = new DeviceProperties(hardware);
+        softwareDeviceProperties = new DeviceProperties(software);
+        for (String field : DeviceProperties.NAMES)
+            if (hardwareDeviceProperties.get(field) != null && softwareDeviceProperties.get(field) != null)
+                throw new IOException("Device property appears in both enforcement lists");
     }
 
     public static AttestationRecord parseExtension(byte[] x509ExtensionValue) throws IOException {
@@ -88,6 +95,36 @@ public final class AttestationRecord {
 
     private static Long optionalInteger(Map<Integer, DerReader.Value> fields, int tag) throws IOException {
         return fields.containsKey(tag) ? fields.get(tag).unsigned(2) : null;
+    }
+
+    public static final class DeviceProperties {
+        public static final List<String> NAMES = Collections.unmodifiableList(
+                Arrays.asList("brand", "device", "product", "manufacturer", "model"));
+        private static final int[] TAGS = {710, 711, 712, 716, 717};
+        private final Map<String, String> values;
+        private DeviceProperties(Map<Integer, DerReader.Value> authorizations) throws IOException {
+            Map<String, String> parsed = new HashMap<>();
+            for (int i = 0; i < NAMES.size(); i++) {
+                DerReader.Value value = authorizations.get(TAGS[i]);
+                if (value == null) continue;
+                byte[] encoded = value.octets();
+                if (encoded.length > 512) throw new IOException("Device property size limit");
+                String text;
+                try {
+                    text = StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
+                            .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(encoded)).toString();
+                } catch (CharacterCodingException exception) {
+                    throw new IOException("Invalid device property UTF-8", exception);
+                }
+                for (int j = 0; j < text.length(); j++)
+                    if (Character.isISOControl(text.charAt(j))) throw new IOException("Device property control character");
+                // Empty values are preserved as incomplete evidence, not an identity match.
+                parsed.put(NAMES.get(i), text);
+            }
+            values = Collections.unmodifiableMap(parsed);
+        }
+        public String get(String field) { return values.get(field); }
+        public boolean hasAny() { return !values.isEmpty(); }
     }
 
     public static final class ApplicationId {

@@ -75,8 +75,8 @@ public final class ApkInspectionTests {
             no(a.same(new ApkEvidence.Stamp(3,20,30,1,2,false)));
         });
         scenario("unsupported platform cannot become signature success",()->{
-            same("UNKNOWN_PLATFORM",ApkEvidence.signatureStatus(true,Collections.emptyList(),35));
-            same("UNKNOWN_PLATFORM",ApkEvidence.signatureStatus(false,Collections.singletonList("V3_SIG_APK_DIGEST_DID_NOT_VERIFY"),35));
+            same("UNKNOWN_PLATFORM",ApkEvidence.signatureStatus(true,Collections.emptyList(),37));
+            same("UNKNOWN_PLATFORM",ApkEvidence.signatureStatus(false,Collections.singletonList("V3_SIG_APK_DIGEST_DID_NOT_VERIFY"),37));
         });
         scenario("unsupported crypto never classified as invalid malware",()->same("UNKNOWN_UNSUPPORTED",ApkEvidence.signatureStatus(false,Collections.singletonList("V2_SIG_NO_SUPPORTED_SIGNATURES"),33)));
         scenario("known digest failure classified as invalid within model",()->same("INVALID",ApkEvidence.signatureStatus(false,Collections.singletonList("V2_SIG_APK_DIGEST_DID_NOT_VERIFY"),33)));

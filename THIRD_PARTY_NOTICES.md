@@ -16,9 +16,26 @@ The test runner downloads JSON-java version 20240303 from Maven Central and veri
 
 Test PEM files are artificial certificates for negative validation tests; they do not contain private keys or live device identities.
 
-## apksig-android 4.4.0 (included runtime code)
+## AOSP apksig Android16 QPR2 (included runtime Java code)
 
-`app/libs/apksig-android-4.4.0.jar` is the classes.jar extracted from the genuine JitPack AAR for https://github.com/MuntashirAkon/apksig-android at tag 4.4.0, commit `1bd3a0c000c56e752b41d6f65c3a3d3d8ad7f049` (2022-10-15). It is an Android port of Google's apksig with Apache-2.0 licensing. JAR SHA-256: `530fcc4384889108bf85b4c816cfe354604dd38654b30d81fc046a817e1c10e0`. Full provenance is `app/libs/apksig-android-4.4.0.PROVENANCE.json`; upstream license is `licenses/apksig-android-LICENSE.txt`. This version models Android API levels through 33; RefurbCheck does not label later platforms verified.
+`app/libs/apksig-aosp-16.jar` is built from AOSP `platform/tools/apksig` commit
+`ba8f1f1c74b62b8742c9946b09d4a9c6ac7446ae` (`android16-qpr2-release`, commit date 2025-07-16;
+retrieved 2026-11-07). It is **not** described as code written in November 2026.
+Apache-2.0. All 126 included Java sources are unchanged; cloud-only AWS/GCP signing
+providers are excluded. The app requires Android API26 and uses its bounded random-access
+adapter. Upstream is primarily a desktop library; Android runtime smoke tests and
+remaining limits are recorded in the versioned validation report.
+
+- JAR SHA-256: `83d7d7fec92ca21214d180e232a4594d2a1b6ee3b186a7b8ebf338d95e317040`
+- Full pinned source and upstream LICENSE: `third_party/apksig/aosp-android16-source.zip`
+- Provenance/fixture hashes: `app/libs/apksig-aosp-16.PROVENANCE.json`
+- Reproducible build: `python3 tools/build_apksig_port.py`
+- Upstream: https://android.googlesource.com/platform/tools/apksig/+/ba8f1f1c74b62b8742c9946b09d4a9c6ac7446ae/
+
+The benign APK fixtures under `tests/apksig-fixtures` are copied from that same AOSP
+commit for signature/rotation/stripping regression tests, not malware efficacy tests.
+The Android keyattestation v0.4 certificate test fixtures and license are described
+in `tests/attestation-fixtures/README-v1.3.md`; no attestation private keys are shipped.
 
 ## Public MVT file indicators (included data)
 

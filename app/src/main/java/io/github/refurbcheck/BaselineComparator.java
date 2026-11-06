@@ -5,11 +5,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 /** Read-only comparison of untrusted reports. Never feeds a remediation action or changes a scan. */
 public final class BaselineComparator {
@@ -45,6 +43,7 @@ public final class BaselineComparator {
             out.append("\n앱 목록 수집이 불완전합니다. 추가/누락 표시는 수집된 목록 안에서만 비교합니다. 완료된 공통 패키지의 APK만 별도로 비교할 수 있습니다.\n");
         if (!fileSchema) out.append("\n이전 v1 형식이 포함되어 APK 파일 내용은 비교하지 않습니다. v1의 서명 다이제스트는 APK 파일 SHA-256이 아닙니다.\n");
         int added = 0, removed = 0, changed = 0, unknown = 0, versionUnknown = 0;
+        int forwardRotations = 0, backwardRotations = 0, lineageConflicts = 0;
         int contentEqual = 0, contentDifferent = 0, unexplained = 0, distributionChanged = 0, contentUnknown = 0;
         StringBuilder details = new StringBuilder();
         List<String> names = new ArrayList<>(now.keySet()); Collections.sort(names);
@@ -52,9 +51,22 @@ public final class BaselineComparator {
             if (SELF.equals(name)) continue;
             JSONObject n = now.get(name), o = old.get(name);
             if (o == null) { added++; append(details, "추가: " + name); continue; }
-            String os = signatures(o), ns = signatures(n);
-            if (os.isEmpty() || ns.isEmpty()) { unknown++; append(details, "서명 확인 불가: " + name); }
-            else if (!os.equals(ns)) { changed++; append(details, "서명 차이: " + name + " (정상 서명 교체 여부도 확인)"); }
+            SignatureLineage.Relation relation = SignatureLineage.compare(o, n);
+            if (relation == SignatureLineage.Relation.UNKNOWN) { unknown++; append(details, "서명 확인 불가: " + name); }
+            else if (relation != SignatureLineage.Relation.SAME_SIGNERS) {
+                changed++;
+                if (relation == SignatureLineage.Relation.FORWARD_ROTATION_REPORTED) {
+                    forwardRotations++;
+                    append(details, "서명 교체 이력 연결 (자기 보고): " + name
+                            + " (현재 보고서의 단일 서명 이력에 이전 키가 포함됩니다. 정상 키 교체 가능성을 구분하며, 보고서 진위·APK 서명·앱 안전성을 인증하지 않습니다.)");
+                } else if (relation == SignatureLineage.Relation.BACKWARD_ROTATION_REPORTED) {
+                    backwardRotations++;
+                    append(details, "서명 이력상 이전 키로 변경: " + name + " (이전 보고서에 기록된 과거 키입니다. 역방향 변경을 정상 새 키 교체로 간주하지 않습니다.)");
+                } else if (relation == SignatureLineage.Relation.CONFLICTING_LINEAGE_REPORTED) {
+                    lineageConflicts++;
+                    append(details, "서명 이력 모순: " + name + " (두 보고서의 키 교체 순서가 연결되지 않아 정상 교체로 분류하지 않습니다.)");
+                } else append(details, "서명 차이: " + name + " (정상 서명 교체 여부도 확인)");
+            }
             Long ov = integer(o.opt("versionCode")), nv = integer(n.opt("versionCode"));
             if (ov == null || nv == null) { versionUnknown++; append(details, "버전 확인 불가: " + name); }
             else if (!ov.equals(nv)) {
@@ -107,6 +119,8 @@ public final class BaselineComparator {
         out.append("\n기기 정보 차이 ").append(changes).append("건\n앱 추가 ").append(added).append("개 · 누락 ").append(removed)
                 .append("개 · 버전/서명 차이 ").append(changed).append("건 · 서명 확인 불가 ").append(unknown).append("개\n")
                 .append("버전 확인 불가 ").append(versionUnknown).append("개\n")
+                .append("보고된 서명 교체 이력 연결 ").append(forwardRotations).append("건 · 이전 키 방향 변경 ").append(backwardRotations)
+                .append("건 · 서명 이력 모순 ").append(lineageConflicts).append("건\n")
                 .append("APK 내용 비교: 보고된 해시 동일 ").append(contentEqual).append("개 앱 · 내용 차이 ").append(contentDifferent)
                 .append("개 앱 · 구성 차이 ").append(distributionChanged).append("개 앱 · 확인 불가 ").append(contentUnknown).append("개 앱\n")
                 .append("동일 버전·펌웨어 지문·파일 구성의 원인 미확인 내용 차이 ").append(unexplained).append("개 앱\n\n").append(details);
@@ -152,17 +166,6 @@ public final class BaselineComparator {
             if (result.put((String) name, row) != null) throw new IllegalArgumentException("패키지 이름이 중복된 보고서입니다.");
         }
         return result;
-    }
-    private static String signatures(JSONObject object) {
-        if (!trueValue(object, "signingReadable")) return "";
-        JSONArray array = object.optJSONArray("signingSha256");
-        if (array == null || array.length() == 0 || array.length() > 32) return "";
-        Set<String> values = new HashSet<>();
-        for (int i = 0; i < array.length(); i++) {
-            String digest = digest(array.opt(i));
-            if (digest == null || !values.add(digest)) return "";
-        }
-        List<String> sorted = new ArrayList<>(values); Collections.sort(sorted); return sorted.toString();
     }
     private static FileSet files(JSONObject row, boolean supportedSchema) {
         if (!supportedSchema) return new FileSet("v1에는 검증 가능한 APK 파일 수집 기록 없음");

@@ -43,18 +43,12 @@ public final class ApkInspection {
         final ApkEvidence.Budget budget=new ApkEvidence.Budget(cancelled);
         final PackageManager pm=context.getPackageManager();
         final MalwareInspection malware=new MalwareInspection(context,budget,report);
-        ApkEvidence.IocIndex database=null; String databaseError="";
-        try { database=ApkEvidence.bundledIocs(readAsset(context,"ioc_sha256.txt",128*1024)); }
-        catch(Exception e) { databaseError=error(e); }
-        JSONObject db=new JSONObject().put("repository",ApkEvidence.IOC_REPOSITORY)
-                .put("commit",ApkEvidence.IOC_COMMIT).put("snapshotDate","2026-08-27")
-                .put("assetSha256",ApkEvidence.IOC_ASSET_SHA256).put("loaded",database!=null)
-                .put("entryCount",database==null?0:database.entryCount)
-                .put("uniqueHashes",database==null?0:database.uniqueHashes())
-                .put("collections",new JSONArray().put("BTMOB Android RAT").put("EagleMsgSpy Android surveillanceware"))
-                .put("license","MIT; assets/ioc_MIT_LICENSE.txt").put("error",databaseError)
-                .put("scope","공개된 두 Android 캠페인의 파일 SHA-256 일부입니다. 설치 APK와 일치하는 알려진 파일만 찾으며, 변종·앱 내부 파일·다른 프로필·펌웨어는 포함하지 않습니다.");
-        report.evidence.put("iocDatabase",db);
+        // v1.3 uses a single authenticated active catalog for all sources,
+        // including MVT. A retired IOC must not survive in a legacy side list.
+        ApkEvidence.IocIndex database=null;
+        report.evidence.put("iocDatabase",new JSONObject().put("loaded",false)
+                .put("state","SUPERSEDED_BY_ACTIVE_MALWARE_CATALOG")
+                .put("scope","MVT references are included in malwareDatabase; legacy bundled side list is not executed."));
         String stopped=""; int metadataFailures=0;
         List<Integer> order=new ArrayList<>();
         for(int i=0;i<report.inventory.length();i++) order.add(i);
@@ -304,7 +298,7 @@ public final class ApkInspection {
         boolean hashesComplete=report.inventoryComplete&&report.inventory.length()>0&&metadataFailures==0
                 &&completePackages==report.inventory.length()&&files>0&&files==hashed&&stopped.isEmpty();
         boolean signaturesComplete=hashesComplete&&verified+signatureInvalid+signerMismatch==files;
-        boolean iocComplete=hashesComplete&&database!=null;
+        boolean iocComplete=false; // legacy route disabled; malwareCoverage owns exact-reference completeness
         JSONObject coverage=new JSONObject().put("startedAt",started).put("completedAt",System.currentTimeMillis())
                 .put("elapsedMillis",elapsed).put("timeBudgetMillis",ApkEvidence.DEFAULT_TIME_MILLIS)
                 .put("perFileLimitBytes",ApkEvidence.MAX_FILE_BYTES).put("totalReadLimitBytes",ApkEvidence.MAX_TOTAL_BYTES)
@@ -318,7 +312,7 @@ public final class ApkInspection {
                 .put("signatureUnknownFiles",files-verified-signatureInvalid-signerMismatch)
                 .put("iocMatchingFiles",matches).put("iocMatchingPackages",matchedPackages)
                 .put("hashComplete",hashesComplete).put("signatureComplete",signaturesComplete)
-                .put("iocComparisonComplete",iocComplete).put("complete",hashesComplete&&signaturesComplete&&iocComplete)
+                .put("iocComparisonComplete",iocComplete).put("legacyIocRouteDisabled",true).put("complete",hashesComplete&&signaturesComplete)
                 .put("stopReason",stopped).put("engine",ApkEvidence.ENGINE_VERSION)
                 .put("scanOrder","user-apps-first, then system apps; inventory output retains its original ordering")
                 .put("timeLimitMode","Cooperative checks before/after work and during reads. A verifier CPU operation or an OS call can delay cancellation; a late result is not accepted as complete.")
@@ -332,12 +326,9 @@ public final class ApkInspection {
                 signaturesComplete?Finding.Status.INFO:Finding.Status.UNKNOWN;
         report.add(new Finding("apk.signatures",CATEGORY,"APK 암호학적 서명·설치 메타데이터 대조",sigStatus,
                 "확인 "+verified+"개, 검증 실패 "+signatureInvalid+"개, 설치 서명과 차이 "+signerMismatch+"개, 확인 불가 "+(files-verified-signatureInvalid-signerMismatch)+"개. "+
-                        (Build.VERSION.SDK_INT>ApkEvidence.ENGINE_MAX_API?"현재 Android API "+Build.VERSION.SDK_INT+"는 엔진의 API 33 모델보다 새로워 최종 판정은 확인 불가입니다.":""),
-                "공개 Android 포트 apksig-android 4.4.0을 사용합니다(2022-10-15 태그 소스). 각 파일의 실제 서명과 내용 다이제스트를 검증합니다. 정상 서명도 악성 앱에 존재할 수 있고, 설치 API의 인증서 정보도 OS 자체가 제공한 증거입니다."));
-        report.add(new Finding("apk.ioc",CATEGORY,"공개 악성 파일 IOC 정확 일치",matchedPackages>0?Finding.Status.ALERT:iocComplete?Finding.Status.INFO:Finding.Status.UNKNOWN,
-                database==null?"공개 IOC 자료 검증·로딩에 실패하여 대조하지 못했습니다.":
-                        "공개 파일 해시 "+database.entryCount+"개(두 캠페인), 검사 APK "+hashed+"개, 일치 파일 "+matches+"개·앱 "+matchedPackages+"개. 자료 스냅샷 2026-08-27.",
-                "일치하지 않았다는 결과는 검사한 APK가 이 한정된 공개 SHA-256 목록에 없다는 뜻입니다. 악성코드 부재·변종 탐지·종합 백신 검사를 의미하지 않습니다. 출처와 MIT 라이선스는 보고서 및 앱 자산에 포함합니다."));
+                        (Build.VERSION.SDK_INT>ApkEvidence.ENGINE_MAX_API?"현재 Android API "+Build.VERSION.SDK_INT+"는 엔진의 API 36 모델보다 새로워 최종 판정은 확인 불가입니다.":""),
+                "AOSP Android16 QPR2 apksig 소스를 사용합니다(ba8f1f1 고정, API26–36 모델). 실제 Galaxy 설치 검증과 동일하다는 보증은 아니며 미래 API·SDK 범위 모호성은 확인 불가로 남깁니다. 각 파일의 실제 서명과 내용 다이제스트를 검증합니다. 정상 서명도 악성 앱에 존재할 수 있고, 설치 API의 인증서 정보도 OS 자체가 제공한 증거입니다."));
+
     }
 
     private static void invalidate(JSONObject out) throws Exception {

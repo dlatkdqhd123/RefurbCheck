@@ -4,7 +4,7 @@ set -euo pipefail
 refurbcheck_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 refurbcheck_sdk="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-${refurbcheck_root}/../android-toolchain/sdk}}"
 refurbcheck_android_jar="${refurbcheck_sdk}/platforms/android-35/android.jar"
-refurbcheck_jar="${refurbcheck_root}/app/libs/apksig-android-4.4.0.jar"
+refurbcheck_jar="${refurbcheck_root}/app/libs/apksig-aosp-16.jar"
 refurbcheck_classes="${refurbcheck_root}/build/apk-inspection-compile"
 refurbcheck_stubs="${refurbcheck_root}/build/apk-inspection-stubs"
 refurbcheck_fixture_dir="${refurbcheck_root}/build/apk-test-fixtures"
@@ -17,7 +17,7 @@ for refurbcheck_file in "$refurbcheck_android_jar" "$refurbcheck_jar" "$refurbch
     [[ -f "$refurbcheck_file" ]] || { printf '%s\n' "Missing test input: $refurbcheck_file" >&2; exit 1; }
 done
 refurbcheck_hash="$(sha256sum -- "$refurbcheck_jar")"
-[[ "${refurbcheck_hash%% *}" == "530fcc4384889108bf85b4c816cfe354604dd38654b30d81fc046a817e1c10e0" ]] || {
+[[ "${refurbcheck_hash%% *}" == "83d7d7fec92ca21214d180e232a4594d2a1b6ee3b186a7b8ebf338d95e317040" ]] || {
     printf '%s\n' "Bundled apksig jar hash mismatch; refusing to execute it." >&2; exit 1;
 }
 mkdir -p -- "$refurbcheck_classes" "$refurbcheck_stubs/io/github/refurbcheck" "$refurbcheck_fixture_dir"
@@ -47,6 +47,10 @@ PY
     "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/MalwareEvidence.java" \
     "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/MalwareInspection.java" \
     "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/MalwareCatalog.java" \
+    "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/CatalogUpdateConfig.java" \
+    "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/CatalogUpdateVerifier.java" \
+    "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/CatalogUpdateStore.java" \
+    "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/CatalogUpdateManager.java" \
     "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/ReportJson.java" \
     "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/ScanReport.java" \
     "$refurbcheck_root/app/src/main/java/io/github/refurbcheck/Finding.java" \

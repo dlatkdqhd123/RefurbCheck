@@ -25,8 +25,8 @@ public final class ApkEvidence {
     public static final long DEFAULT_TIME_MILLIS=180_000L;
     public static final long MAX_FILE_BYTES=1L<<30;
     public static final long MAX_TOTAL_BYTES=8L<<30;
-    public static final int ENGINE_MAX_API=33;
-    public static final String ENGINE_VERSION="apksig-android 4.4.0 (2022-10-15 source; API <=33 model)";
+    public static final int ENGINE_MAX_API=36;
+    public static final String ENGINE_VERSION="AOSP apksig Android16 QPR2 ba8f1f1 (RefurbCheck API26–36 model)";
     public static final String IOC_COMMIT="b22ddf05e1a31e7732b8895676987c5c3482ef65";
     public static final String IOC_ASSET_SHA256="0ba51e936f40449d1c86f7408624a2da5950b21ec214c4b62209a3a269a81278";
     public static final String IOC_REPOSITORY="https://github.com/mvt-project/mvt-indicators";
@@ -198,9 +198,13 @@ public final class ApkEvidence {
         return a.equals(b);
     }
 
-    /** An old verifier's Android model never becomes a pass on a newer platform. */
+    /** Future platforms and ambiguous SDK-range modeling never become a tamper verdict. */
     public static String signatureStatus(boolean verified,List<String> errors,int deviceApi) {
         if(deviceApi>ENGINE_MAX_API||deviceApi<26) return "UNKNOWN_PLATFORM";
+        // Upstream can reject a future-targeted v3.1 block at an earlier API
+        // even though the platform may fall back to its v3.0 signer. Preserve
+        // the raw error for review; an SDK coverage gap is not a digest failure.
+        for(String error:errors) if("V3_MISSING_SDK_VERSIONS".equals(error)) return "UNKNOWN_SDK_RANGE";
         for(String error:errors) if(error.contains("UNSUPPORTED")||error.contains("NO_SUPPORTED")
                 ||error.contains("UNKNOWN")||error.contains("EXCEPTION")) return "UNKNOWN_UNSUPPORTED";
         if(verified) return "VERIFIED";

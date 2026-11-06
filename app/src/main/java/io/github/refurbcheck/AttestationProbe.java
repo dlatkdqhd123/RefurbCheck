@@ -18,6 +18,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.MessageDigest;
+import java.security.ProviderException;
 import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.cert.Certificate;
@@ -109,14 +110,30 @@ public final class AttestationProbe {
             evidence.put("challengeBase64", Base64.encodeToString(challenge, Base64.NO_WRAP));
             keyStore = KeyStore.getInstance("AndroidKeyStore");
             keyStore.load(null);
-            KeyPairGenerator generator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC, "AndroidKeyStore");
-            generator.initialize(new KeyGenParameterSpec.Builder(alias, KeyProperties.PURPOSE_SIGN | KeyProperties.PURPOSE_VERIFY)
-                    .setAlgorithmParameterSpec(new ECGenParameterSpec("secp256r1"))
-                    .setDigests(KeyProperties.DIGEST_SHA256)
-                    .setUserAuthenticationRequired(false)
-                    .setAttestationChallenge(challenge)
-                    .build());
-            KeyPair pair = generator.generateKeyPair();
+            boolean requestDeviceProperties = Build.VERSION.SDK_INT >= 31;
+            evidence.put("devicePropertiesRequested", requestDeviceProperties);
+            evidence.put("devicePropertiesFallbackUsed", false);
+            evidence.put("devicePropertiesRequestStatus", requestDeviceProperties ? "REQUESTED" : "UNSUPPORTED_ANDROID_API");
+            KeyPair pair;
+            try {
+                pair = generateKeyPair(alias, challenge, requestDeviceProperties);
+            } catch (ProviderException unavailable) {
+                if (!requestDeviceProperties) throw unavailable;
+                // Some supported Android versions still lack OEM property attestation.
+                // A fresh base request preserves other diagnostics, while the failed
+                // property request stays explicit UNKNOWN. Do not reuse a partial key.
+                evidence.put("devicePropertiesRequestStatus", "FAILED_OR_UNSUPPORTED");
+                evidence.put("devicePropertiesRequestError", unavailable.getClass().getSimpleName());
+                evidence.put("devicePropertiesFallbackUsed", true);
+                report.add(finding("attestation_device_properties_request", "기기 속성 증명 요청 확인 불가", Finding.Status.UNKNOWN,
+                        "브랜드·제품·모델 등 비고유 속성을 포함한 키 생성을 완료하지 못했습니다. 해당 속성을 제외한 새 요청으로 나머지 검사를 계속합니다.",
+                        "제조사 미지원과 일시적인 키 발급 실패도 가능합니다. 기본 요청 성공을 기기 모델 검증 성공으로 보지 않습니다."));
+                keyStore.deleteEntry(alias);
+                if (Thread.currentThread().isInterrupted()) return;
+                new SecureRandom().nextBytes(challenge);
+                evidence.put("challengeBase64", Base64.encodeToString(challenge, Base64.NO_WRAP));
+                pair = generateKeyPair(alias, challenge, false);
+            }
             if (Thread.currentThread().isInterrupted()) return;
             Certificate[] rawChain = keyStore.getCertificateChain(alias);
             if (rawChain == null || rawChain.length == 0 || rawChain.length > 8)
@@ -141,12 +158,23 @@ public final class AttestationProbe {
             X509Certificate validatedAnchor = null;
             try {
                 Collection<X509Certificate> roots = loadRoots(context);
-                X509Certificate anchor = AttestationChain.validate(chain, roots, new Date());
+                AttestationChain.Validation validation = AttestationChain.validateDetailed(chain, roots, new Date());
+                X509Certificate anchor = validation.trustAnchor;
                 validatedAnchor = anchor;
                 chainValid = true;
                 evidence.put("trustedRootSha256", sha256(anchor.getEncoded()));
+                evidence.put("certificateDatePolicy", validation.legacyFactoryExpiryApplied
+                        ? "RECOGNIZED_FACTORY_CA_EXPIRY_COMPATIBILITY" : "CURRENT_TIME");
+                evidence.put("expiredFactoryCaCount", validation.expiredFactoryCaCount);
+                evidence.put("pkixValidationTimeMillis", validation.pkixValidationTimeMillis);
+                evidence.put("presentedRootReplacedByCurrentPinnedRoot", validation.presentedRootReplaced);
                 report.add(finding("attestation_chain", "공개 루트와 인증서 연결 확인", Finding.Status.INFO,
-                        "앱에 포함된 Google 루트(2026 회전 포함), 인증서 서명·기간·경로를 기기 내부에서 확인했습니다. 최신 폐기 여부는 확인하지 않았습니다.",
+                        "앱에 포함된 Google 루트(2026 회전 포함), 인증서 서명·경로를 기기 내부에서 확인했습니다. "
+                                + (validation.legacyFactoryExpiryApplied
+                                ? "확인된 구형 공장 발급 체인의 CA 만료 " + validation.expiredFactoryCaCount + "건에는 제한된 호환 정책을 적용했습니다. RKP에는 적용하지 않습니다. "
+                                : "선택한 고정 루트와 검증 경로의 유효기간도 확인했습니다. ")
+                                + (validation.presentedRootReplaced ? "기기가 제공한 예전 루트 사본은 같은 공개키의 현재 고정 루트로 연결했습니다. " : "")
+                                + "최신 폐기 여부는 확인하지 않았습니다.",
                         "인증서 결과는 참고 자료입니다. 다른 신뢰 기기에서 폐기 목록까지 확인해야 합니다."));
             } catch (Exception exception) {
                 evidence.put("chainValidationError", exception.getClass().getSimpleName());
@@ -194,6 +222,19 @@ public final class AttestationProbe {
             evidence.put("hardwareOsPatchLevel", record.hardwareOsPatchLevel == null ? JSONObject.NULL : record.hardwareOsPatchLevel);
             evidence.put("vendorPatchLevel", record.vendorPatchLevel == null ? JSONObject.NULL : record.vendorPatchLevel);
             evidence.put("bootPatchLevel", record.bootPatchLevel == null ? JSONObject.NULL : record.bootPatchLevel);
+            JSONObject deviceProperties = new JSONObject();
+            JSONObject hardwareProperties = new JSONObject();
+            JSONObject softwareProperties = new JSONObject();
+            for (String name : AttestationRecord.DeviceProperties.NAMES) {
+                String hardware = record.hardwareDeviceProperties.get(name);
+                String software = record.softwareDeviceProperties.get(name);
+                hardwareProperties.put(name, hardware == null ? JSONObject.NULL : hardware);
+                softwareProperties.put(name, software == null ? JSONObject.NULL : software);
+            }
+            deviceProperties.put("hardwareEnforced", hardwareProperties);
+            deviceProperties.put("softwareEnforcedNotTrusted", softwareProperties);
+            deviceProperties.put("uniqueIdentifiersRequested", false);
+            evidence.put("attestedDeviceProperties", deviceProperties);
             boolean bound = AttestationChecks.requestBound(challenge, pair.getPublic().getEncoded(),
                     selectedCertificate.getPublicKey().getEncoded(), record, possession);
             if (!bound) {
@@ -239,6 +280,21 @@ public final class AttestationProbe {
                 }
             }
         }
+    }
+
+    private static KeyPair generateKeyPair(String alias, byte[] challenge, boolean includeDeviceProperties)
+            throws Exception {
+        KeyGenParameterSpec.Builder builder = new KeyGenParameterSpec.Builder(alias,
+                KeyProperties.PURPOSE_SIGN | KeyProperties.PURPOSE_VERIFY)
+                .setAlgorithmParameterSpec(new ECGenParameterSpec("secp256r1"))
+                .setDigests(KeyProperties.DIGEST_SHA256)
+                .setUserAuthenticationRequired(false)
+                .setAttestationChallenge(challenge);
+        if (Build.VERSION.SDK_INT >= 31 && includeDeviceProperties)
+            builder.setDevicePropertiesAttestationIncluded(true);
+        KeyPairGenerator generator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC, "AndroidKeyStore");
+        generator.initialize(builder.build());
+        return generator.generateKeyPair();
     }
 
     private static void reportBoot(AttestationRecord record, boolean locallySupported,
@@ -376,6 +432,7 @@ public final class AttestationProbe {
             JSONObject evidence, ScanReport report) throws Exception {
         List<AttestationChecks.Comparison> comparisons = AttestationChecks.correlate(record,
                 observations.androidRelease, observations.securityPatch, observations.properties);
+        comparisons.addAll(AttestationChecks.correlateDeviceProperties(record, observations.deviceProperties));
         JSONArray rows = new JSONArray();
         int comparable = 0, mismatches = 0;
         StringBuilder mismatchFields = new StringBuilder();
@@ -419,10 +476,13 @@ public final class AttestationProbe {
     private static final class Observations {
         final String androidRelease, securityPatch;
         final Map<String, String> properties = new HashMap<>();
+        final Map<String, String> deviceProperties = new HashMap<>();
         Observations(ScanReport report) {
             JSONObject device = report.evidence.optJSONObject("device");
             androidRelease = device == null ? "" : device.optString("androidRelease", "");
             securityPatch = device == null ? "" : device.optString("securityPatch", "");
+            for (String name : AttestationRecord.DeviceProperties.NAMES)
+                deviceProperties.put(name, device == null ? "" : device.optString(name, ""));
             JSONObject boot = report.evidence.optJSONObject("bootProperties");
             String[] names = {"ro.boot.verifiedbootstate", "ro.boot.flash.locked", "ro.boot.vbmeta.device_state",
                     "ro.vendor.build.security_patch", "ro.bootimage.build.version.security_patch"};
@@ -485,8 +545,8 @@ public final class AttestationProbe {
 
     private static void addLimits(ScanReport report) {
         report.add(finding("attestation_external", "외부 검증·최신 인증서 폐기 조회 미실시", Finding.Status.UNKNOWN,
-                "이 앱은 네트워크 권한 없이 기기 안에서 검사합니다. 동봉 폐기 목록 사본은 최신 조회를 대신하지 않습니다. 침해된 OS는 관측·검증 결과를 속일 수 있으며, 새로 폐기된 키도 사본 대조를 통과할 수 있습니다.",
-                "더 높은 신뢰가 필요하면 다른 신뢰 기기에서 Auditor 또는 공식 Android Key Attestation 검증기와 최신 폐기 목록으로 확인하세요."));
+                "키 증명 검증은 이 기기 안에서 실행됩니다. 동봉 폐기 목록 사본은 최신 조회를 대신하지 않습니다. 침해된 OS는 관측·검증 결과를 속일 수 있으며, 새로 폐기된 키도 사본 대조를 통과할 수 있습니다.",
+                "갤럭시는 제조사 공식 점검 또는 다른 신뢰 기기의 Android Key Attestation 검증기와 최신 폐기 목록으로 확인하세요. Auditor의 현재 검증 대상 지원 목록에는 갤럭시가 없어 대체 검사로 안내하지 않습니다."));
     }
     private static Finding finding(String id, String title, Finding.Status status, String detail, String action) {
         return new Finding(id, CATEGORY, title, status, detail, action);
