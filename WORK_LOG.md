@@ -34,3 +34,17 @@
 
 완료: 공개 소스 게시, CI 빌드·lint·규칙 테스트, debug APK 다운로드·서명/권한 확인.
 남은 검증: 사용자 승인된 에뮬레이터/실제 갤럭시에서 UI·제조사 설정 연결·패키지 가시성 동작 확인. 배포용 서명 및 백신/무결성 증명은 제공 범위에 포함되지 않는다.
+
+
+## 1.2.0 공개 배포 — 2026-11-06
+
+별도 검증된 1.2.0 전체 소스와 서명 APK를 `release/1.2.0` 브랜치 및 `v1.2.0` 태그로 게시했습니다. 이 커밋은 `main`의 0.2 시험판 코드·빌드 구성을 보존하고 다운로드 안내만 추가합니다.
+
+- 릴리스: https://github.com/dlatkdqhd123/RefurbCheck/releases/tag/v1.2.0
+- 설치 패키지: `io.github.refurbcheck`, versionName `1.2.0`, versionCode `3`
+- APK SHA-256: `addf557694e94e499f4409b764ccc0780629f137e1e6494ce5eb357e6d51be8c`
+- 서명 인증서 SHA-256: `31a3041c7933acb7cdafad342bb574f0726f6045ddf5ccf4d9fd3fc7f1f126ff`
+- 배포 workflow가 고정 APK·서명·51개 입력 파일 지문을 검사한 뒤 현재 커밋의 소스 ZIP을 함께 게시합니다. 개인 서명키·암호는 게시하지 않았습니다.
+- 검증 범위와 미검증 항목은 1.2.0의 `docs/validation.md`에 있으며, 실제 Galaxy/One UI 또는 실제 악성코드 탐지율 시험을 수행했다는 뜻은 아닙니다.
+
+게시 검증: https://github.com/dlatkdqhd123/RefurbCheck/actions/runs/42215327279 — success. 태그는 `a50f52d7f53fa31d50dcf843f4dadf29348d70a7`을 가리키며, 공개 Release의 APK digest가 위 SHA-256과 일치합니다. 공개 소스 ZIP SHA-256은 `e366435776f1e09464dee142a31f6ae681cfd5328c3f61f710a0367bd89e26df`입니다. 소스 ZIP에는 배포 문서와 workflow 변경이 포함되며, APK와 검토된 51개 입력 파일은 변경하지 않았습니다.

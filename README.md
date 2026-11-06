@@ -1,3 +1,32 @@
+# RefurbCheck · 갤럭시 리퍼폰 점검
+
+## 설치용 1.2.0 다운로드
+
+**휴대전화에서 사용할 APK는 아래 1.2.0 릴리스를 받으세요.**
+
+- [RefurbCheck-1.2.0.apk](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.2.0/RefurbCheck-1.2.0.apk)
+- [전체 소스 ZIP](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.2.0/RefurbCheck-1.2.0-source.zip)
+- [릴리스 설명 · 파일 목록 · 체크섬](https://github.com/dlatkdqhd123/RefurbCheck/releases/tag/v1.2.0)
+- [1.2.0 전체 설명](https://github.com/dlatkdqhd123/RefurbCheck/blob/v1.2.0/README.md)
+- [실제 검증 기록과 한계](https://github.com/dlatkdqhd123/RefurbCheck/blob/v1.2.0/docs/validation.md)
+
+공장 초기화 후 앱·설정 백업을 복원하기 전에 설치하고 **리퍼폰 점검**을 실행하면 자동 검사합니다. 초기화 직후 모드가 기본으로 켜져 있습니다. 알려진 악성·감시 파일과 정확히 일치한 일반 앱은 삭제 직전 재검증 후 Android 삭제 확인창으로 이어지며, 사용자가 승인하면 제거 여부를 확인하고 다음 대상으로 진행한 뒤 전체 재검사합니다. Android의 최종 삭제 승인은 필요합니다.
+
+1.2.0은 Android 8.0/API 26 이상을 대상으로 하며 APK 자체 검사는 오프라인입니다. 루트·PC·ADB·계정·API 키가 필요하지 않습니다. ClamAV·ESET·Échap·MVT의 공개 참조 해시 15,645개를 사용하며, 전체 백신 엔진·미지 악성코드 탐지·공장 원본이나 하드웨어 무변조 인증을 제공하지는 않습니다. 실제 Galaxy/One UI 검증과 실제 악성코드 탐지율 시험은 아직 수행하지 않았습니다. 읽지 못했거나 지원하지 않는 항목은 확인 불가로 남깁니다.
+
+**버전 구분:** 아래에 보존한 `main`의 0.2 시험판은 `io.github.dlatkdqhd123.refurbcheck.prototype` 패키지의 별도 앱입니다. 설치용 1.2.0은 `io.github.refurbcheck`이며 소스는 [`release/1.2.0` 브랜치](https://github.com/dlatkdqhd123/RefurbCheck/tree/release/1.2.0)와 [`v1.2.0` 태그](https://github.com/dlatkdqhd123/RefurbCheck/tree/v1.2.0)에 있습니다. 0.2 시험판이 이미 설치돼 있다면 별도로 설치되므로 실행 화면의 1.2.0 표시를 확인하세요.
+
+APK SHA-256:
+```text
+addf557694e94e499f4409b764ccc0780629f137e1e6494ce5eb357e6d51be8c
+```
+
+---
+
+## 보존한 0.2 시험판 안내
+
+다음 내용과 `main`의 소스/CI는 기존 0.2 시험판의 기록입니다.
+
 # RefurbCheck 0.2.0
 
 갤럭시 리퍼폰을 위한 무료·오프라인 보안 상태 점검 도구의 새 독립 구현입니다. 기존 다른 대화의 APK·소스는 사용하지 않았습니다. 기존 1.1.0과 패키지·서명·기능이 다르며 업데이트가 아닙니다. Android 8.0(API 26) 이상을 대상으로 합니다.
