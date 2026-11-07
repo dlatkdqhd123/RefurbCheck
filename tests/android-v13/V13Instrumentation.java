@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.io.StringWriter;
 import java.security.MessageDigest;
 import java.security.cert.Certificate;
@@ -91,6 +92,15 @@ public final class V13Instrumentation extends Instrumentation {
                 require("VERIFIED".equals(file.getString("signatureStatus")), "current runtime APK signature model " + file.getString("fileId"));
                 require(file.getBoolean("signatureCryptographicVerified") && file.getBoolean("signerMetadataMatch"), "cryptographic signer matches PackageManager " + file.getString("fileId"));
                 require(file.getInt("signatureCheckedApi") == Build.VERSION.SDK_INT, "runtime API is actually covered by APK model");
+                JSONObject malware = file.getJSONObject("malware");
+                require(malware.getBoolean("complete") && malware.getBoolean("archiveComplete")
+                        && malware.getBoolean("wholeFileCompared") && malware.getBoolean("databaseLoaded")
+                        && "COMPLETE".equals(malware.getString("state")), "whole-file and direct-entry malware scan completes " + file.getString("fileId"));
+                require(malware.getInt("entriesHashed") > 0 && malware.getInt("entriesSkipped") == 0
+                        && malware.getJSONArray("archiveIssues").length() == 0 && malware.getString("stopReason").isEmpty()
+                        && "COMPLETE".equals(malware.getString("archiveStatus")), "APK direct entries scanned without skips or gaps " + file.getString("fileId"));
+                require(file.getString("sha256").equals(malware.getString("outerApkSha256"))
+                        && malware.getBoolean("fileStable") && !malware.getBoolean("matchesTruncated"), "malware evidence binds to stable exact APK " + file.getString("fileId"));
                 if ("base".equals(file.getString("fileId"))) {
                     baseSeen = true;
                     require(config.getString("appSha256").equals(file.getString("sha256")), "scanner hashed the exact APK supplied to CI");
@@ -102,6 +112,8 @@ public final class V13Instrumentation extends Instrumentation {
             observations.put("ownApkFiles", files);
             observations.put("malwareDatabase", report.evidence.opt("malwareDatabase"));
             require(!report.toJson().getBoolean("factoryOriginalVerified") && !report.toJson().getBoolean("malwareAbsenceVerified"), "scan JSON keeps unverified assurance domains false");
+            phase("Exact original release APK malware archive coverage");
+            originalReleaseApk();
             phase("Benign upstream v3.1 and ECDSA files on Android crypto providers");
             apkSignatureFixtures();
             phase("Attestation date-policy fixtures and live guarded probe");
@@ -224,6 +236,57 @@ public final class V13Instrumentation extends Instrumentation {
         require(fileSha256(active).equals(previousFile), "failed update leaves active bytes unchanged");
         require("CHECK_FAILED".equals(CatalogUpdateManager.lastCheck(isolated).getString("state")), "failed update is visible in diagnostics");
         observations.put("catalog", retained.diagnostics());
+    }
+
+    private void originalReleaseApk() throws Exception {
+        JSONObject expected = config.getJSONObject("productionRelease");
+        File fixture = new File(isolated.directory, "original-production.apk");
+        byte[] bytes = asset("original-production.apk", 8 * 1024 * 1024);
+        try (FileOutputStream output = new FileOutputStream(fixture)) { output.write(bytes); }
+        final ApkEvidence.Budget scanBudget = budget();
+        CatalogUpdateManager.Selection selection = CatalogUpdateManager.current(isolated, scanBudget);
+        require(selection.snapshot.database != null && selection.snapshot.signedUpdate && selection.error.isEmpty(),
+                "original release scan uses authenticated selected catalog");
+        MalwareEvidence.Hashes hashes;
+        try (InputStream input = new FileInputStream(fixture)) {
+            hashes = MalwareEvidence.hash(input, expected.getLong("sizeBytes"), scanBudget);
+        }
+        require(expected.getString("sha256").equals(hashes.sha256) && hashes.size == expected.getLong("sizeBytes"),
+                "malware engine hashes exact original published release bytes");
+        MalwareEvidence.ZipResult zip;
+        try (final RandomAccessFile input = new RandomAccessFile(fixture, "r")) {
+            final long length = input.length();
+            zip = MalwareEvidence.scanZip(new MalwareEvidence.RandomSource() {
+                @Override public long length() throws IOException { scanBudget.check(); return input.length(); }
+                @Override public int read(long offset, byte[] buffer, int off, int count) throws IOException {
+                    scanBudget.check();
+                    if (offset < 0 || offset > length || off < 0 || count < 0 || off > buffer.length - count)
+                        throw new IOException("ZIP_READ_RANGE");
+                    if (count == 0) return 0;
+                    int request = scanBudget.allowedRead((int) Math.min(count, length - offset));
+                    if (request == 0) return -1;
+                    input.seek(offset);
+                    int read = input.read(buffer, off, request);
+                    if (read > 0) scanBudget.readArchive(read);
+                    return read;
+                }
+            }, selection.snapshot.database, new MalwareEvidence.ZipBudget(scanBudget));
+        }
+        int wholeMatches = selection.snapshot.database.match(hashes).size();
+        observations.put("originalProductionApk", new JSONObject().put("sha256", hashes.sha256).put("sizeBytes", hashes.size)
+                .put("catalogSha256", selection.snapshot.catalogSha256).put("archiveComplete", zip.complete)
+                .put("archiveStatus", zip.status).put("entriesSeen", zip.entriesSeen).put("entriesHashed", zip.entriesHashed)
+                .put("entriesSkipped", zip.entriesSkipped).put("archiveIssues", new JSONArray(zip.issues))
+                .put("nestedArchivesNotExpanded", zip.nestedArchivesNotExpanded).put("referenceMatchCount", wholeMatches + zip.matchCount));
+        require(zip.complete && "COMPLETE".equals(zip.status) && zip.stopReason.isEmpty()
+                && zip.issues.isEmpty() && !zip.issuesTruncated && !zip.matchesTruncated,
+                "original release direct-entry scan completes without gaps or truncated evidence");
+        require(zip.entriesHashed > 0 && zip.entriesSkipped == 0
+                && zip.entriesSeen == expected.getInt("entryCount")
+                && zip.fileEntriesSeen == expected.getInt("fileEntryCount") && zip.entriesHashed == expected.getInt("fileEntryCount"),
+                "original release hashes every direct file counted independently at build time");
+        require(wholeMatches == 0 && zip.matchCount == 0, "benign original release has no selected reference match");
+        require(expected.getString("sha256").equals(fileSha256(fixture)), "original release fixture bytes remain unchanged after scan");
     }
 
     private void apkSignatureFixtures() throws Exception {

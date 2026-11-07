@@ -11,6 +11,7 @@ def main():
     parser.add_argument("log")
     parser.add_argument("--api", required=True, type=int)
     parser.add_argument("--app-sha256", required=True)
+    parser.add_argument("--production-sha256", required=True)
     parser.add_argument("--summary-output")
     args = parser.parse_args()
     lines = Path(args.log).read_text(encoding="utf-8", errors="replace").splitlines()
@@ -34,6 +35,12 @@ def main():
     base = [row for row in summary.get("observations", {}).get("ownApkFiles", []) if row.get("fileId") == "base"]
     if len(base) != 1 or base[0].get("sha256") != args.app_sha256.lower():
         raise SystemExit("Runtime result is not bound to the expected production APK")
+    original = summary.get("observations", {}).get("originalProductionApk", {})
+    if (original.get("sha256") != args.production_sha256.lower()
+            or original.get("archiveComplete") is not True
+            or original.get("archiveStatus") != "COMPLETE"
+            or original.get("entriesSkipped") != 0 or original.get("archiveIssues") != []):
+        raise SystemExit("Original production APK identity or complete archive coverage is missing")
     codes = [line.strip() for line in lines if line.startswith("INSTRUMENTATION_CODE:")]
     if codes != ["INSTRUMENTATION_CODE: 0"]:
         raise SystemExit("Instrumentation did not finish with code 0")

@@ -47,9 +47,12 @@ cd "$refurbcheck_root"
 # target below comes from the reviewed release APK, not this fresh compilation.
 python3 tools/build_apk.py --sdk-root "$refurbcheck_sdk" --keystore "$refurbcheck_private/test.p12" \
     --password-file "$refurbcheck_private/password.txt" --output build/ci-compilation.apk
+# The disposable API26+ target uses v2/v3 only. Re-adding v1 ZIP members can
+# leave the old signing-block alignment inside the ZIP entry region. Keep the
+# parser strict and scan the original production APK separately in the test.
 "$refurbcheck_sdk/build-tools/35.0.0/apksigner" sign --ks "$refurbcheck_private/test.p12" \
     --ks-key-alias refurbcheck --ks-pass "file:$refurbcheck_private/password.txt" \
-    --v2-signing-enabled true --v3-signing-enabled true --v4-signing-enabled false \
+    --v1-signing-enabled false --v2-signing-enabled true --v3-signing-enabled true --v4-signing-enabled false \
     --out build/runtime-target.apk release/RefurbCheck-1.3.0.apk
 python3 - <<'PY'
 import zipfile,re
@@ -115,11 +118,13 @@ done
 "$refurbcheck_adb" shell input keyevent 82
 "$refurbcheck_adb" install -r build/runtime-target.apk
 "$refurbcheck_adb" install -r -t build/android-v13/RefurbCheck-v13-instrumentation.apk
-timeout 240 "$refurbcheck_adb" shell am instrument -w io.github.refurbcheck.v13test/io.github.refurbcheck.V13Instrumentation \
+timeout 240 "$refurbcheck_adb" shell am instrument -w -r io.github.refurbcheck.v13test/io.github.refurbcheck.V13Instrumentation \
     | tee build/runtime-results/instrumentation.log
 refurbcheck_test_sha="$(sha256sum build/runtime-target.apk)"
+refurbcheck_production_sha="$(sha256sum release/RefurbCheck-1.3.0.apk)"
 python3 tests/android-v13/check_instrumentation_log.py build/runtime-results/instrumentation.log \
     --api "$refurbcheck_api" --app-sha256 "${refurbcheck_test_sha%% *}" \
+    --production-sha256 "${refurbcheck_production_sha%% *}" \
     --summary-output build/runtime-results/summary.json
 # Install and launch the exact distributed APK after removing only the
 # disposable test target. No production signing key ever enters this job.

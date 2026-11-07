@@ -63,6 +63,7 @@ def main():
     build_tools = sdk / "build-tools/35.0.0"
     android_jar = sdk / "platforms/android-35/android.jar"
     app_apk = Path(arguments.app_apk).expanduser().resolve()
+    production_apk = project / "release/RefurbCheck-1.3.0.apk"
     app_classes = Path(arguments.app_classes).expanduser().resolve()
     keystore = Path(arguments.keystore).expanduser().resolve()
     password = Path(arguments.password_file).expanduser().resolve()
@@ -74,7 +75,7 @@ def main():
     for secret in (keystore, password):
         if secret == project or project in secret.parents:
             parser.error("Keep signing material outside the repository")
-    for required in (app_apk, android_jar, build_tools / "aapt2", build_tools / "zipalign",
+    for required in (app_apk, production_apk, android_jar, build_tools / "aapt2", build_tools / "zipalign",
                      build_tools / "lib/d8.jar", build_tools / "lib/apksigner.jar", keystore, password,
                      app_classes / "io/github/refurbcheck/ScanReport.class"):
         if not required.is_file():
@@ -104,8 +105,15 @@ def main():
         hashes[name] = sha256(source)
     for name in CERT_FIXTURES:
         shutil.copyfile(project / "tests/attestation-fixtures" / name, assets / name)
+    # Keep the publicly signed release untouched. The installed CI target may
+    # have a different signing block, so it cannot substitute for these bytes.
+    shutil.copyfile(production_apk, assets / "original-production.apk")
+    with zipfile.ZipFile(production_apk) as archive:
+        members = archive.infolist()
+        production_release = {"sha256": sha256(production_apk), "sizeBytes": production_apk.stat().st_size,
+                              "entryCount": len(members), "fileEntryCount": sum(not item.is_dir() for item in members)}
     config = {"schema": "refurbcheck-v13-smoke-config-v1", "appSha256": sha256(app_apk),
-              "appSignerSha256": target_signer, "fixtureSha256": hashes}
+              "appSignerSha256": target_signer, "fixtureSha256": hashes, "productionRelease": production_release}
     (assets / "smoke-config.json").write_text(json.dumps(config, separators=(",", ":")) + "\n", encoding="utf-8")
     catalog = project / "data/catalog-updates/catalog-update.zip"
     shutil.copyfile(catalog, assets / "catalog-update.zip")
@@ -154,6 +162,7 @@ def main():
         raise RuntimeError("Instrumentation and target APK signing certificates differ")
     run([build_tools / "zipalign", "-c", "4", output])
     build_info = {"targetApkSha256": sha256(app_apk), "testApkSha256": sha256(output),
+                  "originalProductionApkSha256": production_release["sha256"],
                   "targetAndTestSignerSha256": target_signer, "testOnlyApk": True,
                   "runtimeExecutionPerformedByBuild": False}
     (output.parent / "instrumentation-build-verification.json").write_text(

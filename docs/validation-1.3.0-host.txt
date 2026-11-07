@@ -251,6 +251,8 @@ PASS central count mismatch cannot hide entries
 PASS central directory size mismatch is rejected
 PASS overlapping physical entry offsets are rejected
 PASS unlisted prefix is not accepted as a complete APK scope
+PASS re-signing interior zero gap is explicit incomplete scope even with a valid signing-block layout
+PASS unlisted nonzero interior data cannot hide behind ordinary central-directory entries
 PASS trailing data after EOCD is not silently ignored
 PASS all truncation points fail closed
 PASS malformed deflate payload cannot yield a confirmed member hash
@@ -272,7 +274,7 @@ PASS changed source length is not accepted as complete
 PASS 1000 deterministic malformed ZIP mutations are bounded and return explicit status
 Real release ZIP scope: 26 direct files, 2470703 expanded bytes, no synthetic signature hits
 PASS real signed release APK direct ZIP entries parse and scan
-Malware evidence tests: 91 scenarios, 1331 assertions, 0 failures
+Malware evidence tests: 93 scenarios, 1369 assertions, 0 failures
 PASS stable whole-APK SHA256 reference reaches preflight only
 PASS stable internal member SHA256 reference is outer-APK bound
 PASS MD5 and SHA1 need exact size and a stable outer SHA256
@@ -465,4 +467,3 @@ PASS corrupt rollback state does not silently reset protection
 PASS published bundle authenticates against pinned key and baked-in floor
 PASS bundled fallback uses identical reviewed references without pretending network verification
 Catalog update tests: 46 scenarios, 102 assertions, 0 failures
-SignalRules: 22 assertions passed
