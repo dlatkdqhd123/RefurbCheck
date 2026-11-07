@@ -1,3 +1,23 @@
+# 최신 정식 버전: RefurbCheck 1.4.0
+
+갤럭시 리퍼폰을 초기화한 뒤 실행하면 자료 확인 → 검사 → 가능한 조치 승인 → 재확인 → 결과 요약을 한 흐름으로 진행합니다. Android 삭제 승인은 사용자가 직접 해야 합니다.
+
+- **[설치 APK 다운로드](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.4.0/RefurbCheck-1.4.0.apk)**
+- [공개 릴리스·체크섬·검증 자료](https://github.com/dlatkdqhd123/RefurbCheck/releases/tag/v1.4.0)
+- [전체 소스 ZIP](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.4.0/RefurbCheck-1.4.0-source.zip)
+- [사용 안내](https://github.com/dlatkdqhd123/RefurbCheck/blob/v1.4.0/README.md)
+- [API26/36 실행·1.3→1.4 업데이트 검증](https://github.com/dlatkdqhd123/RefurbCheck/actions/runs/42341669753)
+
+v1.3.0과 동일한 배포 서명으로 업데이트 설치할 수 있습니다. APK SHA-256: `56d9586b825520a9b1fe7d443d1398f4879a3e1eed6fa90b995293e9ad54ca59`.
+
+실제 Galaxy/One UI 전체 시험과 악성코드 탐지율 측정은 수행하지 않았습니다. 순정 OS·모든 악성코드 부재·물리 하드웨어 무변조를 보증하지 않습니다. 정식 앱 소스는 `v1.4.0` 태그와 `release/1.4.0` 브랜치에 있으며, `main`의 이전 prototype 코드는 보존합니다.
+
+---
+
+## 이전 1.3.0 및 prototype 배포 기록
+
+아래 내용은 당시 배포 기록으로 보존합니다. 현재 설치·다운로드는 위의 **1.4.0**을 사용하세요.
+
 # RefurbCheck · 갤럭시 리퍼폰 점검
 
 ## 설치용 1.3.0 다운로드
