@@ -1,8 +1,48 @@
 # RefurbCheck · 갤럭시 리퍼폰 점검
 
-## 설치용 1.2.0 다운로드
+## 설치용 1.3.0 다운로드
 
-**휴대전화에서 사용할 APK는 아래 1.2.0 릴리스를 받으세요.**
+**갤럭시에서 사용할 설치 파일은 [RefurbCheck-1.3.0.apk](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.3.0/RefurbCheck-1.3.0.apk)입니다.**
+
+- [릴리스 설명 · 설치 파일 · 체크섬](https://github.com/dlatkdqhd123/RefurbCheck/releases/tag/v1.3.0)
+- [전체 소스 ZIP](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.3.0/RefurbCheck-1.3.0-source.zip)
+- [1.3.0 사용 안내](https://github.com/dlatkdqhd123/RefurbCheck/blob/v1.3.0/README.md)
+- [구현한 개선 사항과 참고 자료](https://github.com/dlatkdqhd123/RefurbCheck/blob/v1.3.0/docs/research-improvements-1.3.0.md)
+- [검증 범위와 한계](https://github.com/dlatkdqhd123/RefurbCheck/blob/v1.3.0/docs/validation-1.3.0.md)
+
+**v1.2.0 사용자는 새로 설치해야 합니다.** 이전 개인 서명키를 복구하지 못해 v1.3.0에는 새 서명키를 사용했습니다. 필요한 JSON 보고서를 저장하고 사용자가 이전 앱을 삭제한 뒤 설치하세요. 공장 초기화 후 처음 설치하는 기기는 바로 설치할 수 있습니다. 앱 ID는 기존 정식 앱과 같은 `io.github.refurbcheck`입니다.
+
+### 이번 개선
+
+Wi-Fi에 연결하고 앱을 처음 실행하면 서명된 검사 자료를 확인한 뒤 검사합니다. 실행 중 재검사의 자동 자료 확인은 6시간 간격으로 제한하며, 결과 탭에서 수동 확인 또는 서명된 ZIP 가져오기도 가능합니다. 자료의 서명·해시·크기·순번·유효기간을 확인하고 적용하며, 앱 목록·APK·보고서를 서버에 전송하지 않습니다. 새 참조는 게시자가 검토·서명하여 배포해야 추가됩니다.
+
+설치 요청 앱과 설치 기록 앱, 업데이트 소유 앱, 현재 서명과 서명 이력을 구분합니다. 초기화 후 예상하지 않은 앱·실제 활성 관리 권한·접근성과 민감 권한의 조합도 확인 대상으로 표시합니다. 이런 권한이나 출처만으로 악성으로 확정하거나 자동 삭제하지 않습니다.
+
+알려진 악성·감시 참조와 정확히 일치한 일반 앱은 현재 유효 자료와 앱 파일·버전·관리자 상태를 삭제 직전에 재검증하고 Android 삭제 승인창으로 연결합니다. 사용자가 승인하면 제거 여부를 확인하며 다음 대상으로 진행하고 재검사합니다. 시스템 앱·조직 등록 강제 해제·펌웨어 자동 복구는 대상이 아닙니다.
+
+APK 서명 검증기는 고정된 AOSP Android 16 QPR2 소스로 갱신했습니다. 기기 속성 키 증명과 제한적인 구형 공장 인증서 호환 검증도 추가했습니다. 확인하지 못한 항목은 확인 불가로 표시합니다.
+
+첫 서명 자료는 기존 검토된 참조 **15,645개**를 새 형식으로 배포한 것으로, 새 악성코드 15,645개를 추가했다는 뜻이 아닙니다. 상용 백신 전체 엔진, 미지 악성코드 탐지 보장, 전체 펌웨어·물리 부품의 무변조 인증을 제공하지 않습니다.
+
+### 버전과 검증
+
+[배포 검증 성공 기록](https://github.com/dlatkdqhd123/RefurbCheck/actions/runs/42317274754): 호스트 3,243개 assertion, Android 8/API 26에서 73개, Android 16/API 36에서 69개가 통과했습니다. 원본 APK의 내부 파일 26개 검사와 실제 배포 APK 설치·시작도 확인했습니다.
+
+Android 8.0/API 26 이상, 루트·PC·ADB·계정·API 키 없이 설치하여 사용합니다. 호스트 회귀 테스트 **3,243개 assertion**과 Android API 26/36 실행 검사가 통과한 뒤 게시하는 릴리스입니다. 실행 검사는 배포 코드·리소스·자산을 유지한 임시 서명 사본을 사용하고, 최종 배포 서명 APK의 설치·시작도 확인합니다. 실제 Galaxy/One UI 기기와 악성코드 탐지율·오탐률은 아직 검증하지 않았습니다.
+
+정식 1.3.0 소스는 [release/1.3.0 브랜치](https://github.com/dlatkdqhd123/RefurbCheck/tree/release/1.3.0)와 [v1.3.0 태그](https://github.com/dlatkdqhd123/RefurbCheck/tree/v1.3.0)에 있습니다. 아래 `main`의 0.2 시험판 소스·CI는 별도 기록으로 보존합니다.
+
+APK SHA-256:
+
+```text
+2d1b2c0d1222cf5089c0a30a10a81f884f8286f7b86cf214f82bb7f089f7efc8
+```
+
+---
+
+## 이전 1.2.0 배포 기록
+
+아래 1.2.0 링크와 설명은 이전 배포 기록으로 보존합니다. 현재 설치 파일은 위의 1.3.0을 사용하세요.
 
 - [RefurbCheck-1.2.0.apk](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.2.0/RefurbCheck-1.2.0.apk)
 - [전체 소스 ZIP](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.2.0/RefurbCheck-1.2.0-source.zip)
