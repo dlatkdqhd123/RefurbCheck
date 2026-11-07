@@ -5,12 +5,33 @@ refurbcheck_api="${1:?API level required}"
 refurbcheck_sdk="${ANDROID_HOME:?SDK required}"
 refurbcheck_adb="$refurbcheck_sdk/platform-tools/adb"
 refurbcheck_avdmanager="$refurbcheck_sdk/cmdline-tools/latest/bin/avdmanager"
-for refurbcheck_tool in "$refurbcheck_adb" "$refurbcheck_avdmanager" "$refurbcheck_sdk/emulator/emulator"; do
+refurbcheck_emulator="$refurbcheck_sdk/emulator/emulator"
+for refurbcheck_tool in "$refurbcheck_adb" "$refurbcheck_avdmanager" "$refurbcheck_emulator"; do
     [[ -x "$refurbcheck_tool" ]] || { printf '%s\n' "Missing executable Android SDK tool: $refurbcheck_tool" >&2; exit 1; }
 done
 command -v keytool >/dev/null || { printf '%s\n' 'JDK keytool is required.' >&2; exit 1; }
 refurbcheck_private="$(mktemp -d "$RUNNER_TEMP/refurbcheck-test-signing.XXXXXX")"
-trap 'rm -rf -- "$refurbcheck_private"; "$refurbcheck_adb" emu kill >/dev/null 2>&1 || true' EXIT
+refurbcheck_android_state=""
+refurbcheck_emulator_pid=""
+refurbcheck_adb_wait_pid=""
+refurbcheck_cleanup() {
+    if [[ -n "$refurbcheck_adb_wait_pid" ]]; then kill "$refurbcheck_adb_wait_pid" 2>/dev/null || true; fi
+    if [[ -n "$refurbcheck_emulator_pid" ]]; then
+        timeout 5 "$refurbcheck_adb" emu kill >/dev/null 2>&1 || true
+        kill "$refurbcheck_emulator_pid" 2>/dev/null || true
+    fi
+    rm -rf -- "$refurbcheck_private"
+    if [[ -n "$refurbcheck_android_state" ]]; then rm -rf -- "$refurbcheck_android_state"; fi
+}
+trap refurbcheck_cleanup EXIT
+# Older command-line tools use ANDROID_SDK_HOME/.android; current tools use
+# ANDROID_USER_HOME and ANDROID_AVD_HOME. Give both generations the same state.
+refurbcheck_android_state="$(mktemp -d "$RUNNER_TEMP/refurbcheck-android.XXXXXX")"
+export ANDROID_SDK_HOME="$refurbcheck_android_state"
+export ANDROID_USER_HOME="$refurbcheck_android_state/.android"
+export ANDROID_EMULATOR_HOME="$ANDROID_USER_HOME"
+export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
+mkdir -p "$ANDROID_AVD_HOME"
 export REFURBCHECK_TEST_PRIVATE="$refurbcheck_private"
 python3 - <<'PY'
 from pathlib import Path
@@ -44,17 +65,53 @@ python3 tests/android-v13/build_instrumentation.py --sdk-root "$refurbcheck_sdk"
     --app-apk build/runtime-target.apk --keystore "$refurbcheck_private/test.p12" \
     --password-file "$refurbcheck_private/password.txt"
 mkdir -p build/runtime-results
-echo no | "$refurbcheck_avdmanager" create avd --force --name refurbcheck_ci \
-    --package "system-images;android-$refurbcheck_api;google_apis;x86_64"
-"$refurbcheck_sdk/emulator/emulator" -avd refurbcheck_ci -no-window -no-audio -no-boot-anim \
+printf 'no\n' | "$refurbcheck_avdmanager" create avd --force --name refurbcheck_ci \
+    --path "$ANDROID_AVD_HOME/refurbcheck_ci.avd" \
+    --package "system-images;android-$refurbcheck_api;google_apis;x86_64" \
+    2>&1 | tee build/runtime-results/avd-create.log
+if [[ ! -f "$ANDROID_AVD_HOME/refurbcheck_ci.ini" || ! -f "$ANDROID_AVD_HOME/refurbcheck_ci.avd/config.ini" ]]; then
+    printf '%s\n' "AVD registration or configuration missing under $ANDROID_AVD_HOME" >&2
+    "$refurbcheck_avdmanager" list avd >&2 || true
+    exit 1
+fi
+"$refurbcheck_emulator" -list-avds | tee build/runtime-results/avd-list.log
+python3 - <<'PY'
+from pathlib import Path
+names = Path('build/runtime-results/avd-list.log').read_text().splitlines()
+assert 'refurbcheck_ci' in [name.strip() for name in names], 'Emulator cannot resolve the registered refurbcheck_ci AVD'
+PY
+refurbcheck_emulator_failure() {
+    printf '%s\n' "$1" >&2
+    for refurbcheck_log in build/runtime-results/emulator.log build/runtime-results/adb-wait.log; do
+        if [[ -f "$refurbcheck_log" ]]; then
+            printf '%s\n' "Log: $refurbcheck_log" >&2
+            tail -100 "$refurbcheck_log" >&2
+        fi
+    done
+    exit 1
+}
+"$refurbcheck_emulator" -avd refurbcheck_ci -no-window -no-audio -no-boot-anim \
     -no-snapshot -gpu swiftshader_indirect -accel on -cores 2 -memory 2048 > build/runtime-results/emulator.log 2>&1 &
-timeout 180 "$refurbcheck_adb" wait-for-device
+refurbcheck_emulator_pid=$!
+timeout --kill-after=5s 180s "$refurbcheck_adb" wait-for-device > build/runtime-results/adb-wait.log 2>&1 &
+refurbcheck_adb_wait_pid=$!
+while kill -0 "$refurbcheck_adb_wait_pid" 2>/dev/null; do
+    kill -0 "$refurbcheck_emulator_pid" 2>/dev/null || refurbcheck_emulator_failure 'Emulator exited before adb connected.'
+    sleep 1
+done
+if ! wait "$refurbcheck_adb_wait_pid"; then
+    refurbcheck_adb_wait_pid=""
+    refurbcheck_emulator_failure 'adb wait-for-device failed or timed out.'
+fi
+refurbcheck_adb_wait_pid=""
 refurbcheck_booted=false
-for refurbcheck_attempt in $(seq 1 180); do
-    if [[ "$("$refurbcheck_adb" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" == 1 ]]; then refurbcheck_booted=true; break; fi
+refurbcheck_boot_deadline=$((SECONDS + 360))
+while (( SECONDS < refurbcheck_boot_deadline )); do
+    kill -0 "$refurbcheck_emulator_pid" 2>/dev/null || refurbcheck_emulator_failure 'Emulator exited before Android completed booting.'
+    if [[ "$(timeout --kill-after=2s 10s "$refurbcheck_adb" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" == 1 ]]; then refurbcheck_booted=true; break; fi
     sleep 2
 done
-[[ "$refurbcheck_booted" == true ]] || { tail -80 build/runtime-results/emulator.log; exit 1; }
+[[ "$refurbcheck_booted" == true ]] || refurbcheck_emulator_failure 'Android boot did not complete before the deadline.'
 "$refurbcheck_adb" shell input keyevent 82
 "$refurbcheck_adb" install -r build/runtime-target.apk
 "$refurbcheck_adb" install -r -t build/android-v13/RefurbCheck-v13-instrumentation.apk
