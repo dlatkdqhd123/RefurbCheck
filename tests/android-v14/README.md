@@ -140,6 +140,13 @@ The lifecycle exercise uses official Android APIs:
 [UiAutomation rotation](https://developer.android.com/reference/android/app/UiAutomation#setRotation(int)),
 [AppTask resumption](https://developer.android.com/reference/android/app/ActivityManager.AppTask#moveToFront()).
 
+The test observes resumed Activity state and rotation predicates on the Android
+main thread. A new run ID from `onNewIntent` alone does not prove `onResume`
+has completed: Android may temporarily pause the Activity to deliver the intent.
+The fresh-launcher scenario explicitly waits for both the changed cycle and a
+resumed, non-destroyed Activity before reading its UI. The final JSON must include
+`freshLauncherResumedBeforeUiAccess: true`; a timeout still fails the test.
+
 This does **not** measure malware detection accuracy, validate Samsung firmware,
 certify physical hardware, exercise every One UI variant, perform an uninstallation
 or demonstrate a hardware attestation success on a real Galaxy. Those results

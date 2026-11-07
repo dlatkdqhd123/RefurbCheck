@@ -6,6 +6,8 @@
 
 ## 다운로드와 설치
 
+1.4.0은 배포 검증을 거쳐 초안으로 준비하며, 검증 결과에 대한 사용자 승인 후 공개합니다. 공개 전에는 아래 1.4.0 다운로드 링크를 사용할 수 없습니다. 기존 공개 버전은 1.3.0입니다.
+
 - [RefurbCheck 1.4.0 APK](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.4.0/RefurbCheck-1.4.0.apk)
 - [릴리스 설명·검증 자료](https://github.com/dlatkdqhd123/RefurbCheck/releases/tag/v1.4.0)
 - [전체 소스 ZIP](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.4.0/RefurbCheck-1.4.0-source.zip)
@@ -94,7 +96,7 @@ REFURBCHECK_TEST_APK="$PWD/dist/RefurbCheck-1.4.0.apk" bash tests/run_all_tests.
 
 GitHub 배포는 고정 APK·인증서·소스 입력 지문 확인, 호스트 회귀 테스트, Android API26·36 실행 검사를 모두 통과해야 게시됩니다. Android 검사에서는 임시 서명 사본으로 배포 APK의 코드·리소스를 실행하고, 원본 배포 APK의 v1.3.0 → v1.4.0 업데이트 설치와 시작도 확인합니다. 개인 배포 서명키는 CI에 넣지 않습니다. 구체적인 실행 결과는 해당 버전의 Actions 기록을 확인하세요.
 
-공개 릴리스는 새 태그로만 생성하며 기존 태그·파일을 덮어쓰지 않습니다. 기본 `main`의 별도 prototype 소스는 유지하고 정식 앱은 `release/1.4.0` 및 `v1.4.0` 태그에 둡니다.
+릴리스 초안은 두 Android 검증과 호스트 검증을 통과한 뒤 새 태그로만 준비하며 기존 태그·파일을 덮어쓰지 않습니다. 초안 공개는 결과를 검토한 사용자의 승인 후 별도로 진행합니다. 기본 `main`의 별도 prototype 소스는 유지하고 정식 앱은 `release/1.4.0` 및 `v1.4.0` 태그에 둡니다.
 
 ## 지원 범위
 

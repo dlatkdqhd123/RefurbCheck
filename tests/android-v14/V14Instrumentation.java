@@ -218,7 +218,9 @@ public final class V14Instrumentation extends Instrumentation {
                 "test display starts in natural orientation");
         lifecycleStarted = true;
         Activity opened = startActivitySync(launcherIntent(target));
-        require(opened instanceof MainActivity && resumedActivity == opened,
+        MainActivity initiallyResumed = awaitResumedActivity(activity -> activity == opened,
+                "launcher Activity reaches onResume before its UI is inspected");
+        require(opened instanceof MainActivity && initiallyResumed == opened,
                 "real launcher Activity resumes without a start-button press");
         JSONObject launched = session.flowSnapshot();
         String firstRun = launched.getString("runId");
@@ -254,11 +256,12 @@ public final class V14Instrumentation extends Instrumentation {
 
         // Rotate the actual display. A new Activity object and changed
         // orientation prove recreation, rather than calling lifecycle methods.
-        MainActivity beforeRotation = resumedActivity;
+        MainActivity beforeRotation = awaitResumedActivity(activity -> true,
+                "cancelled Activity is resumed before rotation");
         int beforeOrientation = beforeRotation.getResources().getConfiguration().orientation;
         require(getUiAutomation().setRotation(UiAutomation.ROTATION_FREEZE_90), "Android accepts display rotation");
-        require(await(15000, () -> resumedActivity != null && resumedActivity != beforeRotation
-                        && resumedActivity.getResources().getConfiguration().orientation != beforeOrientation),
+        awaitResumedActivity(activity -> activity != beforeRotation
+                        && activity.getResources().getConfiguration().orientation != beforeOrientation,
                 "real display rotation recreates the production Activity");
         JSONObject rotatedStopped = session.flowSnapshot();
         require(firstRun.equals(rotatedStopped.getString("runId"))
@@ -279,8 +282,11 @@ public final class V14Instrumentation extends Instrumentation {
         // SINGLE_TOP exercises MainActivity.onNewIntent with the retained
         // process/session. The first launch above already covers onCreate.
         onMain(() -> target.startActivity(launcherIntent(target).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)));
-        require(await(15000, () -> !firstRun.equals(session.flowSnapshot().optString("runId"))),
-                "a fresh launcher entry creates a new cycle after cancellation");
+        // onNewIntent may create the cycle while Android has paused this
+        // Activity. A changed runId alone is not evidence that onResume ran.
+        MainActivity activeBeforeRotation = awaitResumedActivity(
+                activity -> !firstRun.equals(session.flowSnapshot().optString("runId")),
+                "a fresh launcher entry creates a new cycle and resumes its Activity");
         JSONObject fresh = session.flowSnapshot();
         String secondRun = fresh.getString("runId");
         require(!secondRun.isEmpty() && !fresh.getBoolean("cancelled")
@@ -289,13 +295,13 @@ public final class V14Instrumentation extends Instrumentation {
         require(fresh.getInt("removedCount") == 0 && fresh.getInt("attemptedCount") == 0,
                 "new launcher resets per-cycle removal counters");
         conservativeFlow(fresh, "fresh launcher");
-        lifecycle.put("freshLauncher", fresh).put("freshLauncherStartsNewCycle", true);
+        lifecycle.put("freshLauncher", fresh).put("freshLauncherStartsNewCycle", true)
+                .put("freshLauncherResumedBeforeUiAccess", true);
 
-        MainActivity activeBeforeRotation = resumedActivity;
         int activeOrientation = activeBeforeRotation.getResources().getConfiguration().orientation;
         require(getUiAutomation().setRotation(UiAutomation.ROTATION_FREEZE_0), "display can return to natural orientation");
-        require(await(15000, () -> resumedActivity != null && resumedActivity != activeBeforeRotation
-                        && resumedActivity.getResources().getConfiguration().orientation != activeOrientation),
+        awaitResumedActivity(activity -> activity != activeBeforeRotation
+                        && activity.getResources().getConfiguration().orientation != activeOrientation,
                 "second-cycle display rotation recreates the Activity");
         JSONObject rotatedFresh = session.flowSnapshot();
         require(secondRun.equals(rotatedFresh.getString("runId")) && rotatedFresh.getInt("scanCount") <= 1,
@@ -400,8 +406,8 @@ public final class V14Instrumentation extends Instrumentation {
     }
 
     private void backgroundAndResume(Context target) throws Exception {
-        MainActivity foreground = resumedActivity;
-        require(foreground != null, "production Activity is resumed before backgrounding");
+        MainActivity foreground = awaitResumedActivity(activity -> true,
+                "production Activity is resumed before backgrounding");
         final int taskId = foreground.getTaskId();
         ActivityManager manager = (ActivityManager) target.getSystemService(Context.ACTIVITY_SERVICE);
         ActivityManager.AppTask selected = null;
@@ -413,7 +419,7 @@ public final class V14Instrumentation extends Instrumentation {
         onMain(() -> require(foreground.moveTaskToBack(true), "own task moves to background"));
         require(await(15000, () -> resumedActivity == null), "Android pauses the backgrounded Activity");
         onMain(ownTask::moveToFront);
-        require(await(15000, () -> resumedActivity != null && resumedActivity.getTaskId() == taskId),
+        awaitResumedActivity(activity -> activity.getTaskId() == taskId,
                 "Android resumes the existing task without a launcher intent");
     }
 
@@ -443,6 +449,21 @@ public final class V14Instrumentation extends Instrumentation {
 
     private interface CheckedAction { void run() throws Exception; }
     private interface Condition { boolean matches() throws Exception; }
+    private interface ActivityCondition { boolean matches(MainActivity activity) throws Exception; }
+
+    /** Observe lifecycle and view state atomically with Android callbacks. */
+    private MainActivity awaitResumedActivity(ActivityCondition condition, String label) throws Exception {
+        MainActivity[] observed = new MainActivity[1];
+        require(await(15000, () -> {
+            onMain(() -> {
+                MainActivity current = resumedActivity;
+                observed[0] = current != null && !current.isFinishing() && !current.isDestroyed()
+                        && condition.matches(current) ? current : null;
+            });
+            return observed[0] != null;
+        }), label);
+        return observed[0];
+    }
 
     private void onMain(CheckedAction action) throws Exception {
         Throwable[] error = new Throwable[1];

@@ -44,7 +44,8 @@ def main():
     lifecycle = summary.get("observations", {}).get("oneRunLifecycle", {})
     for key in ("stopBlocksAutomaticActions", "backgroundResumePreservesCycle", "freshLauncherStartsNewCycle",
                 "rotationPreservesCycle", "completionKeepsAssuranceLimits", "realDisplayRotation",
-                "taskResumedWithoutLauncherIntent", "realStopButtonClicked", "automaticFlowCompleted"):
+                "taskResumedWithoutLauncherIntent", "realStopButtonClicked", "automaticFlowCompleted",
+                "freshLauncherResumedBeforeUiAccess"):
         if lifecycle.get(key) is not True:
             raise SystemExit("Missing completed real Activity lifecycle scenario: " + key)
     launched = lifecycle.get("launched", {})

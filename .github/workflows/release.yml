@@ -1,4 +1,4 @@
-name: Verify and publish RefurbCheck 1.4.0
+name: Verify and prepare RefurbCheck 1.4.0 draft
 on:
   push:
     branches: ['release/1.4.0']
@@ -97,7 +97,7 @@ jobs:
         run: |
           python3 tools/verify_release_inputs.py
           git archive --format=zip --prefix=RefurbCheck-1.4.0/ --output="$RUNNER_TEMP/RefurbCheck-1.4.0-source.zip" "$GITHUB_SHA"
-      - name: Publish new release only after both Android jobs pass
+      - name: Prepare draft for user review only after both Android jobs pass
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -113,5 +113,5 @@ jobs:
           test "$created_sha" = "$GITHUB_SHA"
           gh release create v1.4.0 --draft --verify-tag --target "$GITHUB_SHA" --title 'RefurbCheck 1.4.0 · 실행부터 검사·조치·재확인까지' --notes-file docs/release-notes-1.4.0.md
           gh release upload v1.4.0 release/RefurbCheck-1.4.0.apk release/RefurbCheck-1.4.0.apk.sha256 release/signing-certificate-sha256-1.4.0.txt release/source-file-sha256-1.4.0.json data/catalog-updates/catalog-update.zip "$RUNNER_TEMP/RefurbCheck-1.4.0-source.zip"
-          gh release edit v1.4.0 --draft=false --verify-tag
+          # Publishing is a separate user-approved step after reviewing results.
           gh release view v1.4.0 --json url,isDraft,tagName
