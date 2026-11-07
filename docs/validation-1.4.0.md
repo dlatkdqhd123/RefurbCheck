@@ -2,7 +2,7 @@
 
 - 검증 커밋: `aadeab8659163180545fbe69d2ba79c151dec273` (`release/1.4.0`)
 - [성공한 CI 실행](https://github.com/dlatkdqhd123/RefurbCheck/actions/runs/42341669753)
-- [검토용 릴리스 초안](https://github.com/dlatkdqhd123/RefurbCheck/releases/tag/untagged-921b6039cead9884c3af) — 저장소 계정으로 확인 가능. 공개 승인 전에는 일반 다운로드 링크가 동작하지 않는다.
+- [공개 릴리스](https://github.com/dlatkdqhd123/RefurbCheck/releases/tag/v1.4.0) — 검증 후 사용자 게시 승인을 받아 공개했다.
 
 ## 결과
 
@@ -37,4 +37,10 @@ CI의 `RefurbCheck-1.4-host-validation`, `RefurbCheck-1.4-android-26-validation`
 
 ## 공개 상태
 
-1.4.0 APK·소스 ZIP·지문·서명 자료는 **초안**에 준비했다. 결과 검토 후 사용자가 공개를 승인해야 정식 릴리스를 공개한다. 현재 공개 최신 릴리스는 1.3.0이다. 기존 태그나 자산은 덮어쓰지 않는다.
+사용자의 게시 승인 후 2026-11-07 05:22:50 UTC에 기존 초안을 공개했다. 새 릴리스를 중복 생성하거나 태그·APK·소스 자산을 덮어쓰지 않았다. 최신 공개 릴리스는 1.4.0이다.
+
+인증 정보를 보내지 않는 HTTP 요청으로 공개 릴리스 페이지의 HTTP 200 응답과 APK·소스 ZIP 다운로드를 확인했다. 받은 APK의 SHA-256은 위 값과 일치하고, v2/v3 서명이 유효하며 기존 배포 인증서를 유지한다.
+
+소스 ZIP SHA-256: `64fa06187a662bac1ff909bf4a5e54a60703ebe754a90d87de8b781812afe043` (8612613바이트).
+
+소스 ZIP은 검증 커밋 `aadeab8659163180545fbe69d2ba79c151dec273`의 아카이브다. 이 공개 상태 기록은 후속 문서 커밋이며 APK·태그·검증 대상 코드는 변경하지 않는다. 추가 빌드·에뮬레이터 실행은 하지 않았다.

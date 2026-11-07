@@ -6,7 +6,7 @@
 
 ## 다운로드와 설치
 
-1.4.0은 배포 검증을 거쳐 초안으로 준비하며, 검증 결과에 대한 사용자 승인 후 공개합니다. 공개 전에는 아래 1.4.0 다운로드 링크를 사용할 수 없습니다. 기존 공개 버전은 1.3.0입니다.
+1.4.0은 배포 검증과 사용자 게시 승인을 거쳐 공개됐습니다. 아래 APK·소스 다운로드 링크를 사용할 수 있습니다. [최종 검증 및 공개 확인](docs/validation-1.4.0.md)을 참고하세요.
 
 - [RefurbCheck 1.4.0 APK](https://github.com/dlatkdqhd123/RefurbCheck/releases/download/v1.4.0/RefurbCheck-1.4.0.apk)
 - [릴리스 설명·검증 자료](https://github.com/dlatkdqhd123/RefurbCheck/releases/tag/v1.4.0)
