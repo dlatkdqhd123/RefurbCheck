@@ -39,7 +39,7 @@ def main():
     parser.add_argument("--keystore", required=True)
     parser.add_argument("--password-file", required=True)
     parser.add_argument("--alias", default="refurbcheck")
-    parser.add_argument("--output", default="dist/RefurbCheck-1.3.0.apk")
+    parser.add_argument("--output", default="dist/RefurbCheck-1.4.0.apk")
     args = parser.parse_args()
     project = Path(__file__).resolve().parents[1]
     if not args.sdk_root:
@@ -99,7 +99,7 @@ def main():
                     "--manifest", merged_manifest,
                     "--java", generated, "-I", android_jar,
                     "--min-sdk-version", "26", "--target-sdk-version", "35",
-                    "--version-code", "4", "--version-name", "1.3.0"]
+                    "--version-code", "5", "--version-name", "1.4.0"]
     if (main_source / "assets").exists():
         link_command += ["-A", main_source / "assets"]
     run(link_command + [resource_zip])
@@ -135,7 +135,7 @@ def main():
     alignment = run([build_tools / "zipalign", "-c", "-v", "4", output], capture=True)
     manifest = run([build_tools / "aapt2", "dump", "badging", output], capture=True)
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
-    summary = ("RefurbCheck 1.3.0 APK build verification\n"
+    summary = ("RefurbCheck 1.4.0 APK build verification\n"
                "Build tools: official Android SDK 35.0.0; compile API 35\n"
                "Runtime device/emulator execution is not established by this build script.\n\n"
                + verification + "\n" + alignment + "\n" + manifest

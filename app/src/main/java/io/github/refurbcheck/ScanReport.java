@@ -30,8 +30,8 @@ public final class ScanReport {
         JSONObject o=new JSONObject(); JSONArray fs=new JSONArray();
         for(Finding f:findings) fs.put(f.toJson());
         try {
-            o.put("schema", "refurbcheck-report-v2"); o.put("appVersion","1.3.0");
-            o.put("reportId",reportId);o.put("rulesVersion","2026-11-research-3");o.put("clockSource","device clock; not independently authenticated");
+            o.put("schema", "refurbcheck-report-v2"); o.put("appVersion","1.4.0");
+            o.put("reportId",reportId);o.put("rulesVersion","2026-11-one-run-4");o.put("clockSource","device clock; not independently authenticated");
             o.put("startedAt",startedAt); o.put("completedAt",completedAt); o.put("verdict",verdict());
             o.put("unverifiedFindingCount",count(Finding.Status.UNKNOWN));o.put("allRequiredDomainsVerified",false);
             o.put("factoryOriginalVerified",false); o.put("malwareAbsenceVerified",false);

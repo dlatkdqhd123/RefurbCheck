@@ -9,7 +9,7 @@ refurbcheck_classes="${refurbcheck_root}/build/apk-inspection-compile"
 refurbcheck_stubs="${refurbcheck_root}/build/apk-inspection-stubs"
 refurbcheck_fixture_dir="${refurbcheck_root}/build/apk-test-fixtures"
 refurbcheck_java="${REFURBCHECK_JAVA:-java}"
-refurbcheck_apk="${REFURBCHECK_TEST_APK:-${refurbcheck_root}/release/RefurbCheck-1.2.0.apk}"
+refurbcheck_apk="${REFURBCHECK_TEST_APK:-${refurbcheck_root}/release/RefurbCheck-1.4.0.apk}"
 if [[ ! -f "$refurbcheck_apk" && -z "${REFURBCHECK_TEST_APK:-}" ]]; then
     refurbcheck_apk="${refurbcheck_root}/release/RefurbCheck-1.1.0.apk"
 fi

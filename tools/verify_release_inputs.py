@@ -6,19 +6,19 @@ import json
 import subprocess
 
 root = Path(__file__).resolve().parents[1]
-manifest = json.loads((root / 'release/source-file-sha256-1.3.0.json').read_text())
+manifest = json.loads((root / 'release/source-file-sha256-1.4.0.json').read_text())
 digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
 for name, expected in manifest['files'].items():
     path = (root / name).resolve()
     if not path.is_relative_to(root) or not path.is_file() or digest(path) != expected:
         raise SystemExit('Reviewed source input mismatch: ' + name)
-apk = root / 'release/RefurbCheck-1.3.0.apk'
+apk = root / 'release/RefurbCheck-1.4.0.apk'
 if digest(apk) != manifest['apkSha256']:
     raise SystemExit('Reviewed APK mismatch')
-checksum = (root / 'release/RefurbCheck-1.3.0.apk.sha256').read_text().strip()
-if checksum != manifest['apkSha256'] + '  RefurbCheck-1.3.0.apk':
+checksum = (root / 'release/RefurbCheck-1.4.0.apk.sha256').read_text().strip()
+if checksum != manifest['apkSha256'] + '  RefurbCheck-1.4.0.apk':
     raise SystemExit('APK checksum sidecar mismatch')
-if (root / 'release/signing-certificate-sha256-1.3.0.txt').read_text().strip() != manifest['signingCertificateSha256']:
+if (root / 'release/signing-certificate-sha256-1.4.0.txt').read_text().strip() != manifest['signingCertificateSha256']:
     raise SystemExit('Certificate fingerprint mismatch')
 tracked = subprocess.check_output(['git', 'ls-files'], cwd=root, text=True).splitlines()
 for name in tracked:

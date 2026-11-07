@@ -53,7 +53,7 @@ final class RemediationRules {
     static String outcomeLabel(String outcome) {
         switch(outcome) {
             case "SCREEN_OPENED":return "조치 화면 열림";
-            case "SCREEN_RETURNED":return "복귀 · 재검사 진행";
+            case "SCREEN_RETURNED":return "조치 화면 복귀 · 결과 확인";
             case "OPEN_FAILED":return "화면 열기 실패";
             case "PREFLIGHT_BLOCKED":return "앱 변경·확인 제한으로 삭제 보류";
             case "PACKAGE_NOT_PRESENT":return "현재 프로필 앱 목록에서 미발견";

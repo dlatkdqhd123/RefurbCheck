@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 refurbcheck_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-for refurbcheck_suite in attestation report apk remediation malware malware_remediation inventory_policy modern_apksig catalog_update; do
+for refurbcheck_suite in attestation report apk remediation malware malware_remediation inventory_policy modern_apksig catalog_update one_run; do
     bash "$refurbcheck_root/tests/run_${refurbcheck_suite}_tests.sh"
 done
 mkdir -p "$refurbcheck_root/build/signal-tests"

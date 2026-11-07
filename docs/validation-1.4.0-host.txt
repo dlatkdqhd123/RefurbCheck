@@ -1,0 +1,471 @@
+Attestation checks passed: 373 assertions, including truncation sweep and 2,000 malformed DER inputs.
+PASS identical reports remain a limited comparison
+PASS changed signer is reported
+PASS changed version is reported
+PASS version and signer changes are two observations
+PASS added and missing packages are distinguished
+PASS multisigner order does not create a difference
+PASS hexadecimal letter case does not create a difference
+PASS malformed reference signer stays unknown
+PASS malformed current signer stays unknown
+PASS empty signer array stays unknown
+PASS empty signer string stays unknown
+PASS short signer digest stays unknown
+PASS nonhex signer digest stays unknown
+PASS missing signer field stays unknown
+PASS null signer element stays unknown
+PASS numeric signer element is malformed, not a SHA256 string
+PASS explicitly unreadable signing metadata stays unknown
+PASS incomplete reference inventory receives a caution
+PASS incomplete current inventory receives a caution
+PASS different model stops package comparison
+PASS missing model stops comparison
+PASS unknown model stops comparison
+PASS JSON null model stops comparison
+PASS literal null model stops comparison
+PASS blank current model stops comparison
+PASS invalid report schema is rejected
+PASS duplicate reference package names are rejected
+PASS duplicate current package names are rejected
+PASS nonobject package rows are rejected
+PASS application itself is excluded from reference changes
+PASS build metadata differences are visible
+PASS empty reports never receive a clean observation verdict
+PASS unknown checks plus coverage text remain unknown
+PASS external-attestation explanatory text is not an observation
+PASS a substantive INFO is a bounded observation
+PASS a PASS remains bounded by unknown scope
+PASS WARN takes precedence over observed and unknown
+PASS ALERT takes precedence over WARN
+PASS report serialization preserves counts and explicit limits
+PASS v1 and v2 metadata comparisons remain compatible
+PASS v1 cannot supply file evidence by inserting v2 fields
+PASS identical complete v2 hashes are a read-only bounded comparison
+PASS base APK bytes can differ while package signer and version stay the same
+PASS changed split content is compared independently of base
+PASS file array order never becomes a content change
+PASS file hash letter case is normalized
+PASS normal version update does not become unexplained content change
+PASS changed firmware fingerprint prevents unexplained content classification
+PASS missing fingerprints on both sides cannot count as equality
+PASS unknown fingerprint strings cannot establish context
+PASS missing versions on both sides cannot establish same-version context
+PASS string and fractional version codes are not accepted by coercion
+PASS 64-bit version code does not truncate
+PASS different split distribution receives configuration caution
+PASS common base content difference remains visible when split distribution changes
+PASS partial package scan cannot compare an apparently present base digest
+PASS missing or string completion flags cannot count as complete
+PASS changed package invalidates otherwise complete hash records
+PASS package collection error conflicts with completed evidence
+PASS unreadable pending truncated and cancelled hashes stay unknown
+PASS observed partial digest is never promoted to final SHA256
+PASS file stability requires a real true boolean
+PASS malformed file digests never establish byte differences
+PASS missing or noninteger file size is incomplete evidence
+PASS same hash with contradictory size is unknown
+PASS duplicate base and split identities cannot be compared
+PASS malformed file identity and mismatched split name stay unknown
+PASS missing base file cannot appear as a complete split-only package
+PASS missing empty nonarray and malformed file rows stay unknown
+PASS complete common packages remain bounded when enumeration is incomplete
+PASS self APK is excluded from content comparison too
+PASS missing inventory is rejected rather than treated as empty
+PASS wrong inventory type is rejected
+PASS current schema and null reports are validated
+PASS duplicate signers are not accepted as a readable signer set
+PASS numeric device identity is not accepted by coercion
+PASS strict parser accepts an actual v2 report with Unicode strings
+PASS strict parser accepts standard numeric and boolean JSON
+PASS valid whitespace around a report is accepted
+PASS deep brackets inside strings do not count as structural depth
+PASS depth boundary is bounded before org.json parsing
+PASS every truncation of a representative JSON object is rejected
+PASS empty null and oversized imports are rejected
+PASS malformed UTF8 is rejected rather than replaced
+PASS trailing objects scalars garbage and NUL are rejected
+PASS top-level arrays and scalar values are not reports
+PASS duplicate object names including escaped equivalents are rejected
+PASS lenient org.json extensions are rejected consistently
+PASS malformed escapes raw controls and Unicode surrogates are rejected
+PASS structural mismatches are rejected before recursive parsing
+PASS large single numbers and excessive value counts are bounded
+ReportTests: 91/91 scenarios passed; 478 assertions checked
+PASS known SHA-256 vector
+PASS streaming hash with exact size
+PASS empty file is a hash, not a signature claim
+PASS truncated file cannot produce a successful hash
+PASS growing file cannot produce a successful hash
+PASS oversized file is rejected before any read
+PASS cancelled scan cannot produce hash
+PASS midread cancellation is not a hash success
+PASS clock deadline does not silently pass
+PASS read budget counts actual bytes and prevents complete result
+PASS negative file size is unknown
+PASS real pinned MIT IOC database is nonempty and exact
+PASS modified IOC asset fails closed
+PASS empty IOC list cannot become no match
+PASS malformed IOC row rejected
+PASS unknown IOC provenance rejected
+PASS duplicate IOC row rejected
+PASS matching parser is case insensitive
+PASS file identity changes are detected
+PASS unsupported platform cannot become signature success
+PASS unsupported crypto never classified as invalid malware
+PASS known digest failure classified as invalid within model
+PASS failure without diagnostic remains unknown
+PASS signer order and case are immaterial but missing evidence is not
+PASS bounded APK source slices reproduce only requested bytes
+PASS actual signed APK verifies using genuine apksig port
+PASS byte-tampered real APK fails cryptographic verification
+PASS actual signed APK API26 model verifies
+PASS verifier input observes cancellation
+PASS verifier input observes read limit
+APK evidence tests: 30 scenarios, 51 assertions, 0 failures
+PASS stable exact-match user app is eligible for preflight, not silent deletion
+PASS null row is ineligible
+PASS system app is ineligible
+PASS self-removal is ineligible
+PASS missing system flag fails closed
+PASS missing confirmed IOC flag fails closed
+PASS false confirmed IOC flag fails closed
+PASS missing remediation eligibility fails closed
+PASS false remediation eligibility fails closed
+PASS eligibility flags must be actual JSON booleans
+PASS missing package binding fails closed
+PASS different package binding fails closed
+PASS malformed package name cannot become an uninstall URI
+PASS missing version fails closed
+PASS negative version fails closed
+PASS missing update time fails closed
+PASS negative update time fails closed
+PASS version and update time must be actual integer metadata
+PASS Integer and Long version metadata are supported
+PASS package changed during scan fails closed
+PASS missing match list fails closed
+PASS empty match list fails closed
+PASS nonobject match row fails closed
+PASS missing APK file list fails closed
+PASS empty APK file list fails closed
+PASS missing file stability flag fails closed
+PASS unstable file fails closed
+PASS missing file match confirmation fails closed
+PASS unconfirmed file match fails closed
+PASS file evidence flags must be actual JSON booleans
+PASS partial or changed hash is not eligible
+PASS malformed hash strings fail closed
+PASS JSON-null hash fails closed
+PASS numeric hash is not a SHA256 string
+PASS different IOC and file hash fails closed
+PASS hash case differences are accepted
+PASS malformed file id fails closed
+PASS unmatched file id fails closed
+PASS duplicate matching file id fails closed
+PASS valid split match can pass eligibility
+PASS one invalid match cannot hide behind another valid match
+PASS unreadable unrelated split does not negate stable exact-match evidence
+PASS new-platform signature UNKNOWN does not erase exact file IOC evidence
+PASS USB and wireless ADB zero never become resolved
+PASS developer option zero never becomes resolved
+PASS ADB or developer warning remains a warning
+PASS observable setting WARN to INFO gives bounded signal-not-seen outcome
+PASS observable setting ALERT to INFO is still only a bounded observation
+PASS remaining warning or alert never becomes resolved
+PASS UNKNOWN result never becomes resolved
+PASS null finding is verification unavailable
+PASS missing finding id is verification unavailable
+PASS a different finding cannot prove a requested setting changed
+PASS generic Galaxy action cannot claim the setting was fixed
+PASS no previous alert means no remediation completion claim
+PASS PASS is not substituted for a settings-specific observation
+PASS package absence wording is scoped to the current profile
+Remediation tests: 57 scenarios, 107 assertions, 0 failures
+PASS known MD5, SHA1, SHA256 vectors use a single bounded pass
+PASS multi-hash byte accounting is one read, not three
+PASS hashing keeps caller-owned stream open
+PASS truncated input cannot yield hashes
+PASS growing input cannot yield hashes
+PASS negative and oversized input sizes fail closed
+PASS cancelled hash is not complete evidence
+PASS zero progress stream stops after bounded retries
+PASS byte limit terminates hashing
+PASS zero-byte file hashes are explicit size zero evidence
+PASS database matches all exact algorithms and preserves source metadata
+PASS different file has no exact digest hits
+PASS size is mandatory unless explicitly wildcarded
+PASS uppercase ASCII hashes normalize but duplicate rows remain rejected
+PASS different independent names on one digest are retained
+PASS pinned database corruption cannot become no match
+PASS empty and comments-only databases are rejected
+PASS missing newline makes truncated snapshot invalid
+PASS unsupported algorithm is rejected
+PASS unknown source is rejected
+PASS malformed field count is rejected
+PASS invalid hash and non-ASCII hexadecimal digits are rejected
+PASS negative overflow leading-zero and coercive sizes are rejected
+PASS unsafe source and name text is rejected
+PASS unbounded line length is rejected before a huge String is built
+PASS strict UTF8 decoder rejects malformed database bytes
+PASS database parsing observes cancellation
+PASS digest fanout is bounded
+PASS compact index sorts and resizes without losing rows
+PASS cross-algorithm allowlisting suppresses ClamAV only
+PASS allowlist size mismatch does not suppress threats
+PASS nonmatching allowlist never grants broad trust
+PASS allowlist cannot silently guard an unknown source
+PASS separately licensed databases federate while preserving guarded matches
+PASS empty null duplicate and nested database catalogs are rejected
+PASS stored direct member hashes and matches exact bytes
+PASS deflated direct member matches after decompression
+PASS signed data descriptor is verified
+PASS unsigned data descriptor is verified
+PASS Android zipalign zero padding is accepted
+PASS unknown well-formed extra fields are bounded and allowed
+PASS empty deflated directory is validated but not a file match
+PASS archive with only directories cannot become complete scan
+PASS ZIP allowlist scope is identical to whole-file matching
+PASS nested ZIP is hashed as bytes but is never recursively unpacked
+PASS well-formed APK signing block is recognized without claiming signature trust
+PASS bounded apksigner zero alignment before signing block is supported
+PASS APK signing block length disagreement is rejected
+PASS empty and non-ZIP input remain unknown
+PASS missing database cannot return a clean scan
+PASS duplicate member names are rejected
+PASS Unicode-normalized duplicate member names are rejected
+PASS file/directory alias is rejected
+PASS traversal absolute drive backslash and empty-segment names are rejected
+PASS encrypted entry remains unscanned while other valid hits survive
+PASS unsupported compression never becomes no-match completion
+PASS unsupported flag and version are explicit
+PASS symlink entry is not silently scanned as a regular member
+PASS ZIP64 sentinel and extra fields are rejected
+PASS malformed extra length cannot run beyond header
+PASS alternate Unicode path authority is explicitly unsupported
+PASS multidisk ZIP is unsupported
+PASS CRC error erases a potential hit
+PASS local and central names must be identical
+PASS local and central flags must be identical
+PASS local and central size or CRC disagreement is rejected
+PASS bad data descriptor is rejected before content matching
+PASS central count mismatch cannot hide entries
+PASS central directory size mismatch is rejected
+PASS overlapping physical entry offsets are rejected
+PASS unlisted prefix is not accepted as a complete APK scope
+PASS re-signing interior zero gap is explicit incomplete scope even with a valid signing-block layout
+PASS unlisted nonzero interior data cannot hide behind ordinary central-directory entries
+PASS trailing data after EOCD is not silently ignored
+PASS all truncation points fail closed
+PASS malformed deflate payload cannot yield a confirmed member hash
+PASS extra bytes after finished deflate are rejected
+PASS lying uncompressed size cannot turn partial digest into a match
+PASS directory with nonempty declared data is rejected
+PASS compression ratio bound rejects a small high-expansion bomb before inflation
+PASS per-entry decompression bound skips oversized files
+PASS per-APK expanded byte bound retains valid earlier evidence but remains incomplete
+PASS global expanded byte limit is shared across APKs
+PASS entry count limit fails before member decompression
+PASS match-record bound is explicit, never silently complete
+PASS global match-record bound protects report size across APKs
+PASS cancelled ZIP never reports completion
+PASS deadline is enforced during metadata and member processing
+PASS I/O errors and zero-read stalls remain unknown
+PASS random source byte charging is owned by the adapter only
+PASS changed source length is not accepted as complete
+PASS 1000 deterministic malformed ZIP mutations are bounded and return explicit status
+Real release ZIP scope: 26 direct files, 2491747 expanded bytes, no synthetic signature hits
+PASS real signed release APK direct ZIP entries parse and scan
+Malware evidence tests: 93 scenarios, 1369 assertions, 0 failures
+PASS stable whole-APK SHA256 reference reaches preflight only
+PASS stable internal member SHA256 reference is outer-APK bound
+PASS MD5 and SHA1 need exact size and a stable outer SHA256
+PASS monitoring classification remains monitoring under fresh-reset removal preference
+PASS legacy untrusted convenience flags cannot authorize removal
+PASS pure structure rules are not report or catalog authentication
+PASS null or invalid own package fails closed
+PASS system and self packages cannot be candidates
+PASS package name must be a real string and safe identifier
+PASS all action-driving flags require actual booleans
+PASS unknown version, package change, incomplete file set and truncated matches block
+PASS version/update require actual finite nonnegative integer metadata
+PASS Integer and Long metadata are accepted including version zero
+PASS missing, empty or nonobject evidence list fails closed
+PASS match counts must be actual integers and complete
+PASS missing, empty or malformed file array fails closed
+PASS full base and split map is required even for a split-only match
+PASS unknown, unsafe and unbound file ids fail closed
+PASS duplicate base or split identities and duplicate paths are rejected
+PASS paths must be bounded absolute regular-path syntax
+PASS kind and split name cannot contradict file id
+PASS unrelated unscanned split is allowed but cannot hide file-set changes
+PASS hash status must confirm complete hashing
+PASS file stability and identity require typed true flags
+PASS APK sizes must be bounded positive integers
+PASS malformed or mismatched outer hashes fail closed
+PASS hash case differences do not change exact evidence identity
+PASS missing malware result fails closed
+PASS incomplete archive blocks even an exact whole-APK reference
+PASS database, completeness and stability flags require typed values
+PASS unknown, failed, changed and pending scanner states block initial eligibility
+PASS all incomplete archive statuses and stop reasons block
+PASS archive issues must be explicitly empty
+PASS database digest and complete outer fingerprints are mandatory
+PASS stale unknown or unauthenticated catalog cannot authorize removal
+PASS file match count cannot omit or invent matches
+PASS whole weak digest must match file's measured weak fingerprint
+PASS a duplicated match is not independent evidence
+PASS package aggregation cannot omit a file-level reference
+PASS package aggregation cannot add a file-level reference
+PASS both independent references may bind to the same stable file
+PASS reference schema requires exact match type
+PASS unknown algorithms, invalid digests and misbound SHA256 contents fail
+PASS source and signature identity require bounded safe strings
+PASS classification cannot silently elevate monitoring or demote malware references
+PASS observed and reference sizes require actual integers and exact agreement
+PASS whole file evidence cannot name a member or use a member fingerprint
+PASS entry name must be a bounded safe relative path
+PASS member fingerprint and outer APK fingerprint are independently bound
+PASS unknown member scope cannot drive deletion
+PASS recheck reproduces every exact identity and ignores array order
+PASS recheck rejects missing, extra and duplicate identities
+PASS changed source, label, digest, scope, member, size or classification blocks recheck
+PASS recheck cannot attribute a valid reference to a different APK
+PASS recheck separates matching APKs within the same package
+PASS preflight accepts scanner pending state only before descriptor verification
+PASS preflight complete scan validates exact output hash and APK size
+PASS package snapshot needs the exact version, update time and full path map
+PASS returned snapshot paths cannot be edited by the caller
+PASS file and match arrays have hard bounded sizes
+Malware remediation tests: 60 scenarios, 326 assertions, 0 failures
+PASS same current signer is a set comparison
+PASS multisigner ordering is irrelevant
+PASS sharing one of several signers is not an identity match
+PASS removing a signer is not a rotation
+PASS adding a signer is not a rotation
+PASS legacy inventory can compare current sets
+PASS a different certificate without rotation evidence is different
+PASS new OS-reported lineage connects to an older inventory
+PASS successive rotations extend the ordered prefix
+PASS previous key direction is not a new key rotation
+PASS a fork from the same ancestor is not forward-compatible
+PASS matching old key in a contradictory prefix is not accepted
+PASS reverse contradictory prefix is not accepted
+PASS missing prefix is not silently treated as identical
+PASS malformed explicit previous history prevents compatibility
+PASS history must end at the current signer
+PASS duplicate history entries are rejected
+PASS history with repeated hashes in different case is rejected
+PASS unreadable history is not used
+PASS string true is not accepted as readable history
+PASS a multi-signer declaration cannot smuggle a lineage
+PASS mode and current signer count must agree
+PASS unrecognized current mode is unknown
+PASS JSON null or non-string modes are not coerced
+PASS unreadable and string readable flags stay unknown
+PASS malformed current certificate digests stay unknown
+PASS missing duplicate and oversized signer lists stay unknown
+PASS digest letter case normalizes without modifying inputs
+PASS baseline labels reported forward rotation without trust promotion
+PASS baseline keeps inverse changes separate
+PASS baseline keeps conflicting history separate
+PASS known installer does not approve a third-party app
+PASS missing installer does not become malware
+PASS Samsung-looking package names are not trusted allowlists
+PASS system classification does not authenticate original firmware
+PASS application itself is excluded by exact identity only
+PASS disabled policy does not review software
+PASS missing and malformed package identity stays unknown
+PASS system booleans are strict
+PASS policy evaluation never overwrites existing remediation evidence
+PASS inventory policy warnings do not create remediation authorization
+PASS policy does not mutate existing scan action evidence
+PASS an incomplete empty inventory does not satisfy no-extra-apps policy
+PASS known current-profile admin remains a policy warning
+PASS organization-owned observation warns even with no visible admin
+PASS preloaded Knox-looking app alone is not active management
+PASS special-access activation is a policy warning, not malware
+PASS disabled policy records its status without adding warnings
+InventoryPolicyTests: 48/48 scenarios passed; 133 assertions checked
+PASS unactivated permission declarations do not match any rule
+PASS a normal broad package visibility permission is not a risk match
+PASS an active reader without extra capabilities is not a rule match
+PASS active accessibility plus declared installation requests is a review
+PASS active accessibility plus granted install privilege is a review
+PASS declared signature-only install privilege without grant is not sufficient
+PASS a declared SMS request without grant is not sufficient
+PASS actual SMS or call-log grants combine with active accessibility
+PASS actual SMS grants combine with an observed active administrator
+PASS administrator alone does not match a capability rule
+PASS all three combinations retain separate explanations
+PASS system preloads are explicitly outside capability scoring
+PASS self is excluded by exact package name
+PASS brand-like package names do not bypass capability checks
+PASS another package with shared prefix is not an active service match
+PASS component matches use exact package before separator
+PASS malformed component names do not create positive observations
+PASS missing permission metadata is unknown
+PASS missing settings evidence is unknown
+PASS null evidence is unknown
+PASS unreadable grant flags are not treated as actual grants
+PASS boolean evidence fields do not accept strings
+PASS known positive declaration survives unrelated grant coverage gap
+PASS an unrequested claimed grant is inconsistent and not scored
+PASS duplicate requested permission evidence is incomplete
+PASS malformed permission values are not coerced
+PASS oversized capability arrays are not analyzed as complete
+PASS partially resolved accessibility enumeration cannot produce a clean rule result
+PASS numeric accessibility coverage must be exact integer zero
+PASS oversized active lists cannot become no-rule-match
+PASS incomplete administrator coverage does not suppress observed combinations
+PASS missing admin coverage cannot produce complete no-rule-match
+PASS evaluating a combination never changes input removal evidence
+ManifestRiskTests: 33/33 scenarios passed; 229 assertions checked
+ModernApksigTests: 53 assertions passed; API26/28/32/33/34/35/36, rotation, tamper, stripping.
+PASS current signed data validates, parses and does not become executable rules
+PASS metadata getter cannot mutate the retained snapshot
+PASS identical accepted sequence and bundle is idempotent
+PASS lower signed sequence cannot roll back a higher accepted floor
+PASS same sequence with a different correctly signed payload is equivocation
+PASS later sequence accepted without requiring the old content digest
+PASS signature authenticates exact manifest bytes including domain separation
+PASS another RSA key cannot authorize an update
+PASS key/signature type and size are fixed
+PASS expired imports rejected but stored authentic data can be marked stale
+PASS expiry boundary is exclusive
+PASS future dated updates and rolled-back device time fail closed
+PASS republication does not make stale source retrieval current
+PASS source dates cannot be later than the signed publication
+PASS manifest validity cannot exceed thirty days or be empty
+PASS sequence must be a positive bounded exact integer
+PASS unsupported manifest schema and extra command field are rejected
+PASS even correctly signed duplicate JSON keys are rejected
+PASS malformed UTF-8 or oversized signed manifest is rejected before parsing
+PASS unsigned payload changes cannot match the authenticated per-file digest
+PASS signed file size limits checked before consuming member payload
+PASS catalog descriptor and index cannot disagree with actual files
+PASS signed entry-count lies cannot activate a partial database
+PASS unknown source or misplaced allowlist cannot change source-specific suppression
+PASS empty dataset is not a successful no-match update
+PASS license/provenance metadata must remain present
+PASS snapshot date uses a real calendar date
+PASS missing/extra members and directory/path traversal names are rejected
+PASS ZIP structural central/local mismatch or overlap cannot be hidden by signed members
+PASS ZIP truncation, concatenation, comments and oversized containers rejected
+PASS stored ZIP members also validate without data descriptors
+PASS cancellation stops validation rather than producing a no-match database
+PASS bounded stream rejects endless data and stalled reads
+PASS fresh store has no downloaded snapshot
+PASS valid update activates atomically and is readable after recreating store
+PASS same valid update is no-op
+PASS tampered import preserves previous active snapshot and rollback floor
+PASS new signed version raises retained rollback floor
+PASS rollback refused and current version retained
+PASS expired active data is retained explicitly, not replaced with old bundled references
+PASS deleting the active ZIP does not erase the separately retained floor
+PASS corrupt active content is reported and a newer valid update repairs it
+PASS crash after active rename but before floor write recovers newer floor
+PASS corrupt rollback state does not silently reset protection
+PASS published bundle authenticates against pinned key and baked-in floor
+PASS bundled fallback uses identical reviewed references without pretending network verification
+Catalog update tests: 46 scenarios, 102 assertions, 0 failures
+OneRunStateTests: 22 scenarios, 250 assertions, 0 failures
+SignalRules: 22 assertions passed

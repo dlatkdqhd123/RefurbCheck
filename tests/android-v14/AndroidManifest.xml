@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.github.refurbcheck.v14test">
+    <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35" />
+    <application android:label="RefurbCheck v1.4 smoke tests" android:testOnly="true"
+        android:allowBackup="false" android:supportsRtl="true" />
+    <instrumentation android:name="io.github.refurbcheck.V14Instrumentation"
+        android:targetPackage="io.github.refurbcheck"
+        android:label="RefurbCheck v1.4 runtime verification" />
+</manifest>
